@@ -4,7 +4,7 @@ use Psr\Log\AbstractLogger;
 
 /**
  * Based on:
- * https://gist.github.com/sallar/5257396
+ * https://gist.github.com/sallar/5257396.
  */
 class CliLogger extends AbstractLogger
 {
@@ -60,12 +60,12 @@ class CliLogger extends AbstractLogger
     ];
 
     /**
-     * Catches static calls (Wildcard)
+     * Catches static calls (Wildcard).
      *
-     * @param  string $foreground_color Text Color
-     * @param  array  $args             Options
+     * @param string $foreground_color Text Color
+     * @param array  $args             Options
      *
-     * @return string                   Colored string
+     * @return string Colored string
      */
     public static function __callStatic($foreground_color, $args)
     {
