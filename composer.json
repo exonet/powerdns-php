@@ -1,0 +1,46 @@
+{
+    "name": "exonet/powerdns-php",
+    "type": "library",
+    "description": "PowerDNS API PHP Client",
+    "keywords": [
+        "exonet",
+        "powerdns-php",
+        "powerdns-api",
+        "powerdns"
+    ],
+    "homepage": "https://github.com/exonet/powerdns-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Exonet",
+            "email": "development@exonet.nl",
+            "homepage": "https://exonet.nl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "~7.1",
+        "guzzlehttp/guzzle": "^6.3",
+        "psr/log": "^1.1"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.2",
+        "phpunit/phpunit": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Exonet\\Powerdns\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Exonet\\Powerdns\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
