@@ -20,6 +20,7 @@
     ],
     "require": {
         "php": "~7.1",
+        "ext-json": "*",
         "guzzlehttp/guzzle": "^6.3",
         "psr/log": "^1.1"
     },
