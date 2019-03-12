@@ -232,9 +232,9 @@ class Cryptokey
     /**
      * Get the array of DS records for this key.
      *
-     * @return string[] An array of DS records for this key.
+     * @return string[]|null An array of DS records for this key or null if no DS records are available.
      */
-    public function getDs() : array
+    public function getDs() : ?array
     {
         return $this->ds;
     }
