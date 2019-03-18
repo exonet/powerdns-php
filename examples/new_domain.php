@@ -38,3 +38,6 @@ $powerdns = new Powerdns('127.0.0.1', 'very_secret_secret');
 
 // Create a new zone with the defined records and name servers.
 $powerdns->createZone($domain, $nameServers)->create($dnsRecords);
+
+// To enable DNSSEC, you can pass 'true' as third argument to 'createZone', or you can enable it on the zone itself:
+$powerdns->zone($domain)->enableDnssec();
