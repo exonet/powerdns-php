@@ -5,6 +5,7 @@ namespace Exonet\Powerdns;
 use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
+use Exonet\Powerdns\Transformers\DnssecToggleTransformer;
 use Exonet\Powerdns\Transformers\RRSetTransformer;
 
 class Zone extends AbstractZone
@@ -146,6 +147,44 @@ class Zone extends AbstractZone
         $resourceRecord->setRecords($recordList);
 
         return $resourceRecord;
+    }
+
+    /**
+     * Enable DNSSEC for this zone.
+     *
+     * @return bool True when enabled.
+     */
+    public function enableDnssec() : bool
+    {
+        return $this->toggleDnssec(true);
+    }
+
+    /**
+     * Disable DNSSEC for this zone. WARNING: this will remove ALL crypto keys for this zone!
+     *
+     * @return bool True when disabled.
+     */
+    public function disableDnssec() : bool
+    {
+        return $this->toggleDnssec(false);
+    }
+
+    /**
+     * Enable or disable DNSSEC for this zone.
+     *
+     * @param bool $state True to enable, false to disable.
+     *
+     * @return bool True when the request succeeded.
+     */
+    public function toggleDnssec(bool $state) : bool
+    {
+        $result = $this->connector->put($this->getZonePath(), new DnssecToggleTransformer(['dnssec' => $state]));
+
+        /*
+         * The PUT request will return an 204 No Content, so the $result is empty. If this is the case, the PATCH was
+         * successful. If there was an error, an exception will be thrown.
+         */
+        return empty($result);
     }
 
     /**
