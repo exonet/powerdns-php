@@ -28,7 +28,7 @@ $dnsRecords = [
 ];
 
 // Update the key to the real PowerDNS API Key.
-$powerdns = new Powerdns('192.168.10.20', 'secretExoDns');
+$powerdns = new Powerdns('127.0.0.1', 'very_secret_secret');
 
 // Uncomment this line to see what happens when executing this example on the command line.
 // $powerdns->setLogger(new CliLogger());
