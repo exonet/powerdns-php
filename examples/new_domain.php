@@ -23,7 +23,7 @@ $dnsRecords = [
     ['name' => 'mail01', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::2'],
     ['name' => 'mail02', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::3'],
 
-    ['name' => '@', 'type' => RecordType::MX, 'content' => ['10 mail01.@', '20 mail02.@']],
+    ['name' => '@', 'type' => RecordType::MX, 'content' => [sprintf('10 mail01.%s.', $domain), sprintf('20 mail02.%s.', $domain)]],
     ['name' => '@', 'type' => RecordType::TXT, 'content' => '"v=spf1 a mx include:_spf.example.com ?all"'],
 ];
 

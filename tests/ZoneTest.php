@@ -73,6 +73,11 @@ class ZoneTest extends TestCase
             $this->assertSame(40, $data->rrsets[3]->ttl);
             $this->assertSame('127.0.0.1', $data->rrsets[3]->records[0]->content);
 
+            $this->assertSame('test03.test.nl.', $data->rrsets[4]->name);
+            $this->assertSame('TXT', $data->rrsets[4]->type);
+            $this->assertSame(40, $data->rrsets[4]->ttl);
+            $this->assertSame('"v=DMARC1; p=none; rua=mailto:info@test.nl; ruf=mailto:info@test.nl"', $data->rrsets[4]->records[0]->content);
+
             return true;
         })]);
 
@@ -80,8 +85,9 @@ class ZoneTest extends TestCase
         $zone->create([
             ['name' => 'test', 'type' => 'A', 'content' => '127.0.0.1', 'ttl' => 10],
             ['name' => '@', 'type' => 'A', 'content' => '127.0.0.1', 'ttl' => 20],
-            ['name' => '@', 'type' => 'MX', 'content' => ['10 mail01.@', '20 mail02.@'], 'ttl' => 30],
+            ['name' => '@', 'type' => 'MX', 'content' => ['10 mail01.test.nl.', '20 mail02.test.nl.'], 'ttl' => 30],
             ['name' => 'test02.test.nl.', 'type' => 'A', 'content' => '127.0.0.1', 'ttl' => 40],
+            ['name' => 'test03.test.nl.', 'type' => 'TXT', 'content' => '"v=DMARC1; p=none; rua=mailto:info@test.nl; ruf=mailto:info@test.nl"', 'ttl' => 40],
         ]);
     }
 
