@@ -139,8 +139,6 @@ class Zone extends AbstractZone
 
         $recordList = [];
         foreach ($content as $record) {
-            $record = str_replace('@', $this->zone, $record);
-
             $recordList[] = (new Record())->setContent($record);
         }
 

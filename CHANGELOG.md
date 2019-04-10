@@ -5,6 +5,12 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
+[Compare v0.2.3 - Unreleased](https://github.com/exonet/powerdns-php/compare/v0.2.3...develop)
+
+## [v0.2.3](https://github.com/exonet/powerdns-php/releases/tag/v0.2.3) - 2019-04-10
+[Compare v0.2.2 - v0.2.3](https://github.com/exonet/powerdns-php/compare/v0.2.2...v0.2.3)
+### Removed
+- The alias functionality that replaces the `@` for the full domain name in the content section when adding DNS records.
 
 ## [v0.2.2](https://github.com/exonet/powerdns-php/releases/tag/v0.2.2) - 2019-03-18
 [Compare v0.2.1 - v0.2.2](https://github.com/exonet/powerdns-php/compare/v0.2.1...v0.2.2)
