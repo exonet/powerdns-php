@@ -23,12 +23,12 @@ $dnsRecords = [
     ['name' => 'mail01', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::2'],
     ['name' => 'mail02', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::3'],
 
-    ['name' => '@', 'type' => RecordType::MX, 'content' => ['10 mail01.'.$domain, '20 mail02.'.$domain]],
+    ['name' => '@', 'type' => RecordType::MX, 'content' => [sprintf('10 mail01.%.', $domain), sprintf('20 mail02.%.', $domain)]],
     ['name' => '@', 'type' => RecordType::TXT, 'content' => '"v=spf1 a mx include:_spf.example.com ?all"'],
 ];
 
 // Update the key to the real PowerDNS API Key.
-$powerdns = new Powerdns('127.0.0.1', 'very_secret_secret');
+$powerdns = new Powerdns('192.168.10.20', 'secretExoDns');
 
 // Uncomment this line to see what happens when executing this example on the command line.
 // $powerdns->setLogger(new CliLogger());
