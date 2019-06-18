@@ -12,7 +12,7 @@ class Powerdns
     /**
      * The version of this package. This is being used for the user-agent header.
      */
-    public const CLIENT_VERSION = 'v0.2.0';
+    public const CLIENT_VERSION = 'v0.2.4';
 
     /**
      * @var Powerdns The client instance.

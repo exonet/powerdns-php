@@ -5,7 +5,7 @@ namespace Exonet\Powerdns;
 use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
-use Exonet\Powerdns\Transformers\DnssecToggleTransformer;
+use Exonet\Powerdns\Transformers\DnssecTransformer;
 use Exonet\Powerdns\Transformers\RRSetTransformer;
 
 class Zone extends AbstractZone
@@ -154,7 +154,7 @@ class Zone extends AbstractZone
      */
     public function enableDnssec() : bool
     {
-        return $this->toggleDnssec(true);
+        return $this->setDnssec(true);
     }
 
     /**
@@ -164,7 +164,7 @@ class Zone extends AbstractZone
      */
     public function disableDnssec() : bool
     {
-        return $this->toggleDnssec(false);
+        return $this->setDnssec(false);
     }
 
     /**
@@ -174,9 +174,9 @@ class Zone extends AbstractZone
      *
      * @return bool True when the request succeeded.
      */
-    public function toggleDnssec(bool $state) : bool
+    public function setDnssec(bool $state) : bool
     {
-        $result = $this->connector->put($this->getZonePath(), new DnssecToggleTransformer(['dnssec' => $state]));
+        $result = $this->connector->put($this->getZonePath(), new DnssecTransformer(['dnssec' => $state]));
 
         /*
          * The PUT request will return an 204 No Content, so the $result is empty. If this is the case, the PATCH was
