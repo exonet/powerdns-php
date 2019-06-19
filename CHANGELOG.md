@@ -5,7 +5,12 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v0.2.3 - Unreleased](https://github.com/exonet/powerdns-php/compare/v0.2.3...develop)
+[Compare v0.2.4 - Unreleased](https://github.com/exonet/powerdns-php/compare/v0.2.4...develop)
+
+## [v0.2.4](https://github.com/exonet/powerdns-php/releases/tag/v0.2.4) - 2019-06-18
+[Compare v0.2.3 - v0.2.3](https://github.com/exonet/powerdns-php/compare/v0.2.3...v0.2.4)
+### Changed
+- Renamed the `toggleDnssec` method to `setDnssec`.
 
 ## [v0.2.3](https://github.com/exonet/powerdns-php/releases/tag/v0.2.3) - 2019-04-10
 [Compare v0.2.2 - v0.2.3](https://github.com/exonet/powerdns-php/compare/v0.2.2...v0.2.3)

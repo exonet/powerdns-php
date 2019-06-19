@@ -2,7 +2,7 @@
 
 namespace Exonet\Powerdns\Transformers;
 
-class DnssecToggleTransformer extends Transformer
+class DnssecTransformer extends Transformer
 {
     /**
      * {@inheritdoc}

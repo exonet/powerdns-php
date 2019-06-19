@@ -55,6 +55,9 @@ class ResourceRecord
      */
     private $zone;
 
+    /**
+     * @var bool If true then this record is based on an existing record from an API response.
+     */
     private $existingRecord = false;
 
     /**
