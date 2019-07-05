@@ -4,7 +4,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 
 # powerdns-php
-A PHP client to comminicate with the PowerDNS API.
+A PHP client to communicate with the PowerDNS API.
 
 ## Install
 Via Composer
