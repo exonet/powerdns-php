@@ -55,7 +55,7 @@ class RRSetTransformer extends Transformer
     {
         return (object) [
             'content' => $record->getContent(),
-            'set_ptr' => $record->isSetPtr(),
+            'set-ptr' => $record->isSetPtr(),
             'disabled' => $record->isDisabled(),
         ];
     }
