@@ -156,7 +156,9 @@ class Connector
                 break;
         }
 
-        throw new PowerdnsException($contents['error']);
+        $error = isset($contents['error']) ? $contents['error'] : $contents;
+
+        throw new PowerdnsException($error);
     }
 
     /**
