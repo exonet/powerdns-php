@@ -191,6 +191,7 @@ class Connector
         return [
             'X-API-Key' => $this->powerdns->getConfig()['apiKey'],
             'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
             'User-Agent' => 'exonet-powerdns-php/'.Powerdns::CLIENT_VERSION,
         ];
     }
