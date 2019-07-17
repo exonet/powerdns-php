@@ -5,7 +5,15 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v1.0.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v1.0.0...develop)
+[Compare v1.0.1 - Unreleased](https://github.com/exonet/powerdns-php/compare/v1.0.1...develop)
+
+## [v1.0.1](https://github.com/exonet/powerdns-php/releases/tag/v1.0.1) - 2019-07-17
+[Compare v1.0.0 - v1.0.1](https://github.com/exonet/powerdns-php/compare/v1.0.0...v1.0.1)
+### Changed
+- The `Content-Type` header is now also set when making calls to the API. ([#11](https://github.com/exonet/powerdns-php/issues/11))
+
+### Fixed
+- Changed the payload key from `set_ptr` to the correct `set-ptr` in the RRSetTransformer. ([#12](https://github.com/exonet/powerdns-php/issues/12))
 
 ## [v1.0.0](https://github.com/exonet/powerdns-php/releases/tag/v1.0.0) - 2019-07-05
 [Compare v0.2.4 - v1.0.0](https://github.com/exonet/powerdns-php/compare/v0.2.4...v1.0.0)

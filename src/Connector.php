@@ -156,7 +156,9 @@ class Connector
                 break;
         }
 
-        throw new PowerdnsException($contents['error']);
+        $error = isset($contents['error']) ? $contents['error'] : $contents;
+
+        throw new PowerdnsException($error);
     }
 
     /**
@@ -189,6 +191,7 @@ class Connector
         return [
             'X-API-Key' => $this->powerdns->getConfig()['apiKey'],
             'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
             'User-Agent' => 'exonet-powerdns-php/'.Powerdns::CLIENT_VERSION,
         ];
     }
