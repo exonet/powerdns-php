@@ -112,4 +112,11 @@ class ZoneTest extends TestCase
         $this->assertSame(1, $zone->find('record01.test.nl.')->count());
         $this->assertSame(0, $zone->find('record01.test.nl.', 'MX')->count());
     }
+
+    public function testGetCanonicalName(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $zone = new Zone($connector, 'test.nl');
+        $this->assertSame('test.nl'.'.', $zone->getCanonicalName());
+    }
 }

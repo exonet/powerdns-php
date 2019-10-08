@@ -85,4 +85,14 @@ abstract class AbstractZone
     {
         return sprintf('zones/%s%s', $this->zone, $path);
     }
+
+    /**
+     * Get the canonical name of the zone. Includes the trailing dot (.).
+     *
+     * @return string
+     */
+    public function getCanonicalName(): string
+    {
+        return $this->zone;
+    }
 }
