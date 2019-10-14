@@ -25,7 +25,7 @@ $powerdns = new Powerdns('127.0.0.1', 'powerdns_secret_string');
 // Create a new zone.
 $zone = $powerdns->createZone(
     'example.com',
-    ['ns1.example.com.', 'ns2.example.']
+    ['ns1.example.com.', 'ns2.example.com.']
 );
 
 // Add two DNS records to the zone.
