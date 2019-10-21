@@ -89,7 +89,7 @@ abstract class AbstractZone
     /**
      * Get the canonical name of the zone. Includes the trailing dot (.).
      *
-     * @return string
+     * @return string The canonical zone name.
      */
     public function getCanonicalName(): string
     {
