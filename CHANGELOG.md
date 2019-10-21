@@ -5,7 +5,13 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v1.0.1 - Unreleased](https://github.com/exonet/powerdns-php/compare/v1.0.1...develop)
+[Compare v1.1.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v1.1.0...develop)
+
+## [v1.1.0](https://github.com/exonet/powerdns-php/releases/tag/v1.1.0) - 2019-10-21
+[Compare v1.0.1 - v1.1.0](https://github.com/exonet/powerdns-php/compare/v1.0.1...v1.1.0)
+### Added
+- `$powerdns->listZones: Zone[];` to get all zones. ([jackdpeterson](https://github.com/jackdpeterson) - #14)
+- `$zone->getCanonicalName(): string;` to get the canonical zone name. ([jackdpeterson](https://github.com/jackdpeterson) - #14)
 
 ## [v1.0.1](https://github.com/exonet/powerdns-php/releases/tag/v1.0.1) - 2019-07-17
 [Compare v1.0.0 - v1.0.1](https://github.com/exonet/powerdns-php/compare/v1.0.0...v1.0.1)
