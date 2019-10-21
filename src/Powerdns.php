@@ -175,6 +175,21 @@ class Powerdns
     }
 
     /**
+     * Retrieve all zones.
+     *
+     * @return Zone[] Array containing the zones
+     */
+    public function listZones() : array
+    {
+        return array_map(
+            function (array $args) {
+                return new Zone($this->connector, $args['id']);
+            },
+            $this->connector->get('zones')
+        );
+    }
+
+    /**
      * Get a cryptokey instance to work with.
      *
      * @param string $canonicalDomain The canonical domain name of the zone.

@@ -55,4 +55,46 @@ class PowerdnsTest extends TestCase
         $this->assertInstanceOf(Zone::class, $zone);
         $this->assertTrue($powerDns->deleteZone('test.nl.'));
     }
+
+    public function testListZones() : void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('get')->withArgs(['zones'])->once()->andReturn(
+            [
+                [
+                    'account' => '',
+                    'dnssec' => false,
+                    'id' => 'example.co.uk',
+                    'kind' => 'Native',
+                    'last_check' => 0,
+                    'masters' => [],
+                    'name' => 'example.',
+                    'notified_serial' => 0,
+                    'serial' => 2019100101,
+                    'url' => '/api/v1/servers/localhost/zones/example.co.uk',
+                ],
+                [
+                    'account' => '',
+                    'dnssec' => false,
+                    'id' => 'example.com',
+                    'kind' => 'Native',
+                    'last_check' => 0,
+                    'masters' => [],
+                    'name' => 'example.',
+                    'notified_serial' => 0,
+                    'serial' => 2019100102,
+                    'url' => '/api/v1/servers/localhost/zones/example.com',
+                ],
+            ]
+        );
+
+        $powerDns = new Powerdns(null, null, null, null, $connector);
+
+        $response = $powerDns->listZones();
+        $this->assertIsArray($response);
+        $this->assertCount(2, $response);
+        foreach ($response as $zone) {
+            $this->assertInstanceOf(Zone::class, $zone);
+        }
+    }
 }
