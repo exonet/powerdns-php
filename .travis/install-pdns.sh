@@ -1,11 +1,11 @@
 #!/bin/sh
 
 # Use the PowerDNS repo as source.
-if [[ "$PDNS_VERSION" == "41" ]]; then
+if [ "$PDNS_VERSION" = "41" ]; then
     sudo echo 'deb [arch=amd64] http://repo.powerdns.com/ubuntu xenial-auth-41 main' > /etc/apt/sources.list.d/pdns.list
 fi
 
-if [[ "$PDNS_VERSION" == "42" ]]; then
+if [ "$PDNS_VERSION" = "42" ]; then
     sudo echo 'deb [arch=amd64] http://repo.powerdns.com/ubuntu xenial-auth-42 main' > /etc/apt/sources.list.d/pdns.list
 fi
 
