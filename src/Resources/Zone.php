@@ -49,7 +49,12 @@ class Zone
     /**
      * @var string The SOA-EDIT-API metadata item.
      */
-    private $soaEditApi = 'INCEPTION-INCREMENT';
+    private $soaEdit = 'INCEPTION-INCREMENT';
+
+    /**
+     * @var string The SOA-EDIT metadata item.
+     */
+    private $soaEditApi = 'DEFAULT';
 
     /**
      * @var bool Whether or not the zone will be rectified on data changes via the API.
@@ -83,6 +88,7 @@ class Zone
         $this->masters = $data['masters'];
         $this->dnssec = $data['dnssec'];
         $this->nsec3param = !empty($data['nsec3param']) ? $data['nsec3param'] : null;
+        $this->soaEdit = !empty($data['soa_edit']) ? $data['soa_edit'] : null;
         $this->soaEditApi = !empty($data['soa_edit_api']) ? $data['soa_edit_api'] : null;
         $this->apiRectify = $data['api_rectify'];
         $this->account = !empty($data['account']) ? $data['account'] : null;
@@ -182,6 +188,17 @@ class Zone
     public function getSoaEditApi() : ?string
     {
         return $this->soaEditApi;
+    }
+
+
+    /**
+     * Get the SOA-EDIT metadata item.
+     *
+     * @return string|null The SOA-EDIT metadata item or null
+     */
+    public function getSoaEdit() : ?string
+    {
+        return $this->soaEdit;
     }
 
     /**
@@ -329,7 +346,7 @@ class Zone
     public function setNsec3param(string $nsec3param) : self
     {
         // Validate the nsec3param.
-        list($algorithm, $flags, $iterations, $salt) = explode(' ', $nsec3param);
+        [$algorithm, $flags, $iterations, $salt] = explode(' ', $nsec3param);
 
         if ((int) $algorithm !== 1) {
             throw new InvalidNsec3Param('The nsec3param hash algorithm parameter must be set to 1.');
@@ -350,7 +367,7 @@ class Zone
     }
 
     /**
-     * The SOA edit API kind, one of "INCREMENT-WEEKS", "INCEPTION-EPOCH", "INCEPTION-INCREMENT", "EPOCH" or "NONE".
+     * The SOA edit API kind.
      *
      * @param string $soaEditApi The SOA edit API value.
      *
@@ -361,7 +378,7 @@ class Zone
     public function setSoaEditApi(string $soaEditApi) : self
     {
         $soaEditApi = strtoupper($soaEditApi);
-        $allowed = ['INCREMENT-WEEKS', 'INCEPTION-EPOCH', 'INCEPTION-INCREMENT', 'EPOCH', 'NONE'];
+        $allowed = ['DEFAULT', 'INCREASE', 'EPOCH', 'SOA-EDIT', 'SOA-EDIT-INCREASE'];
 
         if (!in_array($soaEditApi, $allowed, true)) {
             throw new InvalidSoaEditType(
@@ -370,6 +387,31 @@ class Zone
         }
 
         $this->soaEditApi = $soaEditApi;
+
+        return $this;
+    }
+
+    /**
+     * The SOA edit kind, one of "INCREMENT-WEEKS", "INCEPTION-EPOCH", "INCEPTION-INCREMENT", "EPOCH" or "NONE".
+     *
+     * @param string $soaEdit The SOA edit value.
+     *
+     * @throws InvalidSoaEditType If a kind is given that is not allowed.
+     *
+     * @return Zone The current Zone instance.
+     */
+    public function setSoaEdit(string $soaEdit): self
+    {
+        $soaEdit = strtoupper($soaEdit);
+        $allowed = ['INCREMENT-WEEKS', 'INCEPTION-EPOCH', 'INCEPTION-INCREMENT', 'EPOCH', 'NONE'];
+
+        if (!in_array($soaEdit, $allowed, true)) {
+            throw new InvalidSoaEditType(
+                sprintf('Kind must be either %s. (%s given)', implode(', ', $allowed), $soaEdit)
+            );
+        }
+
+        $this->soaEdit = $soaEdit;
 
         return $this;
     }
