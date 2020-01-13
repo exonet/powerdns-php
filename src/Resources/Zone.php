@@ -365,7 +365,7 @@ class Zone
 
         if (!in_array($soaEditApi, $allowed, true)) {
             throw new InvalidSoaEditType(
-                sprintf('Kind must be either %s. (%s given)', implode($allowed, ', '), $soaEditApi)
+                sprintf('Kind must be either %s. (%s given)', implode(', ', $allowed), $soaEditApi)
             );
         }
 
