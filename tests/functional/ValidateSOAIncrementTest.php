@@ -1,6 +1,6 @@
 <?php
 
-namespace Exonet\Powerdns\tests;
+namespace Exonet\Powerdns\tests\functional;
 
 use Exonet\Powerdns\Powerdns;
 use Exonet\Powerdns\RecordType;
