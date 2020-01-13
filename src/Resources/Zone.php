@@ -244,7 +244,7 @@ class Zone
         $allowed = ['Native', 'Master', 'Slave'];
 
         if (!in_array($kind, $allowed, true)) {
-            throw new InvalidKindType(sprintf('Kind must be either %s. (%s given)', implode($allowed, ', '), $kind));
+            throw new InvalidKindType(sprintf('Kind must be either %s. (%s given)', implode(', ', $allowed), $kind));
         }
 
         $this->kind = $kind;
