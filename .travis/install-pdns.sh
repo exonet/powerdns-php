@@ -11,3 +11,5 @@ fi
 
 # Get the specific release and install.
 curl https://repo.powerdns.com/FD380FBB-pub.asc | sudo apt-key add - && sudo apt-get update && sudo apt-get install pdns-server pdns-backend-mysql
+sudo cp "$TRAVIS_BUILD_DIR/pdns.conf" /etc/powerdns/pdns.conf
+sudo service pdns restart

@@ -25,6 +25,6 @@ before_install:
   - if [[ "$PDNS_VERSION" == "42" ]]; then mysql -u root powerdns < .travis/pdns-42.sql; fi
 
 install:
-  - ./.travis/install-pdns.sh
+  - sudo ./.travis/install-pdns.sh
   - composer install
 
