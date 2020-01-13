@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class CommentTest extends TestCase
 {
-    public function testSettersAndGetters() : void
+    public function testSettersAndGetters(): void
     {
         $comment = new Comment();
 

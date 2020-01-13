@@ -44,7 +44,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
      *
      * @return ResourceSet The current ResourceSet instance.
      */
-    public function addResource(ResourceRecord $resourceRecord) : self
+    public function addResource(ResourceRecord $resourceRecord): self
     {
         $this->resourceRecords[] = $resourceRecord;
 
@@ -56,7 +56,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
      *
      * @return int The number of resource records.
      */
-    public function count() : int
+    public function count(): int
     {
         return count($this->resourceRecords);
     }
@@ -66,7 +66,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
      *
      * @return bool True when there are resource records in this collection.
      */
-    public function isNotEmpty() : bool
+    public function isNotEmpty(): bool
     {
         return !$this->isEmpty();
     }
@@ -76,7 +76,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
      *
      * @return bool True when there are no resource records in this collection.
      */
-    public function isEmpty() : bool
+    public function isEmpty(): bool
     {
         return empty($this->resourceRecords);
     }
@@ -88,7 +88,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
      *
      * @return ResourceSet The current ResourceSet instance.
      */
-    public function map(Closure $closure) : self
+    public function map(Closure $closure): self
     {
         foreach ($this->resourceRecords as $index => $resource) {
             $this->resourceRecords[$index] = $closure($resource, $index);
@@ -102,7 +102,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
      *
      * @return bool True when the resource records are deleted.
      */
-    public function delete() : bool
+    public function delete(): bool
     {
         foreach ($this->resourceRecords as $index => $resource) {
             $this->resourceRecords[$index] = $resource->setChangeType('DELETE');
@@ -116,7 +116,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
      *
      * @return bool True when the resource records are saved.
      */
-    public function save() : bool
+    public function save(): bool
     {
         return $this->zone->patch($this->resourceRecords);
     }
@@ -124,7 +124,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function getIterator() : ArrayIterator
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->resourceRecords);
     }
@@ -132,7 +132,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset) : bool
+    public function offsetExists($offset): bool
     {
         return isset($this->resourceRecords[$offset]);
     }
@@ -148,7 +148,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value) : void
+    public function offsetSet($offset, $value): void
     {
         $this->resourceRecords[$offset] = $value;
     }
@@ -156,7 +156,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset) : void
+    public function offsetUnset($offset): void
     {
         unset($this->resourceRecords[$offset]);
     }

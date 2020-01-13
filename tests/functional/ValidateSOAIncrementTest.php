@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ValidateSOAIncrementTest extends TestCase
 {
-    public function testCreateSoaIncrementZone() : void
+    public function testCreateSoaIncrementZone(): void
     {
         $powerdns = new Powerdns('127.0.0.1', 'apiKey');
         $zone = $powerdns->createZone('soa-increment.test', ['ns1.powerdns-php.', 'ns2.powerdns-php.']);

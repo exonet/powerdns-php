@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class PowerdnsTest extends TestCase
 {
-    public function testConfigViaConstructor() : void
+    public function testConfigViaConstructor(): void
     {
         $powerDns = new Powerdns('test-host', 'test-key', 1234, 'test-server');
         $config = $powerDns->getConfig();
@@ -22,7 +22,7 @@ class PowerdnsTest extends TestCase
         $this->assertSame('test-key', $config['apiKey']);
     }
 
-    public function testConfigViaMethods() : void
+    public function testConfigViaMethods(): void
     {
         $powerDns = new Powerdns();
         $powerDns->connect('test-host', 1234, 'test-server');
@@ -35,7 +35,7 @@ class PowerdnsTest extends TestCase
         $this->assertSame('test-key', $config['apiKey']);
     }
 
-    public function testZone() : void
+    public function testZone(): void
     {
         $connector = Mockery::mock(Connector::class);
         $connector->shouldReceive('post')->withArgs(['zones', Mockery::on(function (CreateZoneTransformer $transformer) {
@@ -56,7 +56,7 @@ class PowerdnsTest extends TestCase
         $this->assertTrue($powerDns->deleteZone('test.nl.'));
     }
 
-    public function testListZones() : void
+    public function testListZones(): void
     {
         $connector = Mockery::mock(Connector::class);
         $connector->shouldReceive('get')->withArgs(['zones'])->once()->andReturn(
