@@ -14,6 +14,11 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 > a default value of DEFAULT). You must update your existing SOA-EDIT-API metadata (set SOA-EDIT to your previous
 > SOA-EDIT-API value, and SOA-EDIT-API to SOA-EDIT to keep the old behaviour). - [Source](https://doc.powerdns.com/md/authoritative/upgrading/) (section 'API').
 
+### Added
+- PowerDNS 4.2 support (see 'breaking' above).
+- PHP 7.4 support
+- Functional tests for SOA increments.
+
 ## [v1.1.0](https://github.com/exonet/powerdns-php/releases/tag/v1.1.0) - 2019-10-21
 [Compare v1.0.1 - v1.1.0](https://github.com/exonet/powerdns-php/compare/v1.0.1...v1.1.0)
 ### Added
