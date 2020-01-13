@@ -40,7 +40,7 @@ class Record
      *
      * @return string The content.
      */
-    public function getContent() : string
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -52,7 +52,7 @@ class Record
      *
      * @return $this The current Record instance.
      */
-    public function setContent(string $content) : self
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
@@ -64,7 +64,7 @@ class Record
      *
      * @return bool Whether or not this record is disabled.
      */
-    public function isDisabled() : bool
+    public function isDisabled(): bool
     {
         return $this->disabled ?? false;
     }
@@ -76,7 +76,7 @@ class Record
      *
      * @return $this The current Record instance.
      */
-    public function setDisabled(bool $disabled) : self
+    public function setDisabled(bool $disabled): self
     {
         $this->disabled = $disabled;
 
@@ -88,7 +88,7 @@ class Record
      *
      * @return bool Whether or not a PTR record must be created when PATCH/POST this record.
      */
-    public function isSetPtr() : bool
+    public function isSetPtr(): bool
     {
         return $this->setPtr ?? false;
     }
@@ -100,7 +100,7 @@ class Record
      *
      * @return $this The current Record instance.
      */
-    public function setSetPtr(bool $setPtr) : self
+    public function setSetPtr(bool $setPtr): self
     {
         $this->setPtr = $setPtr;
 

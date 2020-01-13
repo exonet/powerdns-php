@@ -28,7 +28,7 @@ class ZoneTest extends TestCase
         ],
     ];
 
-    public function testCreateSingleResourceRecord() : void
+    public function testCreateSingleResourceRecord(): void
     {
         $connector = Mockery::mock(Connector::class);
         $connector->shouldReceive('patch')->withArgs(['zones/test.nl.', Mockery::on(function (RRSetTransformer $transformer) {
@@ -46,7 +46,7 @@ class ZoneTest extends TestCase
         $zone->create('test', 'A', '127.0.0.1', 10);
     }
 
-    public function testCreateMultipleResourceRecords() : void
+    public function testCreateMultipleResourceRecords(): void
     {
         $connector = Mockery::mock(Connector::class);
         $connector->shouldReceive('patch')->withArgs(['zones/test.nl.', Mockery::on(function (RRSetTransformer $transformer) {
@@ -91,7 +91,7 @@ class ZoneTest extends TestCase
         ]);
     }
 
-    public function testGetResourceRecords() : void
+    public function testGetResourceRecords(): void
     {
         $connector = Mockery::mock(Connector::class);
         $connector->shouldReceive('get')->withArgs(['zones/test.nl.'])->once()->andReturn(self::API_RESPONSE);
@@ -102,7 +102,7 @@ class ZoneTest extends TestCase
         $this->assertSame(1, $zone->get('MX')->count());
     }
 
-    public function testFindResourceRecords() : void
+    public function testFindResourceRecords(): void
     {
         $connector = Mockery::mock(Connector::class);
         $connector->shouldReceive('get')->withArgs(['zones/test.nl.'])->once()->andReturn(self::API_RESPONSE);

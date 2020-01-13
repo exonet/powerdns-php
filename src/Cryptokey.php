@@ -42,7 +42,7 @@ class Cryptokey extends AbstractZone
      *
      * @return $this The current class instance.
      */
-    public function setPrivateKey(string $keyContent) : self
+    public function setPrivateKey(string $keyContent): self
     {
         $this->createTransformer = new CryptokeyCreateTransformer(['content' => $keyContent]);
 
@@ -58,7 +58,7 @@ class Cryptokey extends AbstractZone
      *
      * @return $this The current class instance.
      */
-    public function configurePrivateKey(string $algorithm, ?int $bits = null, string $keyType = 'csk') : self
+    public function configurePrivateKey(string $algorithm, ?int $bits = null, string $keyType = 'csk'): self
     {
         $this->createTransformer = new CryptokeyCreateTransformer([
             'algorithm' => $algorithm,
@@ -77,7 +77,7 @@ class Cryptokey extends AbstractZone
      *
      * @return CryptokeyResource The created Crypto Key.
      */
-    public function create(bool $active = false, string $keyType = 'csk') : CryptokeyResource
+    public function create(bool $active = false, string $keyType = 'csk'): CryptokeyResource
     {
         // Check if a transformer is already initialized. If it isn,t create one.
         if ($this->createTransformer === null) {
@@ -102,7 +102,7 @@ class Cryptokey extends AbstractZone
      *
      * @return CryptokeyResource[] The active keys.
      */
-    public function getActiveKeys() : array
+    public function getActiveKeys(): array
     {
         return $this->keysByActive(true);
     }
@@ -112,7 +112,7 @@ class Cryptokey extends AbstractZone
      *
      * @return CryptokeyResource[] The inactive keys.
      */
-    public function getInactiveKeys() : array
+    public function getInactiveKeys(): array
     {
         return $this->keysByActive(false);
     }
@@ -122,7 +122,7 @@ class Cryptokey extends AbstractZone
      *
      * @return int[] The IDs of the keys that are deleted.
      */
-    public function deleteInactive() : array
+    public function deleteInactive(): array
     {
         $keys = $this->keysByActive(false, true);
 
@@ -136,7 +136,7 @@ class Cryptokey extends AbstractZone
      *
      * @return int[] The IDs of the keys that are deleted.
      */
-    public function deleteKeys(int ...$keyIds) : array
+    public function deleteKeys(int ...$keyIds): array
     {
         $deletedKeys = [];
 
@@ -156,7 +156,7 @@ class Cryptokey extends AbstractZone
      *
      * @return CryptokeyResource[] Array with Crypto Key resources.
      */
-    public function getKeys(bool $includePrivateKey = false) : array
+    public function getKeys(bool $includePrivateKey = false): array
     {
         $data = $this->connector->get($this->getZonePath('/cryptokeys'));
 
@@ -184,7 +184,7 @@ class Cryptokey extends AbstractZone
      *
      * @return int[] IDs of the keys that are (de)activated.
      */
-    public function setActive(bool $active, int ...$keyIds) : array
+    public function setActive(bool $active, int ...$keyIds): array
     {
         $keyIds = !empty($keyIds) ? $keyIds : $this->keysByActive(!$active, true);
         $activatedKeys = [];
@@ -209,7 +209,7 @@ class Cryptokey extends AbstractZone
      *
      * @return CryptokeyResource[]|int[] An array with Crypto Key resources or IDs.
      */
-    private function keysByActive(bool $active, bool $asIdList = false) : array
+    private function keysByActive(bool $active, bool $asIdList = false): array
     {
         $keys = $this->getKeys();
         $foundKeys = [];

@@ -43,7 +43,7 @@ abstract class AbstractZone
      *
      * @return $this The current class instance.
      */
-    public function setZone(string $canonicalDomain) : self
+    public function setZone(string $canonicalDomain): self
     {
         $fixDot = substr($canonicalDomain, -1) !== '.';
 
@@ -61,7 +61,7 @@ abstract class AbstractZone
      *
      * @return ZoneResource The zone resource.
      */
-    public function resource() : ZoneResource
+    public function resource(): ZoneResource
     {
         if ($this->zoneResource === null) {
             $zoneData = $this->connector->get($this->getZonePath());
@@ -81,7 +81,7 @@ abstract class AbstractZone
      *
      * @return string The API zone path.
      */
-    protected function getZonePath(?string $path = null) : string
+    protected function getZonePath(?string $path = null): string
     {
         return sprintf('zones/%s%s', $this->zone, $path);
     }

@@ -67,7 +67,7 @@ class ResourceRecord
      *
      * @return $this The current resource record.
      */
-    public function setZone(Zone $zone) : self
+    public function setZone(Zone $zone): self
     {
         $this->zone = $zone;
 
@@ -79,7 +79,7 @@ class ResourceRecord
      *
      * @return bool True when successful.
      */
-    public function save() : bool
+    public function save(): bool
     {
         return $this->zone->patch([$this]);
     }
@@ -89,7 +89,7 @@ class ResourceRecord
      *
      * @return bool True when successful.
      */
-    public function delete() : bool
+    public function delete(): bool
     {
         $this->setChangeType('DELETE');
 
@@ -103,7 +103,7 @@ class ResourceRecord
      *
      * @return $this The current resource record instance.
      */
-    public function setApiResponse(array $rrset) : self
+    public function setApiResponse(array $rrset): self
     {
         if (isset($rrset['comments']) && is_array($rrset['comments'])) {
             foreach ($rrset['comments'] as $record) {
@@ -150,7 +150,7 @@ class ResourceRecord
      *
      * @return $this The current resource record instance.
      */
-    public function addComment(Comment $comment) : self
+    public function addComment(Comment $comment): self
     {
         $this->comments[] = $comment;
 
@@ -164,7 +164,7 @@ class ResourceRecord
      *
      * @return $this The current resource record instance.
      */
-    public function addRecord(Record $record) : self
+    public function addRecord(Record $record): self
     {
         $this->records[] = $record;
 
@@ -176,7 +176,7 @@ class ResourceRecord
      *
      * @return string The current set change type.
      */
-    public function getChangeType() : string
+    public function getChangeType(): string
     {
         return $this->changeType;
     }
@@ -190,7 +190,7 @@ class ResourceRecord
      *
      * @return $this The current ResourceRecord instance.
      */
-    public function setChangeType(string $changeType) : self
+    public function setChangeType(string $changeType): self
     {
         $changeType = strtoupper($changeType);
         if ($changeType === 'REPLACE' || $changeType === 'DELETE') {
@@ -209,7 +209,7 @@ class ResourceRecord
      *
      * @return Comment[] The comments.
      */
-    public function getComments() : array
+    public function getComments(): array
     {
         return $this->comments;
     }
@@ -221,7 +221,7 @@ class ResourceRecord
      *
      * @return $this The current ResourceRecord instance.
      */
-    public function setComments(array $comments) : self
+    public function setComments(array $comments): self
     {
         $this->comments = $comments;
 
@@ -233,7 +233,7 @@ class ResourceRecord
      *
      * @return string The name.
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -245,7 +245,7 @@ class ResourceRecord
      *
      * @return $this The current ResourceRecord instance.
      */
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -257,7 +257,7 @@ class ResourceRecord
      *
      * @return Record[] The records.
      */
-    public function getRecords() : array
+    public function getRecords(): array
     {
         return $this->records;
     }
@@ -269,7 +269,7 @@ class ResourceRecord
      *
      * @return $this The current resource record instance.
      */
-    public function setRecord($record) : self
+    public function setRecord($record): self
     {
         return $this->setRecords([$record]);
     }
@@ -281,7 +281,7 @@ class ResourceRecord
      *
      * @return $this The current ResourceRecord instance.
      */
-    public function setRecords(array $records) : self
+    public function setRecords(array $records): self
     {
         $recordList = [];
 
@@ -303,7 +303,7 @@ class ResourceRecord
      *
      * @return int The TTL.
      */
-    public function getTtl() : int
+    public function getTtl(): int
     {
         return $this->ttl;
     }
@@ -315,7 +315,7 @@ class ResourceRecord
      *
      * @return $this The current ResourceRecord instance.
      */
-    public function setTtl(int $ttl) : self
+    public function setTtl(int $ttl): self
     {
         $this->ttl = $ttl;
 
@@ -327,7 +327,7 @@ class ResourceRecord
      *
      * @return string The resource record type.
      */
-    public function getType() : string
+    public function getType(): string
     {
         return $this->type;
     }
@@ -343,7 +343,7 @@ class ResourceRecord
      *
      * @return $this The current ResourceRecord instance.
      */
-    public function setType(string $type) : self
+    public function setType(string $type): self
     {
         $type = strtoupper($type);
 

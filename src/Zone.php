@@ -25,7 +25,7 @@ class Zone extends AbstractZone
      *
      * @return bool True when created.
      */
-    public function create($name, string $type = '', $content = '', int $ttl = 3600) : bool
+    public function create($name, string $type = '', $content = '', int $ttl = 3600): bool
     {
         if (is_array($name)) {
             foreach ($name as $item) {
@@ -45,7 +45,7 @@ class Zone extends AbstractZone
      *
      * @return bool True when successful.
      */
-    public function patch(array $resourceRecords) : bool
+    public function patch(array $resourceRecords): bool
     {
         $result = $this->connector->patch($this->getZonePath(), new RRSetTransformer($resourceRecords));
 
@@ -64,7 +64,7 @@ class Zone extends AbstractZone
      *
      * @return ResourceSet A ResourceSet containing all the resource records.
      */
-    public function get(?string $recordType = null) : ResourceSet
+    public function get(?string $recordType = null): ResourceSet
     {
         $records = $this->connector->get($this->getZonePath());
         $resourceSet = new ResourceSet($this);
@@ -87,7 +87,7 @@ class Zone extends AbstractZone
      *
      * @return ResourceSet A ResourceSet containing all the resource records.
      */
-    public function find(string $resourceRecordName, ?string $recordType = null) : ResourceSet
+    public function find(string $resourceRecordName, ?string $recordType = null): ResourceSet
     {
         $records = $this->get($recordType);
 
@@ -117,7 +117,7 @@ class Zone extends AbstractZone
      *
      * @return ResourceRecord The constructed ResourceRecord.
      */
-    public function make(string $name, string $type, $content, int $ttl) : ResourceRecord
+    public function make(string $name, string $type, $content, int $ttl): ResourceRecord
     {
         $name = str_replace('@', $this->zone, $name);
 
@@ -152,7 +152,7 @@ class Zone extends AbstractZone
      *
      * @return bool True when enabled.
      */
-    public function enableDnssec() : bool
+    public function enableDnssec(): bool
     {
         return $this->setDnssec(true);
     }
@@ -162,7 +162,7 @@ class Zone extends AbstractZone
      *
      * @return bool True when disabled.
      */
-    public function disableDnssec() : bool
+    public function disableDnssec(): bool
     {
         return $this->setDnssec(false);
     }
@@ -174,7 +174,7 @@ class Zone extends AbstractZone
      *
      * @return bool True when the request succeeded.
      */
-    public function setDnssec(bool $state) : bool
+    public function setDnssec(bool $state): bool
     {
         $result = $this->connector->put($this->getZonePath(), new DnssecTransformer(['dnssec' => $state]));
 
@@ -190,7 +190,7 @@ class Zone extends AbstractZone
      *
      * @return Cryptokey The DNSSEC instance.
      */
-    public function dnssec() : Cryptokey
+    public function dnssec(): Cryptokey
     {
         return new Cryptokey($this->connector, $this->zone);
     }

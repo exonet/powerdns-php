@@ -63,7 +63,7 @@ class Cryptokey
      *
      * @return Cryptokey A fresh instance filled with data from the API.
      */
-    public function setApiResponse(array $cryptokey) : self
+    public function setApiResponse(array $cryptokey): self
     {
         // Create a fresh instance of this resource.
         $newClass = new static();
@@ -114,7 +114,7 @@ class Cryptokey
      *
      * @return string The type.
      */
-    public function getType() : string
+    public function getType(): string
     {
         return $this->type;
     }
@@ -126,7 +126,7 @@ class Cryptokey
      *
      * @return $this The current Cryptokey instance.
      */
-    public function setType(string $type) : self
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -138,7 +138,7 @@ class Cryptokey
      *
      * @return int The internal identifier, read only.
      */
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -150,7 +150,7 @@ class Cryptokey
      *
      * @return $this The current Cryptokey instance.
      */
-    public function setId(int $id) : self
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -162,7 +162,7 @@ class Cryptokey
      *
      * @return string The key type.
      */
-    public function getKeyType() : string
+    public function getKeyType(): string
     {
         return $this->keyType;
     }
@@ -174,7 +174,7 @@ class Cryptokey
      *
      * @return $this The current Cryptokey instance.
      */
-    public function setKeyType(string $keyType) : self
+    public function setKeyType(string $keyType): self
     {
         $this->keyType = $keyType;
 
@@ -186,7 +186,7 @@ class Cryptokey
      *
      * @return bool True when active.
      */
-    public function isActive() : bool
+    public function isActive(): bool
     {
         return $this->active;
     }
@@ -198,7 +198,7 @@ class Cryptokey
      *
      * @return $this The current Cryptokey instance.
      */
-    public function setActive(bool $active) : self
+    public function setActive(bool $active): self
     {
         $this->active = $active;
 
@@ -210,7 +210,7 @@ class Cryptokey
      *
      * @return string The DNSKEY record for this key.
      */
-    public function getDnsKey() : string
+    public function getDnsKey(): string
     {
         return $this->dnsKey;
     }
@@ -222,7 +222,7 @@ class Cryptokey
      *
      * @return $this The current Cryptokey instance.
      */
-    public function setDnsKey(string $dnsKey) : self
+    public function setDnsKey(string $dnsKey): self
     {
         $this->dnsKey = $dnsKey;
 
@@ -234,7 +234,7 @@ class Cryptokey
      *
      * @return string[]|null An array of DS records for this key or null if no DS records are available.
      */
-    public function getDs() : ?array
+    public function getDs(): ?array
     {
         return $this->ds;
     }
@@ -246,7 +246,7 @@ class Cryptokey
      *
      * @return $this The current Cryptokey instance.
      */
-    public function setDs(array $ds) : self
+    public function setDs(array $ds): self
     {
         $this->ds = $ds;
 
@@ -258,7 +258,7 @@ class Cryptokey
      *
      * @return string The private key in ISC format.
      */
-    public function getPrivateKey() : string
+    public function getPrivateKey(): string
     {
         return $this->privateKey;
     }
@@ -270,7 +270,7 @@ class Cryptokey
      *
      * @return $this The current Cryptokey instance.
      */
-    public function setPrivateKey(string $privateKey) : self
+    public function setPrivateKey(string $privateKey): self
     {
         $this->privateKey = $privateKey;
 
@@ -282,7 +282,7 @@ class Cryptokey
      *
      * @return string The name of the algorithm of the key, should be a mnemonic.
      */
-    public function getAlgorithm() : string
+    public function getAlgorithm(): string
     {
         return $this->algorithm;
     }
@@ -294,7 +294,7 @@ class Cryptokey
      *
      * @return $this The current Cryptokey instance.
      */
-    public function setAlgorithm(string $algorithm) : self
+    public function setAlgorithm(string $algorithm): self
     {
         $this->algorithm = $algorithm;
 
@@ -306,7 +306,7 @@ class Cryptokey
      *
      * @return int The size of the key.
      */
-    public function getBits() : int
+    public function getBits(): int
     {
         return $this->bits;
     }
@@ -318,7 +318,7 @@ class Cryptokey
      *
      * @return $this The current Cryptokey instance.
      */
-    public function setBits(int $bits) : self
+    public function setBits(int $bits): self
     {
         $this->bits = $bits;
 
