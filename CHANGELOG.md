@@ -5,7 +5,10 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v1.1.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v1.1.0...develop)
+[Compare v2.0.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.0.0...develop)
+
+## [v2.0.0](https://github.com/exonet/powerdns-php/releases/tag/v2.0.0) - 2020-01-14
+[Compare v1.1.0 - v2.0.0](https://github.com/exonet/powerdns-php/compare/v1.1.0...v2.0.0)
 ### Breaking
 - Renamed `SOA-EDIT-API` to `SOA-EDIT` when creating a new zone.
 - Implemented new `SOA-EDIT-API` logic when creating a new zone that defaults to `DEFAULT` so the `SOA-EDIT` value will be used.
