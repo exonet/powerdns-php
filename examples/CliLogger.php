@@ -100,7 +100,7 @@ class CliLogger extends AbstractLogger
     /**
      * {@inheritdoc}
      */
-    public function log($level, $message, array $context = []) : void
+    public function log($level, $message, array $context = []): void
     {
         $foreground = self::$color[$level]['foreground'];
         $background = self::$color[$level]['background'] ?? null;

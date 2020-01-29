@@ -97,7 +97,7 @@ class Powerdns
      *
      * @return Powerdns The created PowerDNS client.
      */
-    public function connect(string $host, int $port = 8001, string $server = 'localhost') : self
+    public function connect(string $host, int $port = 8001, string $server = 'localhost'): self
     {
         $this->host = $host;
         $this->port = $port;
@@ -113,7 +113,7 @@ class Powerdns
      *
      * @return $this The current client.
      */
-    public function useKey(string $key) : self
+    public function useKey(string $key): self
     {
         $this->apiKey = $key;
 
@@ -129,7 +129,7 @@ class Powerdns
      *
      * @return Zone The created Zone.
      */
-    public function createZone(string $canonicalDomain, array $nameservers, bool $useDnssec = false) : Zone
+    public function createZone(string $canonicalDomain, array $nameservers, bool $useDnssec = false): Zone
     {
         $fixDot = substr($canonicalDomain, -1) !== '.';
 
@@ -155,7 +155,7 @@ class Powerdns
      *
      * @return Zone The zone.
      */
-    public function zone(string $canonicalDomain) : Zone
+    public function zone(string $canonicalDomain): Zone
     {
         return new Zone($this->connector, $canonicalDomain);
     }
@@ -167,7 +167,7 @@ class Powerdns
      *
      * @return bool True that the zone was removed.
      */
-    public function deleteZone(string $canonicalDomain) : bool
+    public function deleteZone(string $canonicalDomain): bool
     {
         $this->connector->delete('zones/'.$canonicalDomain);
 
@@ -179,7 +179,7 @@ class Powerdns
      *
      * @return Zone[] Array containing the zones
      */
-    public function listZones() : array
+    public function listZones(): array
     {
         return array_map(
             function (array $args) {
@@ -196,7 +196,7 @@ class Powerdns
      *
      * @return Cryptokey The cryptokey instance.
      */
-    public function cryptokeys(string $canonicalDomain) : Cryptokey
+    public function cryptokeys(string $canonicalDomain): Cryptokey
     {
         return new Cryptokey($this->connector, $canonicalDomain);
     }
@@ -206,7 +206,7 @@ class Powerdns
      *
      * @return LoggerInterface The log instance.
      */
-    public function log() : LoggerInterface
+    public function log(): LoggerInterface
     {
         if ($this->logger === null) {
             // If there's no logger set, use the NullLogger.
@@ -223,7 +223,7 @@ class Powerdns
      *
      * @return self The current client instance.
      */
-    public function setLogger(LoggerInterface $log) : self
+    public function setLogger(LoggerInterface $log): self
     {
         $this->logger = $log;
 
@@ -235,7 +235,7 @@ class Powerdns
      *
      * @return mixed[] Array containing the client config items.
      */
-    public function getConfig() : array
+    public function getConfig(): array
     {
         return [
             'host' => $this->host,

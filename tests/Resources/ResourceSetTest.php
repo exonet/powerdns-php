@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ResourceSetTest extends TestCase
 {
-    public function testGeneralFunctionality() : void
+    public function testGeneralFunctionality(): void
     {
         $zone = Mockery::mock(Zone::class);
 
@@ -37,7 +37,7 @@ class ResourceSetTest extends TestCase
         $this->assertSame(1234, $resourceSet[0]->getTtl());
     }
 
-    public function testSave() : void
+    public function testSave(): void
     {
         $resourceRecord = new ResourceRecord();
 
@@ -48,7 +48,7 @@ class ResourceSetTest extends TestCase
         $this->assertTrue($resourceSet->save());
     }
 
-    public function testDelete() : void
+    public function testDelete(): void
     {
         $resourceRecord = Mockery::mock(ResourceRecord::class);
         $resourceRecord->shouldReceive('setChangeType')->withArgs(['DELETE'])->once()->andReturnSelf();

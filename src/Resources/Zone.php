@@ -49,7 +49,12 @@ class Zone
     /**
      * @var string The SOA-EDIT-API metadata item.
      */
-    private $soaEditApi = 'INCEPTION-INCREMENT';
+    private $soaEdit = 'INCEPTION-INCREMENT';
+
+    /**
+     * @var string The SOA-EDIT metadata item.
+     */
+    private $soaEditApi = 'DEFAULT';
 
     /**
      * @var bool Whether or not the zone will be rectified on data changes via the API.
@@ -74,7 +79,7 @@ class Zone
      *
      * @return Zone The current zone instance.
      */
-    public function setApiResponse(array $data) : self
+    public function setApiResponse(array $data): self
     {
         $this->name = $data['name'];
         $this->kind = $data['kind'];
@@ -83,6 +88,7 @@ class Zone
         $this->masters = $data['masters'];
         $this->dnssec = $data['dnssec'];
         $this->nsec3param = !empty($data['nsec3param']) ? $data['nsec3param'] : null;
+        $this->soaEdit = !empty($data['soa_edit']) ? $data['soa_edit'] : null;
         $this->soaEditApi = !empty($data['soa_edit_api']) ? $data['soa_edit_api'] : null;
         $this->apiRectify = $data['api_rectify'];
         $this->account = !empty($data['account']) ? $data['account'] : null;
@@ -109,7 +115,7 @@ class Zone
      *
      * @return string The zone name.
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -119,7 +125,7 @@ class Zone
      *
      * @return string The zone kind.
      */
-    public function getKind() : string
+    public function getKind(): string
     {
         return $this->kind;
     }
@@ -129,7 +135,7 @@ class Zone
      *
      * @return int The SOA serial number.
      */
-    public function getSerial() : int
+    public function getSerial(): int
     {
         return $this->serial;
     }
@@ -139,7 +145,7 @@ class Zone
      *
      * @return int The SOA serial notifications have been sent out for.
      */
-    public function getNotifiedSerial() : int
+    public function getNotifiedSerial(): int
     {
         return $this->notifiedSerial;
     }
@@ -149,7 +155,7 @@ class Zone
      *
      * @return string[] List of IP addresses.
      */
-    public function getMasters() : array
+    public function getMasters(): array
     {
         return $this->masters;
     }
@@ -159,7 +165,7 @@ class Zone
      *
      * @return bool Whether or not this zone is DNSSEC signed.
      */
-    public function hasDnssec() : bool
+    public function hasDnssec(): bool
     {
         return $this->dnssec;
     }
@@ -169,7 +175,7 @@ class Zone
      *
      * @return string|null The NSEC3PARAM value or null.
      */
-    public function getNsec3param() : ?string
+    public function getNsec3param(): ?string
     {
         return $this->nsec3param;
     }
@@ -179,9 +185,19 @@ class Zone
      *
      * @return string|null The SOA-EDIT-API metadata item or null
      */
-    public function getSoaEditApi() : ?string
+    public function getSoaEditApi(): ?string
     {
         return $this->soaEditApi;
+    }
+
+    /**
+     * Get the SOA-EDIT metadata item.
+     *
+     * @return string|null The SOA-EDIT metadata item or null
+     */
+    public function getSoaEdit(): ?string
+    {
+        return $this->soaEdit;
     }
 
     /**
@@ -189,7 +205,7 @@ class Zone
      *
      * @return bool Whether or not this zone is automatically rectified by the API.
      */
-    public function hasAutoRectify() : bool
+    public function hasAutoRectify(): bool
     {
         return $this->apiRectify;
     }
@@ -200,7 +216,7 @@ class Zone
      *
      * @return string[] The nameservers.
      */
-    public function getNameservers() : array
+    public function getNameservers(): array
     {
         return $this->nameservers;
     }
@@ -210,7 +226,7 @@ class Zone
      *
      * @return string|null The account name or null.
      */
-    public function getAccount() : ?string
+    public function getAccount(): ?string
     {
         return $this->account;
     }
@@ -222,7 +238,7 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -238,13 +254,13 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setKind(string $kind) : self
+    public function setKind(string $kind): self
     {
         $kind = ucfirst($kind);
         $allowed = ['Native', 'Master', 'Slave'];
 
         if (!in_array($kind, $allowed, true)) {
-            throw new InvalidKindType(sprintf('Kind must be either %s. (%s given)', implode($allowed, ', '), $kind));
+            throw new InvalidKindType(sprintf('Kind must be either %s. (%s given)', implode(', ', $allowed), $kind));
         }
 
         $this->kind = $kind;
@@ -259,7 +275,7 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setSerial(int $serial) : self
+    public function setSerial(int $serial): self
     {
         $this->serial = $serial;
 
@@ -273,7 +289,7 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setNotifiedSerial(int $notifiedSerial) : self
+    public function setNotifiedSerial(int $notifiedSerial): self
     {
         $this->notifiedSerial = $notifiedSerial;
 
@@ -289,7 +305,7 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setMasters(array $masters) : self
+    public function setMasters(array $masters): self
     {
         if ($this->kind !== 'Slave') {
             throw new InvalidKindType(sprintf('Only "Slave" kind zones can set masters, not "%".', $this->kind));
@@ -307,7 +323,7 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setDnssec(bool $dnssec) : self
+    public function setDnssec(bool $dnssec): self
     {
         $this->dnssec = $dnssec;
 
@@ -326,10 +342,10 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setNsec3param(string $nsec3param) : self
+    public function setNsec3param(string $nsec3param): self
     {
         // Validate the nsec3param.
-        list($algorithm, $flags, $iterations, $salt) = explode(' ', $nsec3param);
+        [$algorithm, $flags, $iterations, $salt] = explode(' ', $nsec3param);
 
         if ((int) $algorithm !== 1) {
             throw new InvalidNsec3Param('The nsec3param hash algorithm parameter must be set to 1.');
@@ -350,7 +366,7 @@ class Zone
     }
 
     /**
-     * The SOA edit API kind, one of "INCREMENT-WEEKS", "INCEPTION-EPOCH", "INCEPTION-INCREMENT", "EPOCH" or "NONE".
+     * The SOA edit API kind.
      *
      * @param string $soaEditApi The SOA edit API value.
      *
@@ -358,18 +374,43 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setSoaEditApi(string $soaEditApi) : self
+    public function setSoaEditApi(string $soaEditApi): self
     {
         $soaEditApi = strtoupper($soaEditApi);
-        $allowed = ['INCREMENT-WEEKS', 'INCEPTION-EPOCH', 'INCEPTION-INCREMENT', 'EPOCH', 'NONE'];
+        $allowed = ['DEFAULT', 'INCREASE', 'EPOCH', 'SOA-EDIT', 'SOA-EDIT-INCREASE'];
 
         if (!in_array($soaEditApi, $allowed, true)) {
             throw new InvalidSoaEditType(
-                sprintf('Kind must be either %s. (%s given)', implode($allowed, ', '), $soaEditApi)
+                sprintf('Kind must be either %s. (%s given)', implode(', ', $allowed), $soaEditApi)
             );
         }
 
         $this->soaEditApi = $soaEditApi;
+
+        return $this;
+    }
+
+    /**
+     * The SOA edit kind, one of "INCREMENT-WEEKS", "INCEPTION-EPOCH", "INCEPTION-INCREMENT", "EPOCH" or "NONE".
+     *
+     * @param string $soaEdit The SOA edit value.
+     *
+     * @throws InvalidSoaEditType If a kind is given that is not allowed.
+     *
+     * @return Zone The current Zone instance.
+     */
+    public function setSoaEdit(string $soaEdit): self
+    {
+        $soaEdit = strtoupper($soaEdit);
+        $allowed = ['INCREMENT-WEEKS', 'INCEPTION-EPOCH', 'INCEPTION-INCREMENT', 'EPOCH', 'NONE'];
+
+        if (!in_array($soaEdit, $allowed, true)) {
+            throw new InvalidSoaEditType(
+                sprintf('Kind must be either %s. (%s given)', implode(', ', $allowed), $soaEdit)
+            );
+        }
+
+        $this->soaEdit = $soaEdit;
 
         return $this;
     }
@@ -381,7 +422,7 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setApiRectify(bool $apiRectify) : self
+    public function setApiRectify(bool $apiRectify): self
     {
         $this->apiRectify = $apiRectify;
 
@@ -396,7 +437,7 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setNameservers(array $nameservers) : self
+    public function setNameservers(array $nameservers): self
     {
         $this->nameservers = $nameservers;
 
@@ -410,7 +451,7 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setAccount(string $account) : self
+    public function setAccount(string $account): self
     {
         $this->account = $account;
 

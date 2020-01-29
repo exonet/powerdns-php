@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class ResourceRecordTest extends TestCase
 {
-    public function testSimpleSettersAndGetters() : void
+    public function testSimpleSettersAndGetters(): void
     {
         $resourceRecord = new ResourceRecord();
 
@@ -23,7 +23,7 @@ class ResourceRecordTest extends TestCase
         $this->assertSame(1234, $resourceRecord->getTtl());
     }
 
-    public function testZoneRelatedMethods() : void
+    public function testZoneRelatedMethods(): void
     {
         $resourceRecord = new ResourceRecord();
         $zone = Mockery::mock(Zone::class);
@@ -46,7 +46,7 @@ class ResourceRecordTest extends TestCase
         $this->assertTrue($resourceRecord->delete());
     }
 
-    public function testSetApiResponse() : void
+    public function testSetApiResponse(): void
     {
         $apiResponse =
             [

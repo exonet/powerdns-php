@@ -6,4 +6,3 @@ enabled:
 
 disabled:
   - align_double_arrow
-  - simplified_null_return

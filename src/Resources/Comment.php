@@ -26,7 +26,7 @@ class Comment
      *
      * @return string The actual comment.
      */
-    public function getContent() : string
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -38,7 +38,7 @@ class Comment
      *
      * @return $this The current Comment instance.
      */
-    public function setContent(string $content) : self
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
@@ -50,7 +50,7 @@ class Comment
      *
      * @return string Name of an account that added the comment.
      */
-    public function getAccount() : string
+    public function getAccount(): string
     {
         return $this->account;
     }
@@ -62,7 +62,7 @@ class Comment
      *
      * @return $this The current Comment instance.
      */
-    public function setAccount(string $account) : self
+    public function setAccount(string $account): self
     {
         $this->account = $account;
 
@@ -74,7 +74,7 @@ class Comment
      *
      * @return int Timestamp of the last change to the comment.
      */
-    public function getModifiedAt() : int
+    public function getModifiedAt(): int
     {
         return $this->modifiedAt;
     }
@@ -86,7 +86,7 @@ class Comment
      *
      * @return $this The current Comment instance.
      */
-    public function setModifiedAt(int $modifiedAt) : self
+    public function setModifiedAt(int $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
 

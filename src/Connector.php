@@ -45,7 +45,7 @@ class Connector
      *
      * @return mixed[] The response body.
      */
-    public function get(string $urlPath) : array
+    public function get(string $urlPath): array
     {
         return $this->makeCall('GET', $urlPath);
     }
@@ -58,7 +58,7 @@ class Connector
      *
      * @return mixed[] The response body.
      */
-    public function post(string $urlPath, Transformer $payload) : array
+    public function post(string $urlPath, Transformer $payload): array
     {
         return $this->makeCall('POST', $urlPath, json_encode($payload->transform()));
     }
@@ -71,7 +71,7 @@ class Connector
      *
      * @return mixed[] The response body.
      */
-    public function patch(string $urlPath, Transformer $payload) : array
+    public function patch(string $urlPath, Transformer $payload): array
     {
         return $this->makeCall('PATCH', $urlPath, json_encode($payload->transform()));
     }
@@ -84,7 +84,7 @@ class Connector
      *
      * @return mixed[] The response body.
      */
-    public function put(string $urlPath, Transformer $payload) : array
+    public function put(string $urlPath, Transformer $payload): array
     {
         return $this->makeCall('PUT', $urlPath, json_encode($payload->transform()));
     }
@@ -96,7 +96,7 @@ class Connector
      *
      * @return mixed[] The response body.
      */
-    public function delete(string $urlPath) : array
+    public function delete(string $urlPath): array
     {
         return $this->makeCall('DELETE', $urlPath);
     }
@@ -113,7 +113,7 @@ class Connector
      *
      * @return mixed[] The decoded JSON response.
      */
-    private function makeCall(string $method, string $urlPath, ?string $payload = null) : array
+    private function makeCall(string $method, string $urlPath, ?string $payload = null): array
     {
         $url = $this->buildUrl($urlPath);
         $headers = $this->getDefaultHeaders();
@@ -138,7 +138,7 @@ class Connector
      *
      * @return mixed[] The decoded JSON response.
      */
-    private function parseResponse(PsrResponse $response) : array
+    private function parseResponse(PsrResponse $response): array
     {
         $this->powerdns->log()->debug('Request completed', ['statusCode' => $response->getStatusCode()]);
         $contents = json_decode($response->getBody()->getContents(), true);
@@ -168,7 +168,7 @@ class Connector
      *
      * @return string The complete URL.
      */
-    private function buildUrl(string $path) : string
+    private function buildUrl(string $path): string
     {
         $config = $this->powerdns->getConfig();
 
@@ -186,7 +186,7 @@ class Connector
      *
      * @return string[] The headers.
      */
-    private function getDefaultHeaders() : array
+    private function getDefaultHeaders(): array
     {
         return [
             'X-API-Key' => $this->powerdns->getConfig()['apiKey'],

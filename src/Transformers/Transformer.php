@@ -28,7 +28,7 @@ abstract class Transformer
      *
      * @return $this The current transformer instance.
      */
-    public function setData($data) : self
+    public function setData($data): self
     {
         $this->data = $data;
 
