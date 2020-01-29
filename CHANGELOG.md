@@ -7,15 +7,18 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## Unreleased
 [Compare v2.0.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.0.0...develop)
 
-## [v2.0.0](https://github.com/exonet/powerdns-php/releases/tag/v2.0.0) - 2020-01-14
+## [v2.0.0](https://github.com/exonet/powerdns-php/releases/tag/v2.0.0) - 2020-01-29
 [Compare v1.1.0 - v2.0.0](https://github.com/exonet/powerdns-php/compare/v1.1.0...v2.0.0)
 ### Breaking
 - Renamed `SOA-EDIT-API` to `SOA-EDIT` when creating a new zone.
 - Implemented new `SOA-EDIT-API` logic when creating a new zone that defaults to `DEFAULT` so the `SOA-EDIT` value will be used.
 
+This change will break your SOA increment if not configured correctly in the zone meta data. You need to update the zone
+meta yourself in whatever backend you use for PowerDNS. See the following quote from the [PowerDNS website (section API)](https://doc.powerdns.com/md/authoritative/upgrading/):
+
 > Incompatible change: SOA-EDIT-API now follows SOA-EDIT-DNSUPDATE instead of SOA-EDIT (incl. the fact that it now has
 > a default value of DEFAULT). You must update your existing SOA-EDIT-API metadata (set SOA-EDIT to your previous
-> SOA-EDIT-API value, and SOA-EDIT-API to SOA-EDIT to keep the old behaviour). - [Source](https://doc.powerdns.com/md/authoritative/upgrading/) (section 'API').
+> SOA-EDIT-API value, and SOA-EDIT-API to SOA-EDIT to keep the old behaviour).
 
 ### Added
 - PowerDNS 4.2 support (see 'breaking' above).
