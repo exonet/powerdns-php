@@ -6,7 +6,9 @@ use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
 use Exonet\Powerdns\Transformers\DnssecTransformer;
+use Exonet\Powerdns\Transformers\Nsec3paramTransformer;
 use Exonet\Powerdns\Transformers\RRSetTransformer;
+use Exonet\Powerdns\Transformers\Transformer;
 
 class Zone extends AbstractZone
 {
@@ -51,6 +53,24 @@ class Zone extends AbstractZone
 
         /*
          * The PATCH request will return an 204 No Content, so the $result is empty. If this is the case, the PATCH was
+         * successful. If there was an error, an exception will be thrown.
+         */
+        return empty($result);
+    }
+
+    /**
+     * Put an updated version of a zone to the PowerDNS server.
+     *
+     * @param Transformer $transformer a transformer object
+     *
+     * @return bool True when successful.
+     */
+    public function put(Transformer $transformer): bool
+    {
+        $result = $this->connector->put($this->getZonePath(), $transformer);
+
+        /*
+         * The PUT request will return an 204 No Content, so the $result is empty. If this is the case, the PUT was
          * successful. If there was an error, an exception will be thrown.
          */
         return empty($result);
@@ -148,6 +168,26 @@ class Zone extends AbstractZone
     }
 
     /**
+     * Set an NSEC3PARAM for this zone, and save it.
+     *
+     * @param string $nsec3param The NSEC3PARAM value to set.
+     *
+     * @throws InvalidNsec3Param If the hash algorithm is invalid.
+     * @throws InvalidNsec3Param If the flags parameter is invalid.
+     * @throws InvalidNsec3Param If the iteration parameter is invalid.
+     * @throws InvalidNsec3Param If the hash salt is invalid.
+     *
+     * @return bool True when updated.
+     */
+    public function setNsec3param($nsec3param): bool
+    {
+        $zone = $this->resource()->setNsec3param($nsec3param);
+        $transformer = new Nsec3paramTransformer($zone);
+
+        return $this->put($transformer);
+    }
+
+    /**
      * Enable DNSSEC for this zone.
      *
      * @return bool True when enabled.
@@ -176,7 +216,7 @@ class Zone extends AbstractZone
      */
     public function setDnssec(bool $state): bool
     {
-        $result = $this->connector->put($this->getZonePath(), new DnssecTransformer(['dnssec' => $state]));
+        $result = $this->put(new DnssecTransformer(['dnssec' => $state]));
 
         /*
          * The PUT request will return an 204 No Content, so the $result is empty. If this is the case, the PATCH was
