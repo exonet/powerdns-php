@@ -7,7 +7,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## Unreleased
 [Compare v2.1.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.1.0...develop)
 ## [v2.1.0](https://github.com/exonet/powerdns-php/releases/tag/v2.1.0) - 2020-03-11
-[Compare v2.0.0 - v2.1.0](https://github.com/exonet/powerdns-php/compare/v2.2.0...v2.1.0)
+[Compare v2.0.0 - v2.1.0](https://github.com/exonet/powerdns-php/compare/v2.0.0...v2.1.0)
 ### Added
 - It is now possible to set the NSEC3PARAM on a zone. ([mkevenaar-docktera](https://github.com/mkevenaar-docktera) - #25 #26)
 
