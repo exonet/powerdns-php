@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ZoneTest extends TestCase
 {
-    public function test_SetApiResponse_WithFullData_GetData()
+    public function testSetApiResponse(): void
     {
         $zone = new Zone();
 
@@ -40,7 +40,7 @@ class ZoneTest extends TestCase
         $this->assertSame([], $zone->getNameservers());
     }
 
-    public function test_SetApiResponse_WithOptionalData_GetData()
+    public function testSetApiResponseWithoutOptionalData(): void
     {
         $zone = new Zone();
 
@@ -62,59 +62,92 @@ class ZoneTest extends TestCase
         $this->assertNull($zone->getAccount());
     }
 
-    public function test_SetNameservers_NameserverSet()
+    public function testSetNameservers(): void
     {
         $zone = new Zone();
         $zone->setNameservers(['foo', 'bar']);
         $this->assertSame(['foo', 'bar'], $zone->getNameservers());
     }
 
-    public function test_setKind_InvalidKind_ExceptionThrown()
+    public function testSetKind(): void
     {
-        $this->expectException(InvalidKindType::class);
         $zone = new Zone();
+        $zone->setKind('master');
+        $this->assertSame('Master', $zone->getKind());
+
+        $this->expectException(InvalidKindType::class);
+        $this->expectExceptionMessage('Kind must be either Native, Master, Slave. (FooBar given)');
         $zone->setKind('FooBar');
     }
 
-    public function test_setSoaEditApi_InvalidValue_ExceptionThrown()
+    public function testSetSoaEditApi(): void
     {
-        $this->expectException(InvalidSoaEditType::class);
         $zone = new Zone();
+        $zone->setSoaEditApi('increase');
+        $this->assertSame('INCREASE', $zone->getSoaEditApi());
+
+        $this->expectException(InvalidSoaEditType::class);
+        $this->expectExceptionMessage('Kind must be either DEFAULT, INCREASE, EPOCH, SOA-EDIT, SOA-EDIT-INCREASE. (FOOBAR given)');
         $zone->setSoaEditApi('FooBar');
     }
 
-    public function test_setNsec3param_InvalidAlgorithm_ExceptionThrown()
+    public function testSetSoaEdit(): void
+    {
+        $zone = new Zone();
+        $zone->setSoaEdit('inception-increment');
+        $this->assertSame('INCEPTION-INCREMENT', $zone->getSoaEdit());
+
+        $this->expectException(InvalidSoaEditType::class);
+        $this->expectExceptionMessage('Kind must be either INCREMENT-WEEKS, INCEPTION-EPOCH, INCEPTION-INCREMENT, EPOCH, NONE. (FOOBAR given)');
+        $zone->setSoaEdit('FooBar');
+    }
+
+    public function testSetNsec3param(): void
+    {
+        $zone = new Zone();
+        $zone->setNsec3param('1 0 100 f00Bar');
+        $this->assertEquals('1 0 100 f00Bar', $zone->getNsec3param());
+    }
+
+    public function testSetNsec3paramInvalidAlgorithm(): void
     {
         $this->expectException(InvalidNsec3Param::class);
         $zone = new Zone();
         $zone->setNsec3param('2 0 100 f00bar');
     }
 
-    public function test_setNsec3param_InvalidFlags_ExceptionThrown()
+    public function testSetNsec3paramInvalidFlags(): void
     {
         $this->expectException(InvalidNsec3Param::class);
         $zone = new Zone();
-        $zone->setNsec3param('1 1 100 f00bar');
+        $zone->setNsec3param('1 2 100 f00bar');
     }
 
-    public function test_setNsec3param_InvalidIteration_ExceptionThrown()
+    public function testSetNsec3paramInvalidIteration(): void
     {
         $this->expectException(InvalidNsec3Param::class);
         $zone = new Zone();
         $zone->setNsec3param('1 0 25000 f00bar');
     }
 
-    public function test_setNsec3param_InvalidSalt_ExceptionThrown()
+    public function testSetNsec3paramInvalidSalt(): void
     {
         $this->expectException(InvalidNsec3Param::class);
         $zone = new Zone();
         $zone->setNsec3param('1 0 100 '.str_repeat('a', 256));
     }
 
-    public function test_setNsec3param_ProperParM_GetParam()
+    public function testSetNsec3paramTooFewArguments(): void
     {
+        $this->expectException(InvalidNsec3Param::class);
         $zone = new Zone();
-        $zone->setNsec3param('1 0 100 f00Bar');
-        $this->assertEquals('1 0 100 f00Bar', $zone->getNsec3param());
+        $zone->setNsec3param('1 0');
+    }
+
+    public function tesSetNsec3paramInvalidArgument(): void
+    {
+        $this->expectException(InvalidNsec3Param::class);
+        $zone = new Zone();
+        $zone->setNsec3param('unit-test');
     }
 }
