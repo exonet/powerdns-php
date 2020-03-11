@@ -94,7 +94,7 @@ class ZoneTest extends TestCase
     {
         $this->expectException(InvalidNsec3Param::class);
         $zone = new Zone();
-        $zone->setNsec3param('1 1 100 f00bar');
+        $zone->setNsec3param('1 2 100 f00bar');
     }
 
     public function test_setNsec3param_InvalidIteration_ExceptionThrown()
@@ -111,7 +111,21 @@ class ZoneTest extends TestCase
         $zone->setNsec3param('1 0 100 '.str_repeat('a', 256));
     }
 
-    public function test_setNsec3param_ProperParM_GetParam()
+    public function test_setNsec3param_TooFewArguments_ExceptionThrown()
+    {
+        $this->expectException(InvalidNsec3Param::class);
+        $zone = new Zone();
+        $zone->setNsec3param('1 0');
+    }
+
+    public function test_setNsec3param_InvalidArgument_ExceptionThrown()
+    {
+        $this->expectException(InvalidNsec3Param::class);
+        $zone = new Zone();
+        $zone->setNsec3param('unit-test');
+    }
+
+    public function test_setNsec3param()
     {
         $zone = new Zone();
         $zone->setNsec3param('1 0 100 f00Bar');

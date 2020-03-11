@@ -344,19 +344,19 @@ class Zone
      */
     public function setNsec3param(string $nsec3param): self
     {
-        // Validate the nsec3param.
-        [$algorithm, $flags, $iterations, $salt] = explode(' ', $nsec3param);
+        // Validate the nsec3param. Set null if the given string has not enough arguments.
+        [$algorithm, $flags, $iterations, $salt] = explode(' ', $nsec3param) + [null, null, null, null];
 
-        if ((int) $algorithm !== 1) {
+        if ($algorithm === null || !ctype_digit($algorithm) || (int) $algorithm !== 1) {
             throw new InvalidNsec3Param('The nsec3param hash algorithm parameter must be set to 1.');
         }
-        if ((int) $flags !== 0) {
-            throw new InvalidNsec3Param('The nsec3param flags parameter must be set to 0.');
+        if ($flags === null || !ctype_digit($flags) || ((int) $flags !== 0 && (int) $flags !== 1)) {
+            throw new InvalidNsec3Param('The nsec3param flags parameter must be set to 0 or 1.');
         }
-        if ($iterations === 0 || $iterations > 2500) {
+        if ($iterations === null || !ctype_digit($iterations) || $iterations === 0 || $iterations > 2500) {
             throw new InvalidNsec3Param('The nsec3param iterations parameter must be between 0 and 2500.');
         }
-        if (strlen($salt) === 0 || strlen($salt) > 255) {
+        if ($salt === null || strlen($salt) === 0 || strlen($salt) > 255) {
             throw new InvalidNsec3Param('The nsec3param hash salt length must be between 0 and 255 characters.');
         }
 
