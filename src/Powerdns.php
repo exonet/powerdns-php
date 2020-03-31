@@ -149,6 +149,20 @@ class Powerdns
     }
 
     /**
+     * Create a new zone based on a zone resource.
+     *
+     * @param ZoneResource $zoneResource The zone resource.
+     *
+     * @return Zone The created zone.
+     */
+    public function createZoneFromResource(ZoneResource $zoneResource): Zone
+    {
+        $this->connector->post('zones', new CreateZoneTransformer($zoneResource));
+
+        return $this->zone($zoneResource->getName());
+    }
+
+    /**
      * Get a zone instance to work with.
      *
      * @param string $canonicalDomain The canonical domain name of the zone.

@@ -18,6 +18,7 @@ class CreateZoneTransformer extends Transformer
             'soa_edit_api' => $this->data->getSoaEditApi(),
             'masters' => $this->data->getMasters(),
             'nameservers' => $this->data->getNameservers(),
+            'nsec3param' => $this->data->getNsec3param(),
         ];
     }
 }
