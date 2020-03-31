@@ -3,7 +3,6 @@
 namespace Exonet\Powerdns\tests\functional;
 
 use Exonet\Powerdns\Powerdns;
-use Exonet\Powerdns\RecordType;
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
 use PHPUnit\Framework\TestCase;
 

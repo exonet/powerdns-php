@@ -45,4 +45,3 @@ $newZone->setNsec3param('1 0 100 1234567890');
 
 // Create a new zone with the defined records and name servers.
 $powerdns->createZoneFromResource($newZone)->create($dnsRecords);
-
