@@ -5,7 +5,13 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v2.1.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.1.0...develop)
+[Compare v2.2.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.2.0...develop)
+
+## [v2.2.0](https://github.com/exonet/powerdns-php/releases/tag/v2.2.0) - 2020-04-01
+[Compare v2.1.0 - v2.2.0](https://github.com/exonet/powerdns-php/compare/v2.1.0...v2.2.0)
+### Added
+- Create a new zone based on a zone resource object.
+
 ## [v2.1.0](https://github.com/exonet/powerdns-php/releases/tag/v2.1.0) - 2020-03-11
 [Compare v2.0.0 - v2.1.0](https://github.com/exonet/powerdns-php/compare/v2.0.0...v2.1.0)
 ### Added
