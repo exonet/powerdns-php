@@ -36,7 +36,6 @@ Please, please, please, don't send your pull request until all of the boxes are 
 - [ ] I have read the **[CONTRIBUTING](../.github/CONTRIBUTING.md)** document.
 - [ ] My pull request addresses exactly one patch/feature.
 - [ ] I have created a branch for this patch/feature.
-- [ ] I'm creating this PR to the `develop` branch.
 - [ ] Each individual commit in the pull request is meaningful.
 - [ ] I have added tests to cover my changes.
 - [ ] If my change requires a change to the documentation, I have updated it accordingly.
