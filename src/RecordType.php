@@ -4,7 +4,7 @@ namespace Exonet\Powerdns;
 
 /**
  * List of possible DNS Record types supported by PowerDNS.
- * Source: https://doc.powerdns.com/md/types/
+ * Source: https://doc.powerdns.com/md/types/.
  */
 class RecordType
 {
