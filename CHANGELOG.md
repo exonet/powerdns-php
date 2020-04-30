@@ -5,7 +5,15 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v2.2.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.2.0...develop)
+[Compare v2.3.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.3.0...develop)
+
+## [v2.3.0](https://github.com/exonet/powerdns-php/releases/tag/v2.3.0) - 2020-04-30
+[Compare v2.2.0 - v2.3.0](https://github.com/exonet/powerdns-php/compare/v2.2.0...v2.3.0)
+### Added
+- The record type `SPF`. ([Th3Mouk](https://github.com/Th3Mouk) - [#30](https://github.com/exonet/powerdns-php/pull/30))
+
+### Fixed
+- Removed record types `APL`, `HIP` and `TA` which are not supported by PowerDNS.
 
 ## [v2.2.0](https://github.com/exonet/powerdns-php/releases/tag/v2.2.0) - 2020-04-01
 [Compare v2.1.0 - v2.2.0](https://github.com/exonet/powerdns-php/compare/v2.1.0...v2.2.0)
