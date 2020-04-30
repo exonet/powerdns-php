@@ -3,7 +3,8 @@
 namespace Exonet\Powerdns;
 
 /**
- * List of possible DNS Record types. Source: https://en.wikipedia.org/wiki/List_of_DNS_record_types.
+ * List of possible DNS Record types supported by PowerDNS.
+ * Source: https://doc.powerdns.com/md/types/.
  */
 class RecordType
 {
@@ -35,13 +36,6 @@ class RecordType
      * servers, and can define group of hosts serves any service, and moving service between hosts.
      */
     public const ALIAS = 'ALIAS';
-
-    /**
-     * Address Prefix List.
-     *
-     * Specify lists of address ranges, e.g. in CIDR format, for various address families. Experimental.
-     */
-    public const APL = 'APL';
 
     /**
      * Certification Authority Authorization.
@@ -110,13 +104,6 @@ class RecordType
      * The record used to identify the DNSSEC signing key of a delegated zone
      */
     public const DS = 'DS';
-
-    /**
-     * Host Identity Protocol.
-     *
-     * Method of separating the end-point identifier and locator roles of IP addresses.
-     */
-    public const HIP = 'HIP';
 
     /**
      * IPsec Key.
@@ -263,14 +250,6 @@ class RecordType
      * registry for details.
      */
     public const SSHFP = 'SSHFP';
-
-    /**
-     * DNSSEC Trust Authorities.
-     *
-     * Part of a deployment proposal for DNSSEC without a signed DNS root. See the IANA database and Weiler Spec for
-     * details. Uses the same format as the DS record.
-     */
-    public const TA = 'TA';
 
     /**
      * Transaction Key record.
