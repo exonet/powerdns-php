@@ -240,6 +240,14 @@ class RecordType
     public const SOA = 'SOA';
 
     /**
+     * Sender Policy Framework.
+     *
+     * Specified as part of the SPF protocol as an alternative to of storing SPF data in TXT records. Uses the same
+     * format as the earlier TXT record.
+     */
+    public const SPF = 'SPF';
+
+    /**
      * Service locator.
      *
      * Generalized service location record, used for newer protocols instead of creating protocol-specific records such
