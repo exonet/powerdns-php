@@ -157,6 +157,7 @@ class Connector
         }
 
         $error = isset($contents['error']) ? $contents['error'] : $contents;
+        $this->powerdns->log()->debug('Request failed.', ['result_body' => $contents]);
 
         throw new PowerdnsException($error);
     }
