@@ -7,7 +7,6 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## Unreleased
 [Compare v2.3.1 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.3.1...develop)
 
-
 ## [v2.3.1](https://github.com/exonet/powerdns-php/releases/tag/v2.3.1) - 2020-05-12
 ### Fixed
 - No longer throw an exception when throwing an exception if the response body is not an error. (#32)
