@@ -362,4 +362,14 @@ class ResourceRecord
 
         throw new InvalidRecordType(sprintf('The record type [%s] is not a valid DNS Record type.', $type));
     }
+
+    /**
+     * Get the zone object for this ResourceRecord.
+     *
+     * @return Zone The zone for this ResourceRecord.
+     */
+    public function getZone(): Zone
+    {
+        return $this->zone;
+    }
 }
