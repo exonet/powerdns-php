@@ -211,7 +211,7 @@ class ResourceRecord
      */
     public function getComments(): array
     {
-        return $this->comments;
+        return $this->comments ?? [];
     }
 
     /**
