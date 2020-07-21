@@ -216,6 +216,16 @@ class Powerdns
     }
 
     /**
+     * Get the PowerDNS server version.
+     *
+     * @return string The server version.
+     */
+    public function serverVersion(): string
+    {
+        return $this->connector->get('/')['version'];
+    }
+
+    /**
      * Get the logger instance.
      *
      * @return LoggerInterface The log instance.
