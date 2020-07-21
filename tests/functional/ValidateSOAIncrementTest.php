@@ -17,7 +17,6 @@ class ValidateSOAIncrementTest extends FunctionalTestCase
 
     public function testCreateSoaIncrementZone(): void
     {
-        echo "\n\n".$this->canonicalName."\n\n";
         $zone = $this->powerdns->createZone($this->canonicalName, ['ns1.powerdns-php.', 'ns2.powerdns-php.']);
         $result = $zone->create('test', RecordType::A, '127.0.0.1', 3600);
 
@@ -29,7 +28,6 @@ class ValidateSOAIncrementTest extends FunctionalTestCase
      */
     public function testSoaIncrement(): void
     {
-        echo "\n\n".$this->canonicalName."\n\n";
         $zone = $this->powerdns->zone($this->canonicalName);
         $soaData = $zone->get(RecordType::SOA);
 
