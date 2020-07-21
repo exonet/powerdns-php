@@ -7,7 +7,7 @@ use Exonet\Powerdns\functional\FunctionalTestCase;
 class ZoneTest extends FunctionalTestCase
 {
     /**
-     * https://github.com/exonet/powerdns-php/issues/40
+     * https://github.com/exonet/powerdns-php/issues/40.
      */
     public function testGetZoneObject(): void
     {
@@ -19,7 +19,7 @@ class ZoneTest extends FunctionalTestCase
     }
 
     /**
-     * https://github.com/exonet/powerdns-php/issues/35
+     * https://github.com/exonet/powerdns-php/issues/35.
      */
     public function testExportZone(): void
     {
