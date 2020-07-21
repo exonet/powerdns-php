@@ -20,5 +20,4 @@ abstract class FunctionalTestCase extends TestCase
 
         $this->powerdns = new Powerdns($host, 'apiKey', 8081);
     }
-
 }
