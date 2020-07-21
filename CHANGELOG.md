@@ -5,7 +5,20 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v2.3.1 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.3.1...develop)
+[Compare v2.4.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.4.0...develop)
+
+## [v2.4.0](https://github.com/exonet/powerdns-php/releases/tag/v2.4.0) - 2020-07-23
+### Added
+- Export a zone in AXFR format. (#35)
+- Get the zone from a ResourceRecord. (#40)
+- Get the PowerDNS version of a server with `$client->serverVersion()`.
+- Added a `docker-compose.yml` and `run-tests.sh` script to easy test against a combination of different PHP and PowerDNS versions.
+
+### Changed
+- Travis now uses Docker to run the tests.
+
+### Fixed
+- `$resouceRecord->getComments()` no longer throws an exception if there are no comments. (#38)
 
 ## [v2.3.1](https://github.com/exonet/powerdns-php/releases/tag/v2.3.1) - 2020-05-12
 ### Fixed
