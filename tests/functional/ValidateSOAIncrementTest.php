@@ -28,6 +28,8 @@ class ValidateSOAIncrementTest extends FunctionalTestCase
      */
     public function testSoaIncrement(): void
     {
+        // Use sleep to give PowerDNS time to update the SOA record/zone.
+        sleep(1);
         $zone = $this->powerdns->zone($this->canonicalName);
         $soaData = $zone->get(RecordType::SOA);
 
