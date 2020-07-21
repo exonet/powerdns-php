@@ -173,12 +173,15 @@ class Connector
     {
         $config = $this->powerdns->getConfig();
 
-        return sprintf(
-            '%s:%d/api/v1/servers/%s/%s',
-            $config['host'],
-            $config['port'],
-            $config['server'],
-            $path
+        return rtrim(
+            sprintf(
+                '%s:%d/api/v1/servers/%s/%s',
+                $config['host'],
+                $config['port'],
+                $config['server'],
+                $path
+            ),
+            '/'
         );
     }
 
