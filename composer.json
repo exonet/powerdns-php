@@ -25,7 +25,6 @@
         "psr/log": "^1.0"
     },
     "require-dev": {
-        "limedeck/phpunit-detailed-printer": "^4",
         "mockery/mockery": "^1.2",
         "phpunit/phpunit": "^7"
     },
@@ -38,9 +37,6 @@
         "psr-4": {
             "Exonet\\Powerdns\\": "tests"
         }
-    },
-    "scripts": {
-        "test": "phpunit"
     },
     "config": {
         "sort-packages": true
