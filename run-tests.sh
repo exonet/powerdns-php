@@ -54,8 +54,9 @@ else
     done
 fi
 
-echo "\n\nRESULTS"
+echo ""
+echo "RESULTS"
 echo "----------------------"
-echo $RESULTS
+printf "$RESULTS"
 
 exit $HAS_FAILED_TESTS

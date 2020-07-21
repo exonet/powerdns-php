@@ -12,7 +12,7 @@ class ValidateSOAIncrementTest extends FunctionalTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->canonicalName = 'soa-increment.'.time().'.test';
+        $this->canonicalName = 'soa-increment.'.date('YmdHis').'.test';
     }
 
     public function testCreateSoaIncrementZone(): void
@@ -28,8 +28,6 @@ class ValidateSOAIncrementTest extends FunctionalTestCase
      */
     public function testSoaIncrement(): void
     {
-        // Use sleep to give PowerDNS time to update the SOA record/zone.
-        sleep(1);
         $zone = $this->powerdns->zone($this->canonicalName);
         $soaData = $zone->get(RecordType::SOA);
 
