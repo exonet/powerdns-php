@@ -39,7 +39,7 @@ $cryptokeys->setActive(false, $cryptokeys->getKeys()[0]->getId());
 $cryptokeys->deleteInactive();
 
 // Only the second created cryptokey should be available:
-count($cryptokeys->getKeys()) === 1 ?: die('More than one key found!');
+count($cryptokeys->getKeys()) === 1 ?: exit('More than one key found!');
 
 // Disable all keys (and thus DNSSEC). By omitting ID(s), this action is applied to ALL keys:
 $cryptokeys->setActive(false);

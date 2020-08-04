@@ -77,7 +77,7 @@ class CliLogger extends AbstractLogger
         if (isset(self::$foreground_colors[$foreground_color])) {
             $colored_string .= "\033[".self::$foreground_colors[$foreground_color].'m';
         } else {
-            die($foreground_color.' not a valid color');
+            exit($foreground_color.' not a valid color');
         }
 
         if (is_array($background)) {
