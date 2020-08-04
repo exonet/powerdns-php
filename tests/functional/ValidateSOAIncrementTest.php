@@ -12,7 +12,7 @@ class ValidateSOAIncrementTest extends FunctionalTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->canonicalName = 'soa-increment.'.date('YmdHis').'.test';
+        $this->canonicalName = 'soa-increment.'.time().'.test';
     }
 
     public function testCreateSoaIncrementZone(): void
