@@ -6,7 +6,6 @@
         bootstrap="vendor/autoload.php"
         cacheTokens="false"
         colors="true"
-        printerClass="LimeDeck\Testing\Printer"
 >
     <testsuites>
         <testsuite name="PowerDNS API Client">

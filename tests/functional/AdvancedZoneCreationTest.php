@@ -2,15 +2,13 @@
 
 namespace Exonet\Powerdns\tests\functional;
 
-use Exonet\Powerdns\Powerdns;
+use Exonet\Powerdns\functional\FunctionalTestCase;
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
-use PHPUnit\Framework\TestCase;
 
-class AdvancedZoneCreationTest extends TestCase
+class AdvancedZoneCreationTest extends FunctionalTestCase
 {
     public function testCreateSoaIncrementZone(): void
     {
-        $powerdns = new Powerdns('127.0.0.1', 'apiKey');
         // Create a unique zone/domain name.
         $canonicalDomain = 'advanced-zone.'.time().'.test.';
 
@@ -26,10 +24,10 @@ class AdvancedZoneCreationTest extends TestCase
         $newZone->setNsec3param('1 0 100 1234567890');
 
         // Create a new zone with the defined records and name servers.
-        $powerdns->createZoneFromResource($newZone);
+        $this->powerdns->createZoneFromResource($newZone);
 
         // Get the zone and check the results.
-        $zone = $powerdns->zone($canonicalDomain);
+        $zone = $this->powerdns->zone($canonicalDomain);
         $zoneResource = $zone->resource();
         $this->assertSame($canonicalDomain, $zone->getCanonicalName());
         $this->assertSame($canonicalDomain, $zoneResource->getName());

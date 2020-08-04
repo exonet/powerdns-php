@@ -1,19 +1,7 @@
-dist: xenial
 language: php
 
 services:
-  - mysql
-
-env:
-  - PDNS_VERSION=41
-  - PDNS_VERSION=42
-  - PDNS_VERSION=43
-
-php:
-  - 7.1
-  - 7.2
-  - 7.3
-  - 7.4
+  - docker
 
 cache:
   directories:
@@ -21,12 +9,14 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-  - mysql -e 'CREATE DATABASE powerdns;'
-  - if [[ "$PDNS_VERSION" == "41" ]]; then mysql -u root powerdns < .travis/pdns-41.sql; fi
-  - if [[ "$PDNS_VERSION" == "42" ]]; then mysql -u root powerdns < .travis/pdns-42.sql; fi
-  - if [[ "$PDNS_VERSION" == "43" ]]; then mysql -u root powerdns < .travis/pdns-43.sql; fi
+  - docker-compose up -d
+  - docker pull php:7.1-cli
+  - docker pull php:7.2-cli
+  - docker pull php:7.3-cli
+  - docker pull php:7.4-cli
 
 install:
-  - sudo ./.travis/install-pdns.sh
   - composer install
 
+script:
+  - ./run-tests.sh

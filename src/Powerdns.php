@@ -12,7 +12,7 @@ class Powerdns
     /**
      * The version of this package. This is being used for the user-agent header.
      */
-    public const CLIENT_VERSION = 'v1.0.1';
+    public const CLIENT_VERSION = 'v2.4.0';
 
     /**
      * @var Powerdns The client instance.
@@ -213,6 +213,16 @@ class Powerdns
     public function cryptokeys(string $canonicalDomain): Cryptokey
     {
         return new Cryptokey($this->connector, $canonicalDomain);
+    }
+
+    /**
+     * Get the PowerDNS server version.
+     *
+     * @return string The server version.
+     */
+    public function serverVersion(): string
+    {
+        return $this->connector->get('/')['version'];
     }
 
     /**

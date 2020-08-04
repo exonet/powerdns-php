@@ -41,8 +41,22 @@ See the [examples](examples) directory for more.
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Testing
+Testing against multiple PHP / PowerDNS versions can be done by using the provided `docker-compose.yml` and the
+`run-tests.sh` shell script:
+
 ``` bash
-$ composer test
+$ docker-compose up -d
+$ ./run-tests.sh
+```
+
+After running `docker-compose up -d` wait a few seconds so PowerDNS can be initialized. You can leave the containers
+running and call the test script multiple times.
+
+To test against a specific PHP / PowerDNS combination, you can provide the PHP version as first and the PowerDNS
+version as second parameter:
+
+```bash
+$ ./run-tests.sh 7.4 4.3
 ```
 
 ## Contributing

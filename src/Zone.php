@@ -168,6 +168,18 @@ class Zone extends AbstractZone
     }
 
     /**
+     * Get the zone in AXFR format.
+     *
+     * @return string The zone in AXFR format.
+     */
+    public function export(): string
+    {
+        $result = $this->connector->get($this->getZonePath('/export'));
+
+        return $result['zone'];
+    }
+
+    /**
      * Set an NSEC3PARAM for this zone, and save it.
      *
      * @param string $nsec3param The NSEC3PARAM value to set.
