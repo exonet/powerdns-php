@@ -7,7 +7,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## Unreleased
 [Compare v2.4.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.4.0...develop)
 
-## [v2.4.0](https://github.com/exonet/powerdns-php/releases/tag/v2.4.0) - 2020-07-23
+## [v2.4.0](https://github.com/exonet/powerdns-php/releases/tag/v2.4.0) - 2020-08-04
 ### Added
 - Export a zone in AXFR format. (#35)
 - Get the zone from a ResourceRecord. (#40)
