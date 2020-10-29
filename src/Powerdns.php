@@ -216,6 +216,16 @@ class Powerdns
     }
 
     /**
+     * Query PowerDNS internal statistics.
+     *
+     * @return mixed[]
+     */
+    public function statistics(): array
+    {
+        return $this->connector->get('statistics');
+    }
+
+    /**
      * Get the PowerDNS server version.
      *
      * @return string The server version.

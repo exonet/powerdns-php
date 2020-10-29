@@ -35,6 +35,23 @@ class PowerdnsTest extends TestCase
         $this->assertSame('test-key', $config['apiKey']);
     }
 
+    public function testStatistics(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('get')->withArgs(['statistics'])->once()->andReturn($example = [
+            [
+                'name' => 'corrupt-packets',
+                'type' => 'StatisticItem',
+                'value' => 0,
+            ],
+        ]);
+
+        $powerDns = new Powerdns(null, null, null, null, $connector);
+        $stats = $powerDns->statistics();
+
+        self::assertEquals($example, $stats);
+    }
+
     public function testZone(): void
     {
         $connector = Mockery::mock(Connector::class);
