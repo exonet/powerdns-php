@@ -38,7 +38,7 @@ class PowerdnsTest extends TestCase
     public function testStatistics(): void
     {
         $connector = Mockery::mock(Connector::class);
-        $connector->shouldReceive('get')->withArgs(['statistics'])->once()->andReturn($example = [
+        $connector->shouldReceive('get')->withArgs(['statistics?includerings=false'])->once()->andReturn($example = [
             [
                 'name' => 'corrupt-packets',
                 'type' => 'StatisticItem',
@@ -48,6 +48,23 @@ class PowerdnsTest extends TestCase
 
         $powerDns = new Powerdns(null, null, null, null, $connector);
         $stats = $powerDns->statistics();
+
+        self::assertEquals($example, $stats);
+    }
+
+    public function testStatisticsWithParams(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('get')->withArgs(['statistics?includerings=true&statistic=corrupt-packets'])->once()->andReturn($example = [
+            [
+                'name' => 'corrupt-packets',
+                'type' => 'StatisticItem',
+                'value' => 0,
+            ],
+        ]);
+
+        $powerDns = new Powerdns(null, null, null, null, $connector);
+        $stats = $powerDns->statistics('corrupt-packets', true);
 
         self::assertEquals($example, $stats);
     }
