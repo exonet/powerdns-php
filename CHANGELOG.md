@@ -5,7 +5,11 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v2.4.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.4.0...develop)
+[Compare v2.5.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.5.0...develop)
+
+## [v2.5.0](https://github.com/exonet/powerdns-php/releases/tag/v2.5.0) - 2020-10-30
+### Added
+- Get PowerDNS statistics.
 
 ## [v2.4.0](https://github.com/exonet/powerdns-php/releases/tag/v2.4.0) - 2020-08-04
 ### Added
