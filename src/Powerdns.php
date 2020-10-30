@@ -216,6 +216,33 @@ class Powerdns
     }
 
     /**
+     * Query PowerDNS internal statistics.
+     * The ring statistics are disabled by default to speedup the request and reduce the response size.
+     *
+     * The $statistics and $includeRings parameters are supported in PowerDNS 4.3 and newer.
+     * On older PowerDNS instances these parameters are ignored.
+     *
+     * @param null|string $statistic    Optional name of a specific statistic to get.
+     * @param bool        $includeRings Include ring statistics or not.
+     *
+     * @return array An array with statistics.
+     */
+    public function statistics($statistic = null, $includeRings = false): array
+    {
+        // Convert $includeRings param to string.
+        $includeRings = $includeRings ? 'true' : 'false';
+
+        $endpoint = 'statistics?includerings='.$includeRings;
+
+        // Request a specific statistic.
+        if ($statistic) {
+            $endpoint .= '&statistic='.$statistic;
+        }
+
+        return $this->connector->get($endpoint);
+    }
+
+    /**
      * Get the PowerDNS server version.
      *
      * @return string The server version.
