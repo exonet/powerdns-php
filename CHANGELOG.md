@@ -13,10 +13,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 - The `account` is send to PowerDNS when creating zone.
 
 ## [v2.5.0](https://github.com/exonet/powerdns-php/releases/tag/v2.5.0) - 2020-10-30
+[Compare v2.4.0 - v2.5.0](https://github.com/exonet/powerdns-php/compare/v2.4.0...v2.5.0)
 ### Added
 - Get PowerDNS statistics.
 
 ## [v2.4.0](https://github.com/exonet/powerdns-php/releases/tag/v2.4.0) - 2020-08-04
+[Compare v2.3.1 - v2.4.0](https://github.com/exonet/powerdns-php/compare/v2.3.1...v2.4.0)
 ### Added
 - Export a zone in AXFR format. (#35)
 - Get the zone from a ResourceRecord. (#40)
@@ -30,6 +32,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 - `$resouceRecord->getComments()` no longer throws an exception if there are no comments. (#38)
 
 ## [v2.3.1](https://github.com/exonet/powerdns-php/releases/tag/v2.3.1) - 2020-05-12
+[Compare v2.3.0 - v2.3.1](https://github.com/exonet/powerdns-php/compare/v2.3.0...v2.3.1)
 ### Fixed
 - No longer throw an exception when throwing an exception if the response body is not an error. (#32)
 
