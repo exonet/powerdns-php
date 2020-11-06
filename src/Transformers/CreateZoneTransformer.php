@@ -19,6 +19,7 @@ class CreateZoneTransformer extends Transformer
             'masters' => $this->data->getMasters(),
             'nameservers' => $this->data->getNameservers(),
             'nsec3param' => $this->data->getNsec3param(),
+            'account' => $this->data->getAccount(),
         ];
     }
 }
