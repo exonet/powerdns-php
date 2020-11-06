@@ -10,7 +10,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## [v2.5.1](https://github.com/exonet/powerdns-php/releases/tag/v2.5.1) - 2020-11-06
 [Compare v2.5.0 - v2.5.1](https://github.com/exonet/powerdns-php/compare/v2.5.0...v2.5.1)
 ### Fixed
-- The `account` is send to PowerDNS when creating zone.
+- The `account` is send to PowerDNS when creating a zone. (#47)
 
 ## [v2.5.0](https://github.com/exonet/powerdns-php/releases/tag/v2.5.0) - 2020-10-30
 [Compare v2.4.0 - v2.5.0](https://github.com/exonet/powerdns-php/compare/v2.4.0...v2.5.0)
