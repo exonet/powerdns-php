@@ -5,7 +5,12 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v2.5.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.5.0...develop)
+[Compare v2.5.1 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.5.1...develop)
+
+## [v2.5.1](https://github.com/exonet/powerdns-php/releases/tag/v2.5.1) - 2020-11-06
+[Compare v2.5.0 - v2.5.1](https://github.com/exonet/powerdns-php/compare/v2.5.0...v2.5.1)
+### Fixed
+- The `account` is send to PowerDNS when creating zone.
 
 ## [v2.5.0](https://github.com/exonet/powerdns-php/releases/tag/v2.5.0) - 2020-10-30
 ### Added
