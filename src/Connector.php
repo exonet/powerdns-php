@@ -123,7 +123,7 @@ class Connector
         $stream = $payload !== null ? \GuzzleHttp\Psr7\stream_for($payload) : null;
         $request = new Request($method, $url, $headers, $stream);
 
-        $response = $this->httpClient->send($request);
+        $response = $this->httpClient->send($request, ['http_errors' => false]);
 
         return $this->parseResponse($response);
     }
