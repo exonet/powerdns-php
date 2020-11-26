@@ -138,6 +138,15 @@ class RecordType
     public const LOC = 'LOC';
 
     /**
+     * PowerDNS specific record.
+     *
+     * These records contain small snippets of configuration that enable dynamic behaviour based on
+     * requester IP address, requester’s EDNS Client Subnet, server availability or other factors.
+     * https://doc.powerdns.com/authoritative/lua-records/index.html
+     */
+    public const LUA = 'LUA';
+
+    /**
      * Mail exchange record.
      *
      * Maps a domain name to a list of message transfer agents for that domain.
