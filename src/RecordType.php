@@ -138,7 +138,7 @@ class RecordType
     public const LOC = 'LOC';
 
     /**
-     * PowerDNS specific record
+     * PowerDNS specific record.
      *
      * These records contain small snippets of configuration that enable dynamic behaviour based on
      * requester IP address, requester’s EDNS Client Subnet, server availability or other factors.
