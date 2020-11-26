@@ -5,7 +5,12 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v2.5.1 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.5.1...develop)
+[Compare v2.5.2 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.5.2...develop)
+
+## [v2.5.2](https://github.com/exonet/powerdns-php/releases/tag/v2.5.2) - 2020-11-26
+[Compare v2.5.1 - v2.5.2](https://github.com/exonet/powerdns-php/compare/v2.5.1...v2.5.2)
+### Added
+- The `LUA` record type. (#53)
 
 ## [v2.5.1](https://github.com/exonet/powerdns-php/releases/tag/v2.5.1) - 2020-11-06
 [Compare v2.5.0 - v2.5.1](https://github.com/exonet/powerdns-php/compare/v2.5.0...v2.5.1)
