@@ -275,7 +275,7 @@ class Powerdns
         );
 
         $searchResults = [];
-        foreach($response as $resultItem) {
+        foreach ($response as $resultItem) {
             $searchResults[] = new SearchResult($resultItem);
         }
 
