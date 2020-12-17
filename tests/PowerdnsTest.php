@@ -131,4 +131,41 @@ class PowerdnsTest extends TestCase
             $this->assertInstanceOf(Zone::class, $zone);
         }
     }
+
+    public function testSearch(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector
+            ->shouldReceive('get')
+            ->withArgs(['search-data?q=search+str%C3%AFng%26more&max=1337&object_type=zone'])
+            ->once()
+            ->andReturn(
+                [
+                    [
+                        'content' => 'test content',
+                        'disabled' => false,
+                        'name' => 'test name',
+                        'object_type' => 'zone',
+                        'zone_id' => 'zone.test.',
+                        'zone' => 'zone.test.',
+                        'type' => 'zone type',
+                        'ttl' => 1234,
+                    ],
+                ]
+            );
+
+        $powerDns = new Powerdns(null, null, null, null, $connector);
+
+        $searchResults = $powerDns->search('search strïng&more', 1337, 'zone');
+
+        $this->assertSame(1, $searchResults->count());
+        $this->assertSame('test content', $searchResults[0]->getContent());
+        $this->assertFalse($searchResults[0]->isDisabled());
+        $this->assertSame('test name', $searchResults[0]->getName());
+        $this->assertSame('zone', $searchResults[0]->getObjectType());
+        $this->assertSame('zone.test.', $searchResults[0]->getZoneId());
+        $this->assertSame('zone.test.', $searchResults[0]->getZone());
+        $this->assertSame('zone type', $searchResults[0]->getType());
+        $this->assertSame(1234, $searchResults[0]->getTtl());
+    }
 }

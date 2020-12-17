@@ -6,6 +6,9 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 [Compare v2.5.2 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.5.2...develop)
+### Added
+- Support for PHP 8. (@akondas #54)
+- Support for the PowerDNS search endpoint. (#51)
 
 ## [v2.5.2](https://github.com/exonet/powerdns-php/releases/tag/v2.5.2) - 2020-11-26
 [Compare v2.5.1 - v2.5.2](https://github.com/exonet/powerdns-php/compare/v2.5.1...v2.5.2)
