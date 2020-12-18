@@ -79,14 +79,14 @@ class Connector
     /**
      * Perform a PUT request and return the parsed body as response.
      *
-     * @param string      $urlPath The URL path.
-     * @param Transformer $payload The payload to put.
+     * @param string           $urlPath The URL path.
+     * @param Transformer|null $payload The payload to put.
      *
      * @return mixed[] The response body.
      */
-    public function put(string $urlPath, Transformer $payload): array
+    public function put(string $urlPath, Transformer $payload = null): array
     {
-        return $this->makeCall('PUT', $urlPath, json_encode($payload->transform()));
+        return $this->makeCall('PUT', $urlPath, $payload !== null ? json_encode($payload->transform()) : null);
     }
 
     /**

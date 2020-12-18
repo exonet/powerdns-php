@@ -200,6 +200,22 @@ class Zone extends AbstractZone
     }
 
     /**
+     * Send a DNS notify to all the slaves
+     *
+     * @return bool True when the DNS notify was successfully sent
+     */
+    public function notify(): bool
+    {
+        $result = $this->connector->put($this->getZonePath('/notify'));
+
+        /*
+         * The notify PUT request will return an 200 with no body, so the $result is empty. If this is the case, the PUT was
+         * successful. If there was an error, an exception will be thrown.
+         */
+        return empty($result);
+    }
+
+    /**
      * Enable DNSSEC for this zone.
      *
      * @return bool True when enabled.
