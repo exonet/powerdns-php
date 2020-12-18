@@ -200,7 +200,7 @@ class Zone extends AbstractZone
     }
 
     /**
-     * Send a DNS notify to all the slaves
+     * Send a DNS notify to all the slaves.
      *
      * @return bool True when the DNS notify was successfully sent
      */
