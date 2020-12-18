@@ -119,4 +119,13 @@ class ZoneTest extends TestCase
         $zone = new Zone($connector, 'test.nl');
         $this->assertSame('test.nl'.'.', $zone->getCanonicalName());
     }
+
+    public function testNotify(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('put')->withArgs(['zones/test.nl./notify'])->once()->andReturn([]);
+
+        $zone = new Zone($connector, 'test.nl');
+        $this->assertTrue($zone->notify());
+    }
 }

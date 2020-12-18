@@ -79,9 +79,7 @@ class SearchResultSet implements IteratorAggregate, ArrayAccess
      */
     public function map(Closure $closure): self
     {
-        foreach ($this->searchResults as $index => $resource) {
-            $this->searchResults[$index] = $closure($resource, $index);
-        }
+        $this->searchResults = array_map($closure, $this->searchResults);
 
         return $this;
     }

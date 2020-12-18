@@ -5,7 +5,7 @@ namespace Exonet\Powerdns\Resources;
 class SearchResult
 {
     /**
-     * @var string The contents.
+     * @var string The content.
      */
     private $content;
 

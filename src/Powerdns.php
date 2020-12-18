@@ -251,7 +251,7 @@ class Powerdns
      *
      * @param string $query The string to search for.
      * @param int    $size  The maximum number of returned results.
-     * @param string $type  The search type. can be 'all', 'zone', 'record' or 'comment'.
+     * @param string $type  The search type. Can be 'all', 'zone', 'record' or 'comment'.
      *
      * @return SearchResultSet A collection with search results.
      */
@@ -274,10 +274,7 @@ class Powerdns
             )
         );
 
-        $searchResults = [];
-        foreach ($response as $resultItem) {
-            $searchResults[] = new SearchResult($resultItem);
-        }
+        $searchResults = array_map(static function ($item) { return new SearchResult($item); }, $response);
 
         return new SearchResultSet($searchResults);
     }
