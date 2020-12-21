@@ -5,7 +5,14 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v2.5.2 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.5.2...develop)
+[Compare v2.6.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.6.0...develop)
+
+## [v2.6.0](https://github.com/exonet/powerdns-php/releases/tag/v2.6.0) - 2020-12-21
+[Compare v2.5.2 - v2.6.0](https://github.com/exonet/powerdns-php/compare/v2.5.2...v2.6.0)
+### Added
+- Support for PHP 8. (@akondas #54)
+- Support for the PowerDNS search endpoint. (#51)
+- The `notify` method on a zone. (@frankvanhest #56)
 
 ## [v2.5.2](https://github.com/exonet/powerdns-php/releases/tag/v2.5.2) - 2020-11-26
 [Compare v2.5.1 - v2.5.2](https://github.com/exonet/powerdns-php/compare/v2.5.1...v2.5.2)

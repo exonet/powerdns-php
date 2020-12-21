@@ -2,8 +2,11 @@
 
 namespace Exonet\Powerdns;
 
+use Exonet\Powerdns\Resources\SearchResult;
+use Exonet\Powerdns\Resources\SearchResultSet;
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
 use Exonet\Powerdns\Transformers\CreateZoneTransformer;
+use LogicException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -240,6 +243,40 @@ class Powerdns
         }
 
         return $this->connector->get($endpoint);
+    }
+
+    /**
+     * Search for the specified string in zones, records, comments or in all three. The * character can be used in the
+     * query as a wildcard character and the ? character can be used as a wildcard for a single character.
+     *
+     * @param string $query The string to search for.
+     * @param int    $size  The maximum number of returned results.
+     * @param string $type  The search type. Can be 'all', 'zone', 'record' or 'comment'.
+     *
+     * @return SearchResultSet A collection with search results.
+     */
+    public function search(string $query, int $size = 100, string $type = 'all'): SearchResultSet
+    {
+        if (!in_array($type, ['all', 'zone', 'record', 'comment'])) {
+            throw new LogicException('Invalid search type given. Type must be one of "all", "zone", "record" or "comment".');
+        }
+
+        if ($size < 1) {
+            throw new LogicException('Invalid search size given. Must be at least 1.');
+        }
+
+        $response = $this->connector->get(
+            sprintf(
+                'search-data?q=%s&max=%d&object_type=%s',
+                urlencode($query),
+                $size,
+                $type
+            )
+        );
+
+        $searchResults = array_map(static function ($item) { return new SearchResult($item); }, $response);
+
+        return new SearchResultSet($searchResults);
     }
 
     /**
