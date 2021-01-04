@@ -5,7 +5,17 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v2.6.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v2.6.0...develop)
+[Compare v3.0.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.0.0...develop)
+
+## [v3.0.0](https://github.com/exonet/powerdns-php/releases/tag/v3.0.0) - 2021-05-05
+[Compare v2.6.0 - v3.0.0](https://github.com/exonet/powerdns-php/compare/v2.6.0...v3.0.0)
+### Breaking
+- Dropped support for unsupported PHP versions. PHP 7.3 (or newer) is now required.
+
+### Changed
+- Updated Guzzle to 7.2. (@itspluxstahre #50)
+- Updated PHPUnit to 9.5.0.
+- When running tests a `composer update` will be executed for each environment to validate the packages/config for the specified PHP version.
 
 ## [v2.6.0](https://github.com/exonet/powerdns-php/releases/tag/v2.6.0) - 2020-12-21
 [Compare v2.5.2 - v2.6.0](https://github.com/exonet/powerdns-php/compare/v2.5.2...v2.6.0)
