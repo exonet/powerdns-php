@@ -7,7 +7,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## Unreleased
 [Compare v3.0.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.0.0...develop)
 
-## [v3.0.0](https://github.com/exonet/powerdns-php/releases/tag/v3.0.0) - 2021-05-05
+## [v3.0.0](https://github.com/exonet/powerdns-php/releases/tag/v3.0.0) - 2021-01-05
 [Compare v2.6.0 - v3.0.0](https://github.com/exonet/powerdns-php/compare/v2.6.0...v3.0.0)
 ### Breaking
 - Dropped support for unsupported PHP versions. PHP 7.3 (or newer) is now required.
