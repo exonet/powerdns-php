@@ -19,14 +19,14 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": "^7.3|^8.0",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^7.2",
         "psr/log": "^1.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.2",
-        "phpunit/phpunit": "^7"
+        "phpunit/phpunit": "^9"
     },
     "autoload": {
         "psr-4": {
@@ -39,7 +39,6 @@
         }
     },
     "config": {
-        "sort-packages": true,
-        "platform-check": false
+        "sort-packages": true
     }
 }
