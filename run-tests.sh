@@ -1,3 +1,5 @@
+#!/bin/bash
+
 bold=$(tput bold)
 red=$(tput setaf 1)
 green=$(tput setaf 2)
@@ -5,7 +7,7 @@ normal=$(tput sgr0)
 RESULTS=""
 HAS_FAILED_TESTS=0
 
-function run() {
+run() {
     PHP_VERSION=$1
     PDNS_VERSION=$2
     SHORT_PDNS=${PDNS_VERSION//./}
@@ -23,9 +25,10 @@ function run() {
         -e PDNS_HOST="http://pdns" \
         --net powerdns-php_default \
         -v "$PWD":/usr/src \
+        -v "$PWD"/composer.phar:/usr/src/composer.phar \
         -w /usr/src/ \
         php:"$PHP_VERSION"-cli \
-        php ./vendor/bin/phpunit
+        bash -c './composer.phar -n update && php ./vendor/bin/phpunit'
 
     if [ $? -eq 0 ]; then
         RESULTS="$RESULTS\n${green}✓ PHP $PHP_VERSION / PDNS: $PDNS_VERSION"
@@ -41,12 +44,17 @@ function run() {
 SET_PHP_VERSION=$1
 SET_PDNS_VERSION=$2
 
+# Grab the most recent stable composer.
+rm -f composer.phar
+curl -L -sS https://getcomposer.org/composer-stable.phar -o composer.phar
+chmod +x composer.phar
+
 # If both arguments are given, only run that combo.
 if [ "$#" -eq 2 ]; then
     run "$SET_PHP_VERSION" "$SET_PDNS_VERSION"
 else
     # Run tests for all supported PHP 7 / PowerDNS 4 combinations.
-    for phpversion in {1..4}; do
+    for phpversion in {3..4}; do
         for pdnsversion in {1..3}; do
             run "7.$phpversion" "4.$pdnsversion"
         done

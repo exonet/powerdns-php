@@ -1,4 +1,6 @@
 language: php
+php:
+    - 7.3
 
 services:
   - docker
@@ -10,14 +12,12 @@ cache:
 
 before_install:
   - docker-compose up -d
-  - docker pull php:7.1-cli
-  - docker pull php:7.2-cli
   - docker pull php:7.3-cli
   - docker pull php:7.4-cli
   - docker pull php:8.0-cli
 
 install:
-  - composer install
+  - composer update
 
 script:
   - ./run-tests.sh
