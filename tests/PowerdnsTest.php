@@ -101,7 +101,7 @@ class PowerdnsTest extends TestCase
     public function testListZones(string $dnssecArgument, bool $listZonesArgument): void
     {
         $connector = Mockery::mock(Connector::class);
-        $connector->shouldReceive('get')->withArgs(['zones?dnssec=' . $dnssecArgument])->once()->andReturn(
+        $connector->shouldReceive('get')->withArgs(['zones?dnssec='.$dnssecArgument])->once()->andReturn(
             [
                 [
                     'account' => '',

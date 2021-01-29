@@ -195,7 +195,9 @@ class Powerdns
      * Retrieve all zones.
      *
      * @param bool $omitDnssecAndEditedSerialFields When set to true dnssec and edited_serial are omitted
+     *
      * @return Zone[] Array containing the zones
+     *
      * @link https://doc.powerdns.com/authoritative/http-api/zone.html#get--servers-server_id-zones
      */
     public function listZones(bool $omitDnssecAndEditedSerialFields = false): array
@@ -204,7 +206,7 @@ class Powerdns
             function (array $args) {
                 return new Zone($this->connector, $args['id']);
             },
-            $this->connector->get('zones?dnssec=' . ($omitDnssecAndEditedSerialFields ? 'true': 'false'))
+            $this->connector->get('zones?dnssec='.($omitDnssecAndEditedSerialFields ? 'true': 'false'))
         );
     }
 
