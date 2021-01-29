@@ -206,7 +206,7 @@ class Powerdns
             function (array $args) {
                 return new Zone($this->connector, $args['id']);
             },
-            $this->connector->get('zones?dnssec='.($omitDnssecAndEditedSerialFields ? 'true': 'false'))
+            $this->connector->get('zones?dnssec='.($omitDnssecAndEditedSerialFields ? 'true' : 'false'))
         );
     }
 
