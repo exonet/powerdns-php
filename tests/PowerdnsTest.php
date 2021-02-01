@@ -90,10 +90,18 @@ class PowerdnsTest extends TestCase
         $this->assertTrue($powerDns->deleteZone('test.nl.'));
     }
 
-    public function testListZones(): void
+    public function listZonesArgumentDataProvider(): array
+    {
+        return [['true', true], ['false', false]];
+    }
+
+    /**
+     * @dataProvider listZonesArgumentDataProvider
+     */
+    public function testListZones(string $dnssecArgument, bool $listZonesArgument): void
     {
         $connector = Mockery::mock(Connector::class);
-        $connector->shouldReceive('get')->withArgs(['zones'])->once()->andReturn(
+        $connector->shouldReceive('get')->withArgs(['zones?dnssec='.$dnssecArgument])->once()->andReturn(
             [
                 [
                     'account' => '',
@@ -124,7 +132,7 @@ class PowerdnsTest extends TestCase
 
         $powerDns = new Powerdns(null, null, null, null, $connector);
 
-        $response = $powerDns->listZones();
+        $response = $powerDns->listZones($listZonesArgument);
         $this->assertIsArray($response);
         $this->assertCount(2, $response);
         foreach ($response as $zone) {
