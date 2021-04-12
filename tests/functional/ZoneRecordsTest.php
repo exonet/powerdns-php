@@ -79,7 +79,6 @@ class ZoneRecordsTest extends FunctionalTestCase
                         $content = str_replace(date('Ymd').'01', '0', $content);
                     }
 
-
                     $name = rtrim(str_replace($this->canonicalName, '', $item->getName()), '.');
                     $createdRecords[] = [
                         'name' => $name === '' ? '@' : $name,

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Exonet\Powerdns\tests;
 
 use Exonet\Powerdns\Helper;
@@ -42,7 +41,7 @@ class HelperTest extends TestCase
 
     public function testWithApiResponse(): void
     {
-        foreach(ZoneTest::API_RESPONSE['rrsets'] as $rrset) {
+        foreach (ZoneTest::API_RESPONSE['rrsets'] as $rrset) {
             $results[] = Helper::createResourceRecord('test.nl.', $rrset);
         }
 

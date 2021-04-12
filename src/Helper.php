@@ -10,16 +10,16 @@ class Helper
     /**
      * Make a new resource record based on the arguments or an array with data.
      *
-     * @param string|array $name The resource record name or an array with the data.
-     * @param string       $type The type of the resource record.
+     * @param string|array $name    The resource record name or an array with the data.
+     * @param string       $type    The type of the resource record.
      * @param string       $content The content of the resource record.
-     * @param int          $ttl The TTL.
+     * @param int          $ttl     The TTL.
      *
      * @throws Exceptions\InvalidRecordType If the given type is invalid.
      *
      * @return ResourceRecord The constructed ResourceRecord.
      */
-    static function createResourceRecord(
+    public static function createResourceRecord(
         string $zoneName,
         $name,
         string $type = '',
