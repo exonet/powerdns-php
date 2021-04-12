@@ -2,7 +2,6 @@
 
 namespace Exonet\Powerdns;
 
-use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
 use Exonet\Powerdns\Transformers\DnssecTransformer;
@@ -50,6 +49,8 @@ class Zone extends AbstractZone
     public function patch(array $resourceRecords): bool
     {
         $result = $this->connector->patch($this->getZonePath(), new RRSetTransformer($resourceRecords));
+        // Invalidate the resource.
+        $this->zoneResource = null;
 
         /*
          * The PATCH request will return an 204 No Content, so the $result is empty. If this is the case, the PATCH was
@@ -68,6 +69,8 @@ class Zone extends AbstractZone
     public function put(Transformer $transformer): bool
     {
         $result = $this->connector->put($this->getZonePath(), $transformer);
+        // Invalidate the resource.
+        $this->zoneResource = null;
 
         /*
          * The PUT request will return an 204 No Content, so the $result is empty. If this is the case, the PUT was
@@ -86,12 +89,11 @@ class Zone extends AbstractZone
      */
     public function get(?string $recordType = null): ResourceSet
     {
-        $records = $this->connector->get($this->getZonePath());
         $resourceSet = new ResourceSet($this);
 
-        foreach ($records['rrsets'] as $rrset) {
-            if ($recordType === null || $rrset['type'] === $recordType) {
-                $resourceSet->addResource((new ResourceRecord())->setZone($this)->setApiResponse($rrset));
+        foreach ($this->resource()->getResourceRecords() as $rrset) {
+            if ($recordType === null || $rrset->getType() === $recordType) {
+                $resourceSet->addResource($rrset->setZone($this));
             }
         }
 
@@ -139,32 +141,7 @@ class Zone extends AbstractZone
      */
     public function make(string $name, string $type, $content, int $ttl): ResourceRecord
     {
-        $name = str_replace('@', $this->zone, $name);
-
-        // If the name of the record doesn't end in the zone name, append the zone name to it.
-        if (substr($name, -strlen($this->zone)) !== $this->zone) {
-            $name = sprintf('%s.%s', $name, $this->zone);
-        }
-
-        $resourceRecord = new ResourceRecord();
-        $resourceRecord
-            ->setChangeType('replace')
-            ->setName($name)
-            ->setType($type)
-            ->setTtl($ttl);
-
-        if (is_string($content)) {
-            $content = [$content];
-        }
-
-        $recordList = [];
-        foreach ($content as $record) {
-            $recordList[] = (new Record())->setContent($record);
-        }
-
-        $resourceRecord->setRecords($recordList);
-
-        return $resourceRecord;
+        return Helper::createResourceRecord($this->zone, compact('name', 'type', 'content', 'ttl'));
     }
 
     /**
