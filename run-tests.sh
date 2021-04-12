@@ -27,8 +27,8 @@ run() {
         -v "$PWD":/usr/src \
         -v "$PWD"/composer.phar:/usr/src/composer.phar \
         -w /usr/src/ \
-        php:"$PHP_VERSION"-cli \
-        bash -c './composer.phar -n update && php ./vendor/bin/phpunit'
+        php:"$PHP_VERSION"-alpine \
+        ash -c './composer.phar -n update && php ./vendor/bin/phpunit'
 
     if [ $? -eq 0 ]; then
         RESULTS="$RESULTS\n${green}✓ PHP $PHP_VERSION / PDNS: $PDNS_VERSION"
