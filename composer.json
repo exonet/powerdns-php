@@ -35,7 +35,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Exonet\\Powerdns\\": "tests"
+            "Exonet\\Powerdns\\tests\\": "tests"
         }
     },
     "config": {
