@@ -6,6 +6,11 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 [Compare v3.1.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.1.0...develop)
+### Added
+- It is now possible to set/get resource records to a zone resource. See the `examples/new_domain_from_zone_resource.php` example.
+
+### Changed
+- The internals of getting ResourceSets. Previously a GET request was made to get the resource sets, now the zone resource is being used which already contains all resource sets.
 
 ## [v3.1.0](https://github.com/exonet/powerdns-php/releases/tag/v3.1.0) - 2021-02-01
 [Compare v3.0.0 - v3.1.0](https://github.com/exonet/powerdns-php/compare/v2.0.0...v3.1.0)
