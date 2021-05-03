@@ -15,7 +15,7 @@ class Powerdns
     /**
      * The version of this package. This is being used for the user-agent header.
      */
-    public const CLIENT_VERSION = 'v2.4.0';
+    public const CLIENT_VERSION = 'v3.1.0';
 
     /**
      * @var Powerdns The client instance.
@@ -194,15 +194,19 @@ class Powerdns
     /**
      * Retrieve all zones.
      *
+     * @param bool $omitDnssecAndEditedSerialFields When set to true dnssec and edited_serial are omitted
+     *
      * @return Zone[] Array containing the zones
+     *
+     * @link https://doc.powerdns.com/authoritative/http-api/zone.html#get--servers-server_id-zones
      */
-    public function listZones(): array
+    public function listZones(bool $omitDnssecAndEditedSerialFields = false): array
     {
         return array_map(
             function (array $args) {
                 return new Zone($this->connector, $args['id']);
             },
-            $this->connector->get('zones')
+            $this->connector->get('zones?dnssec='.($omitDnssecAndEditedSerialFields ? 'true' : 'false'))
         );
     }
 

@@ -5,7 +5,12 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v3.0.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.0.0...develop)
+[Compare v3.1.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.1.0...develop)
+
+## [v3.1.0](https://github.com/exonet/powerdns-php/releases/tag/v3.1.0) - 2021-02-01
+[Compare v3.0.0 - v3.1.0](https://github.com/exonet/powerdns-php/compare/v2.0.0...v3.1.0)
+### Added
+- The `omitDnssecAndEditedSerialFields` parameter in `listZones`. (@frankvanhest - #61)
 
 ## [v3.0.0](https://github.com/exonet/powerdns-php/releases/tag/v3.0.0) - 2021-01-05
 [Compare v2.6.0 - v3.0.0](https://github.com/exonet/powerdns-php/compare/v2.6.0...v3.0.0)
