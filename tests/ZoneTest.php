@@ -3,6 +3,7 @@
 namespace Exonet\Powerdns\tests;
 
 use Exonet\Powerdns\Connector;
+use Exonet\Powerdns\Resources\Zone as ZoneResource;
 use Exonet\Powerdns\Transformers\RRSetTransformer;
 use Exonet\Powerdns\Zone;
 use Mockery;
@@ -118,6 +119,36 @@ class ZoneTest extends TestCase
         $connector = Mockery::mock(Connector::class);
         $zone = new Zone($connector, 'test.nl');
         $this->assertSame('test.nl'.'.', $zone->getCanonicalName());
+    }
+
+    public function testSetNsec3param(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('put')->withArgs(['zones/test.nl.', Mockery::on(function ($transformer) {
+            $transformed = $transformer->transform();
+            $this->assertSame('1 0 0 f00bar', $transformed->nsec3param);
+
+            return true;
+        })])->once()->andReturn([]);
+        $zone = Mockery::mock(Zone::class.'[resource]', [$connector, 'test.nl'])->makePartial();
+        $zone->shouldReceive('resource')->withNoArgs()->once()->andReturn(new ZoneResource());
+
+        $zone->setNsec3param('1 0 0 f00bar');
+    }
+
+    public function testSetEmptyNsec3param(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('put')->withArgs(['zones/test.nl.', Mockery::on(function ($transformer) {
+            $transformed = $transformer->transform();
+            $this->assertNull($transformed->nsec3param);
+
+            return true;
+        })])->once()->andReturn([]);
+        $zone = Mockery::mock(Zone::class.'[resource]', [$connector, 'test.nl'])->makePartial();
+        $zone->shouldReceive('resource')->withNoArgs()->once()->andReturn(new ZoneResource());
+
+        $zone->setNsec3param(null);
     }
 
     public function testNotify(): void

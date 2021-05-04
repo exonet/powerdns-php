@@ -182,7 +182,7 @@ class Zone extends AbstractZone
     /**
      * Set an NSEC3PARAM for this zone, and save it.
      *
-     * @param string $nsec3param The NSEC3PARAM value to set.
+     * @param string|null $nsec3param The NSEC3PARAM value to set.
      *
      * @throws InvalidNsec3Param If the hash algorithm is invalid.
      * @throws InvalidNsec3Param If the flags parameter is invalid.
@@ -191,7 +191,7 @@ class Zone extends AbstractZone
      *
      * @return bool True when updated.
      */
-    public function setNsec3param($nsec3param): bool
+    public function setNsec3param(?string $nsec3param = null): bool
     {
         $zone = $this->resource()->setNsec3param($nsec3param);
         $transformer = new Nsec3paramTransformer($zone);

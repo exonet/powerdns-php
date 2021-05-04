@@ -6,6 +6,11 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 [Compare v3.1.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.1.0...develop)
+### Changed
+- Calling `setNsec3Param()` without a value will unset the `nsec3param`.
+
+### Fixed
+- Updated the stable composer.phar URL to properly run tests.
 
 ## [v3.1.0](https://github.com/exonet/powerdns-php/releases/tag/v3.1.0) - 2021-02-01
 [Compare v3.0.0 - v3.1.0](https://github.com/exonet/powerdns-php/compare/v2.0.0...v3.1.0)
