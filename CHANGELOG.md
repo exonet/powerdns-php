@@ -6,8 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 [Compare v3.1.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.1.0...develop)
+### Added
+- Added a method `unsetNsec3param()` to unset the nsec3param for a zone.
+- Unit tests for enabling, disabling and setting DNSSEC.
+
 ### Changed
-- Calling `setNsec3Param()` without a value will unset the `nsec3param`.
+- Calling `setNsec3Param()` with value `null` will unset the `nsec3param`.
 
 ### Fixed
 - Updated the stable composer.phar URL to properly run tests.
