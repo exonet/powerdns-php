@@ -189,7 +189,6 @@ class ZoneTest extends TestCase
     {
         $connector = Mockery::mock(Connector::class);
         $zone = Mockery::mock(Zone::class.'[setDnssec]', [$connector, 'test.nl'])->makePartial();
-        $zone->shouldReceive('resource')->withNoArgs()->once()->andReturn(new ZoneResource());
         $zone->shouldReceive('setDnssec')->withArgs([false])->once()->andReturnTrue();
 
         $this->assertTrue($zone->disableDnssec());
