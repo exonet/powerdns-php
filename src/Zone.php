@@ -201,6 +201,18 @@ class Zone extends AbstractZone
     }
 
     /**
+     * Unset the NSEC3PARAM for this zone, and save it.
+     *
+     * @throws InvalidNsec3Param If the given param is invalid.
+     *
+     * @return bool True when updated.
+     */
+    public function unsetNsec3param(): bool
+    {
+        return $this->setNsec3param(null);
+    }
+
+    /**
      * Send a DNS notify to all the slaves.
      *
      * @return bool True when the DNS notify was successfully sent
@@ -245,13 +257,7 @@ class Zone extends AbstractZone
      */
     public function setDnssec(bool $state): bool
     {
-        $result = $this->put(new DnssecTransformer(['dnssec' => $state]));
-
-        /*
-         * The PUT request will return an 204 No Content, so the $result is empty. If this is the case, the PATCH was
-         * successful. If there was an error, an exception will be thrown.
-         */
-        return empty($result);
+        return $this->put(new DnssecTransformer(['dnssec' => $state]));
     }
 
     /**

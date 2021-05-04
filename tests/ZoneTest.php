@@ -151,6 +151,16 @@ class ZoneTest extends TestCase
         $zone->setNsec3param(null);
     }
 
+    public function testUnsetNsec3param(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $zone = Mockery::mock(Zone::class.'[resource,setNsec3param]', [$connector, 'test.nl'])->makePartial();
+        $zone->shouldReceive('resource')->withNoArgs()->once()->andReturn(new ZoneResource());
+        $zone->shouldReceive('setNsec3param')->withArgs([null])->once()->andReturnTrue();
+
+        $this->assertTrue($zone->unsetNsec3param());
+    }
+
     public function testSetDnssec(): void
     {
         $connector = Mockery::mock(Connector::class);
