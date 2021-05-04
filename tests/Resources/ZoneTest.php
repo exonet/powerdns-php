@@ -112,7 +112,7 @@ class ZoneTest extends TestCase
     public function testSetEmptyNsec3param(): void
     {
         $zone = new Zone();
-        $zone->setNsec3param();
+        $zone->setNsec3param(null);
         $this->assertNull($zone->getNsec3param());
     }
 

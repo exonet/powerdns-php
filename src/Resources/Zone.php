@@ -333,7 +333,7 @@ class Zone
     /**
      * Set the NSEC3PARAM for this zone.
      *
-     * @param string|null $nsec3param The NSEC3PARAM value to set.
+     * @param string|null $nsec3param The NSEC3PARAM value to set or null to unset.
      *
      * @throws InvalidNsec3Param If the hash algorithm is invalid.
      * @throws InvalidNsec3Param If the flags parameter is invalid.
@@ -342,7 +342,7 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setNsec3param(?string $nsec3param = null): self
+    public function setNsec3param(?string $nsec3param): self
     {
         // If set to null, return,
         if (is_null($nsec3param)) {

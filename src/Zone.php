@@ -2,6 +2,7 @@
 
 namespace Exonet\Powerdns;
 
+use Exonet\Powerdns\Exceptions\InvalidNsec3Param;
 use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
@@ -182,7 +183,7 @@ class Zone extends AbstractZone
     /**
      * Set an NSEC3PARAM for this zone, and save it.
      *
-     * @param string|null $nsec3param The NSEC3PARAM value to set.
+     * @param string|null $nsec3param The NSEC3PARAM value to set or null to unset.
      *
      * @throws InvalidNsec3Param If the hash algorithm is invalid.
      * @throws InvalidNsec3Param If the flags parameter is invalid.
@@ -191,7 +192,7 @@ class Zone extends AbstractZone
      *
      * @return bool True when updated.
      */
-    public function setNsec3param(?string $nsec3param = null): bool
+    public function setNsec3param(?string $nsec3param): bool
     {
         $zone = $this->resource()->setNsec3param($nsec3param);
         $transformer = new Nsec3paramTransformer($zone);
