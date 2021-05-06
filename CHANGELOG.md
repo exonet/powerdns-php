@@ -7,10 +7,16 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## Unreleased
 [Compare v3.1.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.1.0...develop)
 ### Added
+- Added a method `unsetNsec3param()` to unset the nsec3param for a zone.
+- Unit tests for enabling, disabling and setting DNSSEC.
 - It is now possible to set/get resource records to a zone resource. See the `examples/new_domain_from_zone_resource.php` example.
 
 ### Changed
+- Calling `setNsec3Param()` with value `null` will unset the `nsec3param`.
 - The internals of getting ResourceSets. Previously a GET request was made to get the resource sets, now the zone resource is being used which already contains all resource sets.
+
+### Fixed
+- Updated the stable composer.phar URL to properly run tests.
 
 ## [v3.1.0](https://github.com/exonet/powerdns-php/releases/tag/v3.1.0) - 2021-02-01
 [Compare v3.0.0 - v3.1.0](https://github.com/exonet/powerdns-php/compare/v2.0.0...v3.1.0)

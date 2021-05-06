@@ -46,7 +46,7 @@ SET_PDNS_VERSION=$2
 
 # Grab the most recent stable composer.
 rm -f composer.phar
-curl -L -sS https://getcomposer.org/composer-stable.phar -o composer.phar
+curl -L -sS https://getcomposer.org/download/latest-stable/composer.phar -o composer.phar
 chmod +x composer.phar
 
 # If both arguments are given, only run that combo.
