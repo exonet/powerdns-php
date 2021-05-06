@@ -2,8 +2,6 @@
 
 namespace Exonet\Powerdns\tests\functional;
 
-use Exonet\Powerdns\functional\FunctionalTestCase;
-
 class ZoneTest extends FunctionalTestCase
 {
     /**

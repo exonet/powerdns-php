@@ -11,16 +11,27 @@ use PHPUnit\Framework\TestCase;
 
 class ZoneTest extends TestCase
 {
-    private const API_RESPONSE = [
+    public const API_RESPONSE = [
+        'name' => 'test.nl.',
+        'kind' => 'Native',
+        'serial' => 123,
+        'notified_serial' => 123,
+        'masters' => [],
+        'dnssec' => false,
+        'api_rectify' => true,
         'rrsets' => [
             [
                 'name' => 'record01.test.nl.',
                 'type' => 'A',
+                'ttl' => 3600,
+                'comments' => [],
                 'records' => [['content' => '127.0.0.1', 'disabled' => false]],
             ],
             [
                 'name' => 'record02.test.nl.',
                 'type' => 'MX',
+                'ttl' => 3600,
+                'comments' => [],
                 'records' => [
                     ['content' => '10 mail01.test.nl.', 'disabled' => false],
                     ['content' => '10 mail02.test.nl.', 'disabled' => false],

@@ -2,8 +2,6 @@
 
 namespace Exonet\Powerdns\tests\functional;
 
-use Exonet\Powerdns\functional\FunctionalTestCase;
-
 /**
  * Test scenario for https://github.com/exonet/powerdns-php/issues/38.
  */
