@@ -12,7 +12,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Added
 - Added a method `unsetNsec3param()` to unset the nsec3param for a zone.
 - Unit tests for enabling, disabling and setting DNSSEC.
-- It is now possible to set/get resource records to a zone resource. See the `examples/new_domain_from_zone_resource.php` example.
+- It is now possible to set/get resource records to a zone resource. See `examples/new_domain_from_zone_resource.php` for an example.
 
 ### Changed
 - Calling `setNsec3Param()` with value `null` will unset the `nsec3param`.
