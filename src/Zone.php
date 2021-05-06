@@ -2,6 +2,7 @@
 
 namespace Exonet\Powerdns;
 
+use Exonet\Powerdns\Exceptions\InvalidNsec3Param;
 use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
@@ -182,7 +183,7 @@ class Zone extends AbstractZone
     /**
      * Set an NSEC3PARAM for this zone, and save it.
      *
-     * @param string $nsec3param The NSEC3PARAM value to set.
+     * @param string|null $nsec3param The NSEC3PARAM value to set or null to unset.
      *
      * @throws InvalidNsec3Param If the hash algorithm is invalid.
      * @throws InvalidNsec3Param If the flags parameter is invalid.
@@ -191,12 +192,24 @@ class Zone extends AbstractZone
      *
      * @return bool True when updated.
      */
-    public function setNsec3param($nsec3param): bool
+    public function setNsec3param(?string $nsec3param): bool
     {
         $zone = $this->resource()->setNsec3param($nsec3param);
         $transformer = new Nsec3paramTransformer($zone);
 
         return $this->put($transformer);
+    }
+
+    /**
+     * Unset the NSEC3PARAM for this zone, and save it.
+     *
+     * @throws InvalidNsec3Param If the given param is invalid.
+     *
+     * @return bool True when updated.
+     */
+    public function unsetNsec3param(): bool
+    {
+        return $this->setNsec3param(null);
     }
 
     /**
@@ -244,13 +257,7 @@ class Zone extends AbstractZone
      */
     public function setDnssec(bool $state): bool
     {
-        $result = $this->put(new DnssecTransformer(['dnssec' => $state]));
-
-        /*
-         * The PUT request will return an 204 No Content, so the $result is empty. If this is the case, the PATCH was
-         * successful. If there was an error, an exception will be thrown.
-         */
-        return empty($result);
+        return $this->put(new DnssecTransformer(['dnssec' => $state]));
     }
 
     /**
