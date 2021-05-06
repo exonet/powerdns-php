@@ -5,7 +5,9 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v3.1.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.1.0...develop)
+[Compare v3.2.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.2.0...develop)
+
+## [v3.2.0](https://github.com/exonet/powerdns-php/releases/tag/v3.2.0) - 2021-05-06
 ### Added
 - Added a method `unsetNsec3param()` to unset the nsec3param for a zone.
 - Unit tests for enabling, disabling and setting DNSSEC.
