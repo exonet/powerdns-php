@@ -20,6 +20,8 @@ $dnsRecords = [
 
     ['name' => '@', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60],
     ['name' => 'www', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60],
+    // In this example a SOA record with custom nameserver and admin-contact will be used.
+    ['name' => '@', 'type' => RecordType::SOA, 'content' => 'ns1.custom. hostmaster.custom. 0 10800 3605 604800 3600', 'ttl' => 60],
 ];
 
 // Update the key to the real PowerDNS API Key.
@@ -42,6 +44,8 @@ $newZone->setSoaEditApi('epoch');
 $newZone->setNameservers($nameServers);
 $newZone->setApiRectify(false);
 $newZone->setNsec3param('1 0 100 1234567890');
+// Set the DNS records that must be created together with the zone.
+$newZone->setResourceRecords($dnsRecords);
 
 // Create a new zone with the defined records and name servers.
-$powerdns->createZoneFromResource($newZone)->create($dnsRecords);
+$powerdns->createZoneFromResource($newZone);

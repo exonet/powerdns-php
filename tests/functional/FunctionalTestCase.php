@@ -1,6 +1,6 @@
 <?php
 
-namespace Exonet\Powerdns\functional;
+namespace Exonet\Powerdns\tests\functional;
 
 use Exonet\Powerdns\Powerdns;
 use PHPUnit\Framework\TestCase;

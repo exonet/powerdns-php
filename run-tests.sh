@@ -27,8 +27,8 @@ run() {
         -v "$PWD":/usr/src \
         -v "$PWD"/composer.phar:/usr/src/composer.phar \
         -w /usr/src/ \
-        php:"$PHP_VERSION"-cli \
-        bash -c './composer.phar -n update && php ./vendor/bin/phpunit'
+        php:"$PHP_VERSION"-alpine \
+        ash -c './composer.phar -n update && php ./vendor/bin/phpunit'
 
     if [ $? -eq 0 ]; then
         RESULTS="$RESULTS\n${green}✓ PHP $PHP_VERSION / PDNS: $PDNS_VERSION"
@@ -46,7 +46,7 @@ SET_PDNS_VERSION=$2
 
 # Grab the most recent stable composer.
 rm -f composer.phar
-curl -L -sS https://getcomposer.org/composer-stable.phar -o composer.phar
+curl -L -sS https://getcomposer.org/download/latest-stable/composer.phar -o composer.phar
 chmod +x composer.phar
 
 # If both arguments are given, only run that combo.

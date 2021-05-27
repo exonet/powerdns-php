@@ -2,6 +2,7 @@
 
 namespace Exonet\Powerdns;
 
+use Exonet\Powerdns\Exceptions\InvalidNsec3Param;
 use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
@@ -50,6 +51,8 @@ class Zone extends AbstractZone
     public function patch(array $resourceRecords): bool
     {
         $result = $this->connector->patch($this->getZonePath(), new RRSetTransformer($resourceRecords));
+        // Invalidate the resource.
+        $this->zoneResource = null;
 
         /*
          * The PATCH request will return an 204 No Content, so the $result is empty. If this is the case, the PATCH was
@@ -68,6 +71,8 @@ class Zone extends AbstractZone
     public function put(Transformer $transformer): bool
     {
         $result = $this->connector->put($this->getZonePath(), $transformer);
+        // Invalidate the resource.
+        $this->zoneResource = null;
 
         /*
          * The PUT request will return an 204 No Content, so the $result is empty. If this is the case, the PUT was
@@ -86,12 +91,11 @@ class Zone extends AbstractZone
      */
     public function get(?string $recordType = null): ResourceSet
     {
-        $records = $this->connector->get($this->getZonePath());
         $resourceSet = new ResourceSet($this);
 
-        foreach ($records['rrsets'] as $rrset) {
-            if ($recordType === null || $rrset['type'] === $recordType) {
-                $resourceSet->addResource((new ResourceRecord())->setZone($this)->setApiResponse($rrset));
+        foreach ($this->resource()->getResourceRecords() as $rrset) {
+            if ($recordType === null || $rrset->getType() === $recordType) {
+                $resourceSet->addResource($rrset->setZone($this));
             }
         }
 
@@ -139,32 +143,7 @@ class Zone extends AbstractZone
      */
     public function make(string $name, string $type, $content, int $ttl): ResourceRecord
     {
-        $name = str_replace('@', $this->zone, $name);
-
-        // If the name of the record doesn't end in the zone name, append the zone name to it.
-        if (substr($name, -strlen($this->zone)) !== $this->zone) {
-            $name = sprintf('%s.%s', $name, $this->zone);
-        }
-
-        $resourceRecord = new ResourceRecord();
-        $resourceRecord
-            ->setChangeType('replace')
-            ->setName($name)
-            ->setType($type)
-            ->setTtl($ttl);
-
-        if (is_string($content)) {
-            $content = [$content];
-        }
-
-        $recordList = [];
-        foreach ($content as $record) {
-            $recordList[] = (new Record())->setContent($record);
-        }
-
-        $resourceRecord->setRecords($recordList);
-
-        return $resourceRecord;
+        return Helper::createResourceRecord($this->zone, compact('name', 'type', 'content', 'ttl'));
     }
 
     /**
@@ -182,7 +161,7 @@ class Zone extends AbstractZone
     /**
      * Set an NSEC3PARAM for this zone, and save it.
      *
-     * @param string $nsec3param The NSEC3PARAM value to set.
+     * @param string|null $nsec3param The NSEC3PARAM value to set or null to unset.
      *
      * @throws InvalidNsec3Param If the hash algorithm is invalid.
      * @throws InvalidNsec3Param If the flags parameter is invalid.
@@ -191,12 +170,24 @@ class Zone extends AbstractZone
      *
      * @return bool True when updated.
      */
-    public function setNsec3param($nsec3param): bool
+    public function setNsec3param(?string $nsec3param): bool
     {
         $zone = $this->resource()->setNsec3param($nsec3param);
         $transformer = new Nsec3paramTransformer($zone);
 
         return $this->put($transformer);
+    }
+
+    /**
+     * Unset the NSEC3PARAM for this zone, and save it.
+     *
+     * @throws InvalidNsec3Param If the given param is invalid.
+     *
+     * @return bool True when updated.
+     */
+    public function unsetNsec3param(): bool
+    {
+        return $this->setNsec3param(null);
     }
 
     /**
@@ -244,13 +235,7 @@ class Zone extends AbstractZone
      */
     public function setDnssec(bool $state): bool
     {
-        $result = $this->put(new DnssecTransformer(['dnssec' => $state]));
-
-        /*
-         * The PUT request will return an 204 No Content, so the $result is empty. If this is the case, the PATCH was
-         * successful. If there was an error, an exception will be thrown.
-         */
-        return empty($result);
+        return $this->put(new DnssecTransformer(['dnssec' => $state]));
     }
 
     /**

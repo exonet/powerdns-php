@@ -109,6 +109,13 @@ class ZoneTest extends TestCase
         $this->assertEquals('1 0 100 f00Bar', $zone->getNsec3param());
     }
 
+    public function testSetEmptyNsec3param(): void
+    {
+        $zone = new Zone();
+        $zone->setNsec3param(null);
+        $this->assertNull($zone->getNsec3param());
+    }
+
     public function testSetNsec3paramInvalidAlgorithm(): void
     {
         $this->expectException(InvalidNsec3Param::class);

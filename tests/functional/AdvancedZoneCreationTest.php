@@ -2,7 +2,6 @@
 
 namespace Exonet\Powerdns\tests\functional;
 
-use Exonet\Powerdns\functional\FunctionalTestCase;
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
 
 class AdvancedZoneCreationTest extends FunctionalTestCase

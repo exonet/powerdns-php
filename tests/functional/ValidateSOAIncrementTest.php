@@ -2,7 +2,6 @@
 
 namespace Exonet\Powerdns\tests\functional;
 
-use Exonet\Powerdns\functional\FunctionalTestCase;
 use Exonet\Powerdns\RecordType;
 
 class ValidateSOAIncrementTest extends FunctionalTestCase

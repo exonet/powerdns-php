@@ -3,6 +3,7 @@
 namespace Exonet\Powerdns\tests;
 
 use Exonet\Powerdns\Connector;
+use Exonet\Powerdns\Resources\Zone as ZoneResource;
 use Exonet\Powerdns\Transformers\RRSetTransformer;
 use Exonet\Powerdns\Zone;
 use Mockery;
@@ -10,16 +11,27 @@ use PHPUnit\Framework\TestCase;
 
 class ZoneTest extends TestCase
 {
-    private const API_RESPONSE = [
+    public const API_RESPONSE = [
+        'name' => 'test.nl.',
+        'kind' => 'Native',
+        'serial' => 123,
+        'notified_serial' => 123,
+        'masters' => [],
+        'dnssec' => false,
+        'api_rectify' => true,
         'rrsets' => [
             [
                 'name' => 'record01.test.nl.',
                 'type' => 'A',
+                'ttl' => 3600,
+                'comments' => [],
                 'records' => [['content' => '127.0.0.1', 'disabled' => false]],
             ],
             [
                 'name' => 'record02.test.nl.',
                 'type' => 'MX',
+                'ttl' => 3600,
+                'comments' => [],
                 'records' => [
                     ['content' => '10 mail01.test.nl.', 'disabled' => false],
                     ['content' => '10 mail02.test.nl.', 'disabled' => false],
@@ -118,6 +130,79 @@ class ZoneTest extends TestCase
         $connector = Mockery::mock(Connector::class);
         $zone = new Zone($connector, 'test.nl');
         $this->assertSame('test.nl'.'.', $zone->getCanonicalName());
+    }
+
+    public function testSetNsec3param(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('put')->withArgs(['zones/test.nl.', Mockery::on(function ($transformer) {
+            $transformed = $transformer->transform();
+            $this->assertSame('1 0 0 f00bar', $transformed->nsec3param);
+
+            return true;
+        })])->once()->andReturn([]);
+        $zone = Mockery::mock(Zone::class.'[resource]', [$connector, 'test.nl'])->makePartial();
+        $zone->shouldReceive('resource')->withNoArgs()->once()->andReturn(new ZoneResource());
+
+        $zone->setNsec3param('1 0 0 f00bar');
+    }
+
+    public function testSetEmptyNsec3param(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('put')->withArgs(['zones/test.nl.', Mockery::on(function ($transformer) {
+            $transformed = $transformer->transform();
+            $this->assertNull($transformed->nsec3param);
+
+            return true;
+        })])->once()->andReturn([]);
+        $zone = Mockery::mock(Zone::class.'[resource]', [$connector, 'test.nl'])->makePartial();
+        $zone->shouldReceive('resource')->withNoArgs()->once()->andReturn(new ZoneResource());
+
+        $zone->setNsec3param(null);
+    }
+
+    public function testUnsetNsec3param(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $zone = Mockery::mock(Zone::class.'[resource,setNsec3param]', [$connector, 'test.nl'])->makePartial();
+        $zone->shouldReceive('resource')->withNoArgs()->once()->andReturn(new ZoneResource());
+        $zone->shouldReceive('setNsec3param')->withArgs([null])->once()->andReturnTrue();
+
+        $this->assertTrue($zone->unsetNsec3param());
+    }
+
+    public function testSetDnssec(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('put')->withArgs(['zones/test.nl.', Mockery::on(function ($transformer) {
+            $transformed = $transformer->transform();
+            $this->assertTrue($transformed->dnssec);
+
+            return true;
+        })])->once()->andReturn([]);
+        $zone = Mockery::mock(Zone::class.'[resource]', [$connector, 'test.nl'])->makePartial();
+        $zone->shouldReceive('resource')->withNoArgs()->once()->andReturn(new ZoneResource());
+
+        $zone->setDnssec(true);
+    }
+
+    public function testEnableDnssec(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $zone = Mockery::mock(Zone::class.'[setDnssec]', [$connector, 'test.nl'])->makePartial();
+        $zone->shouldReceive('setDnssec')->withArgs([true])->once()->andReturnTrue();
+
+        $this->assertTrue($zone->enableDnssec());
+    }
+
+    public function testDisableDnssec(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $zone = Mockery::mock(Zone::class.'[setDnssec]', [$connector, 'test.nl'])->makePartial();
+        $zone->shouldReceive('setDnssec')->withArgs([false])->once()->andReturnTrue();
+
+        $this->assertTrue($zone->disableDnssec());
     }
 
     public function testNotify(): void

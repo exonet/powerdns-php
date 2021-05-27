@@ -20,6 +20,19 @@ class CreateZoneTransformer extends Transformer
             'nameservers' => $this->data->getNameservers(),
             'nsec3param' => $this->data->getNsec3param(),
             'account' => $this->data->getAccount(),
+            'rrsets' => $this->transformResourceSets(),
         ];
+    }
+
+    /**
+     * Transform the zone ResourceRecords to an array formatted as rrsets.
+     *
+     * @return array The transformed rrsets.
+     */
+    private function transformResourceSets()
+    {
+        $rrSetTransformer = new RRSetTransformer($this->data->getResourceRecords());
+
+        return $rrSetTransformer->transform()->rrsets;
     }
 }

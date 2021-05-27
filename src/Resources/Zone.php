@@ -7,6 +7,7 @@ namespace Exonet\Powerdns\Resources;
 use Exonet\Powerdns\Exceptions\InvalidKindType;
 use Exonet\Powerdns\Exceptions\InvalidNsec3Param;
 use Exonet\Powerdns\Exceptions\InvalidSoaEditType;
+use Exonet\Powerdns\Helper;
 
 class Zone
 {
@@ -73,6 +74,11 @@ class Zone
     private $nameservers = [];
 
     /**
+     * @var ResourceRecord[] The resource records for this zone.
+     */
+    private $resourceRecords = [];
+
+    /**
      * Set the zone data based on the API response.
      *
      * @param mixed[] $data The API response.
@@ -92,6 +98,7 @@ class Zone
         $this->soaEditApi = !empty($data['soa_edit_api']) ? $data['soa_edit_api'] : null;
         $this->apiRectify = $data['api_rectify'];
         $this->account = !empty($data['account']) ? $data['account'] : null;
+        $this->setResourceRecords($data['rrsets'] ?? []);
 
         // Try setting the nameservers.
         if (isset($data['rrsets'])) {
@@ -333,7 +340,7 @@ class Zone
     /**
      * Set the NSEC3PARAM for this zone.
      *
-     * @param string $nsec3param The NSEC3PARAM value to set.
+     * @param string|null $nsec3param The NSEC3PARAM value to set or null to unset.
      *
      * @throws InvalidNsec3Param If the hash algorithm is invalid.
      * @throws InvalidNsec3Param If the flags parameter is invalid.
@@ -342,8 +349,15 @@ class Zone
      *
      * @return Zone The current Zone instance.
      */
-    public function setNsec3param(string $nsec3param): self
+    public function setNsec3param(?string $nsec3param): self
     {
+        // If set to null, return,
+        if (is_null($nsec3param)) {
+            $this->nsec3param = null;
+
+            return $this;
+        }
+
         // Validate the nsec3param. Set null if the given string has not enough arguments.
         [$algorithm, $flags, $iterations, $salt] = explode(' ', $nsec3param) + [null, null, null, null];
 
@@ -454,6 +468,35 @@ class Zone
     public function setAccount(string $account): self
     {
         $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * Get the resource records for this zone.
+     *
+     * @return ResourceRecord[] The resource records.
+     */
+    public function getResourceRecords(): array
+    {
+        return $this->resourceRecords;
+    }
+
+    /**
+     * Set the resource records. These will be transformed to a ResourceRecord instance.
+     *
+     * @param array $resourceRecords The resource records.
+     *
+     * @return $this The current Zone instance.
+     */
+    public function setResourceRecords(array $resourceRecords): self
+    {
+        $rrSets = [];
+        foreach ($resourceRecords as $resourceSet) {
+            $rrSets[] = Helper::createResourceRecord($this->name, $resourceSet);
+        }
+
+        $this->resourceRecords = $rrSets;
 
         return $this;
     }
