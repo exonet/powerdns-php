@@ -17,17 +17,17 @@ abstract class AbstractZone
     protected $zoneResource;
 
     /**
-     * @var Connector The PowerDNS Connector to make calls.
+     * @var ConnectorInterface The PowerDNS Connector to make calls.
      */
     protected $connector;
 
     /**
      * The class constructor.
      *
-     * @param Connector   $connector       The zone to use.
-     * @param null|string $canonicalDomain The PowerDNS Connector to make calls.
+     * @param ConnectorInterface $connector       The zone to use.
+     * @param null|string        $canonicalDomain The PowerDNS Connector to make calls.
      */
-    public function __construct(Connector $connector, ?string $canonicalDomain = null)
+    public function __construct(ConnectorInterface $connector, ?string $canonicalDomain = null)
     {
         $this->connector = $connector;
 

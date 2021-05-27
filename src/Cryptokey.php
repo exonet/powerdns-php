@@ -21,12 +21,12 @@ class Cryptokey extends AbstractZone
     /**
      * Crypto Key constructor.
      *
-     * @param Connector              $connector         The zone to use.
+     * @param ConnectorInterface     $connector         The zone to use.
      * @param null|string            $canonicalDomain   The Powerdns Connector to make calls.
      * @param CryptokeyResource|null $cryptoKeyResource The cryptokey resource class to use for API responses.
      */
     public function __construct(
-        Connector $connector,
+        ConnectorInterface $connector,
         ?string $canonicalDomain = null,
         ?CryptokeyResource $cryptoKeyResource = null
     ) {

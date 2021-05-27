@@ -10,7 +10,7 @@ use LogicException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-class Powerdns
+class Powerdns implements PowerdnsInterface
 {
     /**
      * The version of this package. This is being used for the user-agent header.
@@ -48,7 +48,7 @@ class Powerdns
     private $server = 'localhost';
 
     /**
-     * @var Connector The PowerDNS Connector to make calls.
+     * @var ConnectorInterface The PowerDNS Connector to make calls.
      */
     private $connector;
 
@@ -59,14 +59,14 @@ class Powerdns
      * @param null|string    $apiKey    (optional) The PowerDNS API key.
      * @param int|null       $port      (optional) The PowerDNS API Port.
      * @param null|string    $server    (optional) The PowerDNS server to use.
-     * @param Connector|null $connector (optional) The Connector to make calls.
+     * @param ConnectorInterface|null $connector (optional) The Connector to make calls.
      */
     public function __construct(
         ?string $host = null,
         ?string $apiKey = null,
         ?int $port = null,
         ?string $server = null,
-        ?Connector $connector = null
+        ?ConnectorInterface $connector = null
     ) {
         if (self::$_instance === null) {
             self::$_instance = $this;
@@ -114,9 +114,9 @@ class Powerdns
      *
      * @param string $key The key to use.
      *
-     * @return $this The current client.
+     * @return PowerdnsInterface The current client.
      */
-    public function useKey(string $key): self
+    public function useKey(string $key): PowerdnsInterface
     {
         $this->apiKey = $key;
 
@@ -313,9 +313,9 @@ class Powerdns
      *
      * @param LoggerInterface $log The log instance to use.
      *
-     * @return self The current client instance.
+     * @return PowerdnsInterface The current client instance.
      */
-    public function setLogger(LoggerInterface $log): self
+    public function setLogger(LoggerInterface $log): PowerdnsInterface
     {
         $this->logger = $log;
 
