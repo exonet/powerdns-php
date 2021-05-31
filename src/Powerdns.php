@@ -55,10 +55,10 @@ class Powerdns implements PowerdnsInterface
     /**
      * PowerDNS Client constructor.
      *
-     * @param null|string    $host      (optional) The PowerDNS host. Must include protocol (http, https, etc.).
-     * @param null|string    $apiKey    (optional) The PowerDNS API key.
-     * @param int|null       $port      (optional) The PowerDNS API Port.
-     * @param null|string    $server    (optional) The PowerDNS server to use.
+     * @param null|string             $host      (optional) The PowerDNS host. Must include protocol (http, https, etc.).
+     * @param null|string             $apiKey    (optional) The PowerDNS API key.
+     * @param int|null                $port      (optional) The PowerDNS API Port.
+     * @param null|string             $server    (optional) The PowerDNS server to use.
      * @param ConnectorInterface|null $connector (optional) The Connector to make calls.
      */
     public function __construct(
@@ -98,9 +98,9 @@ class Powerdns implements PowerdnsInterface
      * @param int    $port   The PowerDNS API Port.
      * @param string $server The PowerDNS server to use.
      *
-     * @return Powerdns The created PowerDNS client.
+     * @return PowerdnsInterface The created PowerDNS client.
      */
-    public function connect(string $host, int $port = 8001, string $server = 'localhost'): self
+    public function connect(string $host, int $port = 8001, string $server = 'localhost'): PowerdnsInterface
     {
         $this->host = $host;
         $this->port = $port;
