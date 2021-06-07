@@ -59,3 +59,23 @@ services:
         restart: unless-stopped
         environment:
             MYSQL_ROOT_PASSWORD: verySecretPassword
+
+    powerdns44:
+        image: psitrax/powerdns:latest
+        container_name: pdns44
+        environment:
+            MYSQL_USER: root
+            MYSQL_PASS: verySecretPassword
+            MYSQL_HOST: db-pdns44
+        depends_on:
+            - db-pdns44
+        ports:
+            - 8044:8081
+        volumes:
+            - ./.docker/powerdns44:/etc/pdns/conf.d
+
+    db-pdns44:
+        image: mysql:5.7
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: verySecretPassword
