@@ -12,7 +12,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response as PsrResponse;
 
-class Connector
+class Connector implements ConnectorInterface
 {
     /**
      * @var GuzzleClient The Guzzle client.
