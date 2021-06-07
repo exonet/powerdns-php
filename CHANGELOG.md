@@ -5,7 +5,13 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v3.2.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.2.0...develop)
+[Compare v3.3.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.3.0...develop)
+
+## [v3.3.0](https://github.com/exonet/powerdns-php/releases/tag/v3.3.0) - 2021-06-07
+[Compare v3.2.0 - v3.3.0](https://github.com/exonet/powerdns-php/compare/v3.2.0...v3.3.0)
+### Added
+- Added interfaces for Connector and Powerdns. (@frankvanhest - #72)
+- Run tests against PowerDNS 4.4. (@frankvanhest - #73)
 
 ## [v3.2.0](https://github.com/exonet/powerdns-php/releases/tag/v3.2.0) - 2021-05-06
 [Compare v3.1.0 - v3.2.0](https://github.com/exonet/powerdns-php/compare/v3.1.0...v3.2.0)
