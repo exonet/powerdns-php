@@ -5,7 +5,12 @@ All notable changes to `powerdns-php` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
 ## Unreleased
-[Compare v3.3.0 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.3.0...develop)
+[Compare v3.3.1 - Unreleased](https://github.com/exonet/powerdns-php/compare/v3.3.1...develop)
+
+## [v3.3.1](https://github.com/exonet/powerdns-php/releases/tag/v3.3.1) - 2021-07-06
+[Compare v3.3.0 - v3.3.1](https://github.com/exonet/powerdns-php/compare/v3.3.0...v3.3.1)
+### Fixed
+- Replace deprecated Guzzle function (#75)
 
 ## [v3.3.0](https://github.com/exonet/powerdns-php/releases/tag/v3.3.0) - 2021-06-07
 [Compare v3.2.0 - v3.3.0](https://github.com/exonet/powerdns-php/compare/v3.2.0...v3.3.0)

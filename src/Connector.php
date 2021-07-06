@@ -11,6 +11,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response as PsrResponse;
+use GuzzleHttp\Psr7\Utils;
 
 class Connector implements ConnectorInterface
 {
@@ -120,7 +121,7 @@ class Connector implements ConnectorInterface
 
         $this->powerdns->log()->debug('Sending ['.$method.'] request', compact('url', 'headers', 'payload'));
 
-        $stream = $payload !== null ? \GuzzleHttp\Psr7\stream_for($payload) : null;
+        $stream = $payload !== null ? Utils::streamFor($payload) : null;
         $request = new Request($method, $url, $headers, $stream);
 
         $response = $this->httpClient->send($request, ['http_errors' => false]);
