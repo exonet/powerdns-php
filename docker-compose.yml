@@ -61,7 +61,7 @@ services:
             MYSQL_ROOT_PASSWORD: verySecretPassword
 
     powerdns44:
-        image: psitrax/powerdns:latest
+        image: psitrax/powerdns:v4.4
         container_name: pdns44
         environment:
             MYSQL_USER: root
