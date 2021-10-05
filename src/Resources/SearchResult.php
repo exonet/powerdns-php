@@ -5,12 +5,12 @@ namespace Exonet\Powerdns\Resources;
 class SearchResult
 {
     /**
-     * @var string The content.
+     * @var string|null The content.
      */
     private $content;
 
     /**
-     * @var bool True when disabled.
+     * @var bool|null True when disabled.
      */
     private $disabled;
 
@@ -30,17 +30,17 @@ class SearchResult
     private $zoneId;
 
     /**
-     * @var string The zone.
+     * @var string|null The zone.
      */
     private $zone;
 
     /**
-     * @var string The record type.
+     * @var string|null The record type.
      */
     private $type;
 
     /**
-     * @var int The TTL value.
+     * @var int|null The TTL value.
      */
     private $ttl;
 
@@ -59,9 +59,9 @@ class SearchResult
     /**
      * Get the content.
      *
-     * @return string The content.
+     * @return string|null The content.
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -69,9 +69,9 @@ class SearchResult
     /**
      * Get the disabled state.
      *
-     * @return bool True when disabled.
+     * @return bool|null True when disabled.
      */
-    public function isDisabled(): bool
+    public function isDisabled(): ?bool
     {
         return $this->disabled;
     }
@@ -109,9 +109,9 @@ class SearchResult
     /**
      * Get the zone name.
      *
-     * @return string The zone.
+     * @return string|null The zone.
      */
-    public function getZone(): string
+    public function getZone(): ?string
     {
         return $this->zone;
     }
@@ -119,9 +119,9 @@ class SearchResult
     /**
      * Get the record type.
      *
-     * @return string The record type.
+     * @return string|null The record type.
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -129,9 +129,9 @@ class SearchResult
     /**
      * Get the record Time To Live (TTL).
      *
-     * @return int The TTL.
+     * @return int|null The TTL.
      */
-    public function getTtl(): int
+    public function getTtl(): ?int
     {
         return $this->ttl;
     }
@@ -145,13 +145,13 @@ class SearchResult
      */
     public function setFromApiResponse(array $data): self
     {
-        $this->content = $data['content'];
-        $this->disabled = (bool) $data['disabled'];
+        $this->content = $data['content'] ?? null;
+        $this->disabled = isset($data['disabled']) ? (bool) $data['disabled'] : null;
         $this->name = $data['name'];
         $this->objectType = $data['object_type'];
-        $this->ttl = (int) $data['ttl'];
-        $this->type = $data['type'];
-        $this->zone = $data['zone'];
+        $this->ttl = isset($data['ttl']) ? (int) $data['ttl'] : null;
+        $this->type = $data['type'] ?? null;
+        $this->zone = $data['zone'] ?? null;
         $this->zoneId = $data['zone_id'];
 
         return $this;
