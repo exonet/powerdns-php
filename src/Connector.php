@@ -114,7 +114,7 @@ class Connector implements ConnectorInterface
      *
      * @return mixed[] The decoded JSON response.
      */
-    private function makeCall(string $method, string $urlPath, ?string $payload = null): array
+    protected function makeCall(string $method, string $urlPath, ?string $payload = null): array
     {
         $url = $this->buildUrl($urlPath);
         $headers = $this->getDefaultHeaders();
@@ -139,7 +139,7 @@ class Connector implements ConnectorInterface
      *
      * @return mixed[] The decoded JSON response.
      */
-    private function parseResponse(PsrResponse $response): array
+    protected function parseResponse(PsrResponse $response): array
     {
         $this->powerdns->log()->debug('Request completed', ['statusCode' => $response->getStatusCode()]);
         $contents = json_decode($response->getBody()->getContents(), true);
@@ -170,7 +170,7 @@ class Connector implements ConnectorInterface
      *
      * @return string The complete URL.
      */
-    private function buildUrl(string $path): string
+    protected function buildUrl(string $path): string
     {
         $config = $this->powerdns->getConfig();
 
@@ -191,7 +191,7 @@ class Connector implements ConnectorInterface
      *
      * @return string[] The headers.
      */
-    private function getDefaultHeaders(): array
+    protected function getDefaultHeaders(): array
     {
         return [
             'X-API-Key' => $this->powerdns->getConfig()['apiKey'],
