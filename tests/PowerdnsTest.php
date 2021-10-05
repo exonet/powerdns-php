@@ -162,7 +162,8 @@ class PowerdnsTest extends TestCase
                 ]
             );
 
-        $powerDns = new Powerdns(null, null, null, null, $connector);
+        $powerDns = new Powerdns();
+        $powerDns->overwriteConnector($connector);
 
         $searchResults = $powerDns->search('search strïng&more', 1337, 'zone');
 

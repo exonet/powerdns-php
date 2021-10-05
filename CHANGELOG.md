@@ -9,6 +9,9 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## [v3.4.0](https://github.com/exonet/powerdns-php/releases/tag/v3.4.0) - 2021-10-06
 [Compare v3.3.1 - v3.4.0](https://github.com/exonet/powerdns-php/compare/v3.3.1...v3.4.0)
+### Added
+- The `overwriteConnector` method in the Powerdns class.
+
 ### Changed
 - The private methods in the `Connector` class are now protected instead of private.
 

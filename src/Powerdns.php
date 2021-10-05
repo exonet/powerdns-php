@@ -92,6 +92,20 @@ class Powerdns implements PowerdnsInterface
     }
 
     /**
+     * Overwrite the configured connector instance with the provided one.
+     *
+     * @param ConnectorInterface $connector The new connector instance to use.
+     *
+     * @return $this The current Powerdns class.
+     */
+    public function overwriteConnector(ConnectorInterface $connector): self
+    {
+        $this->connector = $connector;
+
+        return $this;
+    }
+
+    /**
      * Configure a new connection to a PowerDNS server.
      *
      * @param string $host   The PowerDNS host. Must include protocol (http, https, etc.).
