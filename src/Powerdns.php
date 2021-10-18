@@ -92,13 +92,13 @@ class Powerdns implements PowerdnsInterface
     }
 
     /**
-     * Overwrite the configured connector instance with the provided one.
+     * Set the configured connector instance instead of the default one.
      *
-     * @param ConnectorInterface $connector The new connector instance to use.
+     * @param ConnectorInterface $connector The connector instance to use.
      *
      * @return $this The current Powerdns class.
      */
-    public function overwriteConnector(ConnectorInterface $connector): self
+    public function setConnector(ConnectorInterface $connector): self
     {
         $this->connector = $connector;
 
