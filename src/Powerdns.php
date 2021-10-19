@@ -92,6 +92,20 @@ class Powerdns implements PowerdnsInterface
     }
 
     /**
+     * Set the configured connector instance instead of the default one.
+     *
+     * @param ConnectorInterface $connector The connector instance to use.
+     *
+     * @return $this The current Powerdns class.
+     */
+    public function setConnector(ConnectorInterface $connector): self
+    {
+        $this->connector = $connector;
+
+        return $this;
+    }
+
+    /**
      * Configure a new connection to a PowerDNS server.
      *
      * @param string $host   The PowerDNS host. Must include protocol (http, https, etc.).
