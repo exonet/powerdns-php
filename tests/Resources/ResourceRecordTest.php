@@ -11,6 +11,9 @@ use Exonet\Powerdns\Zone;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class ResourceRecordTest extends TestCase
 {
     public function testSimpleSettersAndGetters(): void

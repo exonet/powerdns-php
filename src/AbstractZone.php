@@ -25,7 +25,7 @@ abstract class AbstractZone
      * The class constructor.
      *
      * @param ConnectorInterface $connector       The zone to use.
-     * @param null|string        $canonicalDomain The PowerDNS Connector to make calls.
+     * @param string|null        $canonicalDomain The PowerDNS Connector to make calls.
      */
     public function __construct(ConnectorInterface $connector, ?string $canonicalDomain = null)
     {
@@ -75,18 +75,6 @@ abstract class AbstractZone
     }
 
     /**
-     * Get the zone path for API calls.
-     *
-     * @param null|string $path The path to append to the zone.
-     *
-     * @return string The API zone path.
-     */
-    protected function getZonePath(?string $path = null): string
-    {
-        return sprintf('zones/%s%s', $this->zone, $path);
-    }
-
-    /**
      * Get the canonical name of the zone. Includes the trailing dot (.).
      *
      * @return string The canonical zone name.
@@ -94,5 +82,17 @@ abstract class AbstractZone
     public function getCanonicalName(): string
     {
         return $this->zone;
+    }
+
+    /**
+     * Get the zone path for API calls.
+     *
+     * @param string|null $path The path to append to the zone.
+     *
+     * @return string The API zone path.
+     */
+    protected function getZonePath(?string $path = null): string
+    {
+        return sprintf('zones/%s%s', $this->zone, $path);
     }
 }

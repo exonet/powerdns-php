@@ -8,6 +8,9 @@ use Exonet\Powerdns\Exceptions\InvalidSoaEditType;
 use Exonet\Powerdns\Resources\Zone;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class ZoneTest extends TestCase
 {
     public function testSetApiResponse(): void

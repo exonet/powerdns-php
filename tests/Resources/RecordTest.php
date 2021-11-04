@@ -5,6 +5,9 @@ namespace Exonet\Powerdns\tests\Resources;
 use Exonet\Powerdns\Resources\Record;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class RecordTest extends TestCase
 {
     public function testSettersAndGetters()

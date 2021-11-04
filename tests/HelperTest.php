@@ -6,6 +6,9 @@ use Exonet\Powerdns\Helper;
 use Exonet\Powerdns\RecordType;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class HelperTest extends TestCase
 {
     public function testWithArguments(): void

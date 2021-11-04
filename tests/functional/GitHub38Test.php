@@ -4,6 +4,8 @@ namespace Exonet\Powerdns\tests\functional;
 
 /**
  * Test scenario for https://github.com/exonet/powerdns-php/issues/38.
+ *
+ * @internal
  */
 class GitHub38Test extends FunctionalTestCase
 {

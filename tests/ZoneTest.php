@@ -9,6 +9,9 @@ use Exonet\Powerdns\Zone;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class ZoneTest extends TestCase
 {
     public const API_RESPONSE = [

@@ -8,6 +8,9 @@ use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
 
+/**
+ * @internal
+ */
 class ZoneRecordsTest extends FunctionalTestCase
 {
     use ArraySubsetAsserts;
@@ -29,6 +32,12 @@ class ZoneRecordsTest extends FunctionalTestCase
         ['name' => '@', 'type' => RecordType::NS, 'content' => 'ns2.powerdns-php.', 'ttl' => 60],
         ['name' => '@', 'type' => RecordType::A, 'content' => '127.0.0.1', 'ttl' => 60],
     ];
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->canonicalName = 'zone-with-records.'.time().'.test.';
+    }
 
     public function testCreateZoneFromResource(): void
     {
@@ -59,12 +68,6 @@ class ZoneRecordsTest extends FunctionalTestCase
 
         $soaRecord = $this->powerdns->zone($this->canonicalName)->get(RecordType::SOA)[0]->getRecords()[0]->getContent();
         self::assertSame('ns1.test. hostmaster.test. '.date('Ymd').'02 10800 3605 604800 3600', $soaRecord);
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->canonicalName = 'zone-with-records.'.time().'.test.';
     }
 
     private function validateResourceSet(ResourceSet $resourceSet): void
