@@ -1,0 +1,19 @@
+---
+name: PHP CS Fixer
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  li:
+    name: 💅🏻 PHP-CS-Fixer
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: PHP-CS-Fixer
+      uses: docker://oskarstark/php-cs-fixer-ga
