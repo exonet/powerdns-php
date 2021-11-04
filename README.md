@@ -38,7 +38,7 @@ $zone->create([
 See the [examples](examples) directory for more.
 
 ## Change log
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Please see [releases](link-releases) for more information on what has changed recently.
 
 ## Testing
 Testing against multiple PHP / PowerDNS versions can be done by using the provided `docker-compose.yml` and the
@@ -82,3 +82,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/exonet/powerdns-php
 [link-author]: https://github.com/exonet
 [link-contributors]: ../../contributors
+[link-releases]: https://github.com/exonet/powerdns-php/releases
