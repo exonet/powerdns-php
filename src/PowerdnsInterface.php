@@ -75,7 +75,7 @@ interface PowerdnsInterface
      *
      * @return Zone[] Array containing the zones
      *
-     * @link https://doc.powerdns.com/authoritative/http-api/zone.html#get--servers-server_id-zones
+     * @see https://doc.powerdns.com/authoritative/http-api/zone.html#get--servers-server_id-zones
      */
     public function listZones(bool $omitDnssecAndEditedSerialFields = false): array;
 
@@ -95,7 +95,7 @@ interface PowerdnsInterface
      * The $statistics and $includeRings parameters are supported in PowerDNS 4.3 and newer.
      * On older PowerDNS instances these parameters are ignored.
      *
-     * @param null|string $statistic    Optional name of a specific statistic to get.
+     * @param string|null $statistic    Optional name of a specific statistic to get.
      * @param bool        $includeRings Include ring statistics or not.
      *
      * @return array An array with statistics.

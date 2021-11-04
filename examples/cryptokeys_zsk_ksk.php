@@ -1,11 +1,10 @@
 <?php
 
 require __DIR__.'/../vendor/autoload.php';
+
 require __DIR__.'/CliLogger.php';
 
-/*
- * This example will create ZSK and KSK keys for an existing zone.
- */
+// This example will create ZSK and KSK keys for an existing zone.
 
 use Exonet\Powerdns\Powerdns;
 

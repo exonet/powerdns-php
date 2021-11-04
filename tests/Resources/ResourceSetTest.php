@@ -8,6 +8,9 @@ use Exonet\Powerdns\Zone;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class ResourceSetTest extends TestCase
 {
     public function testGeneralFunctionality(): void

@@ -9,6 +9,9 @@ use Exonet\Powerdns\Zone;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class PowerdnsTest extends TestCase
 {
     public function testConfigViaConstructor(): void

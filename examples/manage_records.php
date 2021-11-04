@@ -1,11 +1,10 @@
 <?php
 
 require __DIR__.'/../vendor/autoload.php';
+
 require __DIR__.'/CliLogger.php';
 
-/*
- * This example will create, update and delete some DNS records in an existing zone.
- */
+// This example will create, update and delete some DNS records in an existing zone.
 
 use Exonet\Powerdns\Powerdns;
 use Exonet\Powerdns\RecordType;
@@ -45,9 +44,7 @@ $zone->find('test2')->map(function (ResourceRecord $resourceRecord) {
     return $resourceRecord->setTtl(60);
 })->save();
 
-/*
- * To delete a specific record from the zone, perform a search followed by a delete:
- */
+// To delete a specific record from the zone, perform a search followed by a delete:
 $zone->find('test3')->delete();
 
 /*

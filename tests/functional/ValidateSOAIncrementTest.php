@@ -4,6 +4,9 @@ namespace Exonet\Powerdns\tests\functional;
 
 use Exonet\Powerdns\RecordType;
 
+/**
+ * @internal
+ */
 class ValidateSOAIncrementTest extends FunctionalTestCase
 {
     public function testCreateSoaIncrementZone(): void

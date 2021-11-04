@@ -11,9 +11,9 @@ class Helper
      * Make a new resource record based on the arguments or an array with data.
      *
      * @param string       $zoneName The zone name for this resource record.
-     * @param string|array $name     The resource record name or an array with the data.
+     * @param array|string $name     The resource record name or an array with the data.
      * @param string       $type     The type of the resource record.
-     * @param string|array $content  The content of the resource record.
+     * @param array|string $content  The content of the resource record.
      * @param int          $ttl      The TTL.
      *
      * @throws Exceptions\InvalidRecordType If the given type is invalid.
