@@ -5,6 +5,9 @@ namespace Exonet\Powerdns\tests\Resources;
 use Exonet\Powerdns\Resources\Comment;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class CommentTest extends TestCase
 {
     public function testSettersAndGetters(): void

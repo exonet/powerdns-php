@@ -1,11 +1,10 @@
 <?php
 
 require __DIR__.'/../vendor/autoload.php';
+
 require __DIR__.'/CliLogger.php';
 
-/*
- * This example will create a new domain and adds some default DNS records.
- */
+// This example will create a new domain and adds some default DNS records.
 
 use Exonet\Powerdns\Powerdns;
 use Exonet\Powerdns\RecordType;

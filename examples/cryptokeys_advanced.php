@@ -1,11 +1,10 @@
 <?php
 
 require __DIR__.'/../vendor/autoload.php';
+
 require __DIR__.'/CliLogger.php';
 
-/*
- * This example will create cryptokeys in an existing zone with custom settings.
- */
+// This example will create cryptokeys in an existing zone with custom settings.
 
 use Exonet\Powerdns\Powerdns;
 

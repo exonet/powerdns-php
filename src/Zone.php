@@ -18,9 +18,9 @@ class Zone extends AbstractZone
      * resource records will be created in a single call to the PowerDNS server. If $name is a string, a single resource
      * record is created.
      *
-     * @param string|mixed[] $name    The resource record name.
+     * @param mixed[]|string $name    The resource record name.
      * @param string         $type    The type of the resource record.
-     * @param string|mixed[] $content The content of the resource record. When passing a multidimensional array,
+     * @param mixed[]|string $content The content of the resource record. When passing a multidimensional array,
      *                                multiple records are created for this resource record.
      * @param int            $ttl     The TTL.
      *
@@ -85,7 +85,7 @@ class Zone extends AbstractZone
      * Get all the resource records in the current zone. If $recordType is specified, only get those specific resource
      * records.
      *
-     * @param null|string $recordType (optional) The type of resource record.
+     * @param string|null $recordType (optional) The type of resource record.
      *
      * @return ResourceSet A ResourceSet containing all the resource records.
      */
@@ -107,7 +107,7 @@ class Zone extends AbstractZone
      * specified, only get those specific resource records.
      *
      * @param string      $resourceRecordName The name of the resource record.
-     * @param null|string $recordType         (optional) The type of resource record.
+     * @param string|null $recordType         (optional) The type of resource record.
      *
      * @return ResourceSet A ResourceSet containing all the resource records.
      */
@@ -119,8 +119,8 @@ class Zone extends AbstractZone
 
         foreach ($records as $record) {
             if (
-                $record->getName() === $resourceRecordName ||
-                $record->getName() === sprintf('%s.%s', $resourceRecordName, $this->zone)
+                $record->getName() === $resourceRecordName
+                || $record->getName() === sprintf('%s.%s', $resourceRecordName, $this->zone)
             ) {
                 $foundResources->addResource($record);
             }

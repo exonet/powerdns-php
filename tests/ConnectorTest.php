@@ -15,6 +15,9 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 
+/**
+ * @internal
+ */
 class ConnectorTest extends TestCase
 {
     public function testApiCallsAreExecuted()

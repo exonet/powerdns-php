@@ -4,6 +4,9 @@ namespace Exonet\Powerdns\tests\functional;
 
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
 
+/**
+ * @internal
+ */
 class AdvancedZoneCreationTest extends FunctionalTestCase
 {
     public function testCreateSoaIncrementZone(): void

@@ -107,7 +107,7 @@ class Connector implements ConnectorInterface
      *
      * @param string      $method  The method to use for the call.
      * @param string      $urlPath The URL path.
-     * @param null|string $payload (Optional) The payload to include.
+     * @param string|null $payload (Optional) The payload to include.
      *
      * @throws PowerdnsException   When an unknown response is returned.
      * @throws ValidationException When a validation error is returned.
@@ -148,12 +148,17 @@ class Connector implements ConnectorInterface
             case 200:
             case 201:
                 return $contents ?? [];
+
                 break;
+
             case 204:
                 return [];
+
                 break;
+
             case 422:
                 throw new ValidationException($contents['error']);
+
                 break;
         }
 
