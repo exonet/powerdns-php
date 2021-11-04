@@ -1,5 +1,5 @@
 ---
-name: Lint
+name: php-cs-fixer
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   lint:
-    name: 💅🏻 lint
+    name: Run php-cs-fixer
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
