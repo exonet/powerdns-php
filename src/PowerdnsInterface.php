@@ -19,7 +19,7 @@ interface PowerdnsInterface
      *
      * @return Powerdns The created PowerDNS client.
      */
-    public function connect(string $host, int $port = 8001, string $server = 'localhost'): self;
+    public function connect(string $host, int $port = 8081, string $server = 'localhost'): self;
 
     /**
      * Set the authorization key to use for each request.
