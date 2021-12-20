@@ -15,7 +15,7 @@ class Powerdns implements PowerdnsInterface
     /**
      * The version of this package. This is being used for the user-agent header.
      */
-    public const CLIENT_VERSION = 'v3.3.0';
+    public const CLIENT_VERSION = 'v4.0.0';
 
     /**
      * @var Powerdns The client instance.
@@ -35,7 +35,7 @@ class Powerdns implements PowerdnsInterface
     /**
      * @var int The PowerDNS API Port.
      */
-    private $port = 8001;
+    private $port = 8081;
 
     /**
      * @var string The PowerDNS API key.
@@ -114,7 +114,7 @@ class Powerdns implements PowerdnsInterface
      *
      * @return PowerdnsInterface The created PowerDNS client.
      */
-    public function connect(string $host, int $port = 8001, string $server = 'localhost'): PowerdnsInterface
+    public function connect(string $host, int $port = 8081, string $server = 'localhost'): PowerdnsInterface
     {
         $this->host = $host;
         $this->port = $port;
