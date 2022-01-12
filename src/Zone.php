@@ -31,6 +31,7 @@ class Zone extends AbstractZone
     public function create($name, string $type = '', $content = '', int $ttl = 3600): bool
     {
         if (is_array($name)) {
+            $resourceRecords = [];
             foreach ($name as $item) {
                 $resourceRecords[] = $this->make($item['name'], $item['type'], $item['content'], $item['ttl'] ?? $ttl);
             }

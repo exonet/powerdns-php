@@ -106,6 +106,21 @@ class ZoneTest extends TestCase
         ]);
     }
 
+    public function testCreateNoResourceRecords(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('patch')->once()->withArgs(['zones/test.nl.', Mockery::on(function (RRSetTransformer $transformer) {
+            $data = $transformer->transform();
+
+            $this->assertEmpty($data->rrsets);
+
+            return true;
+        })]);
+
+        $zone = new Zone($connector, 'test.nl');
+        $zone->create([]);
+    }
+
     public function testGetResourceRecords(): void
     {
         $connector = Mockery::mock(Connector::class);
