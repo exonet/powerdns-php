@@ -78,7 +78,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-downloads]: https://img.shields.io/packagist/dt/exonet/powerdns-php.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/exonet/powerdns-php
-[link-travis]: https://travis-ci.com/exonet/powerdns-php
+[link-travis]: https://app.travis-ci.com/github/exonet/powerdns-php
 [link-downloads]: https://packagist.org/packages/exonet/powerdns-php
 [link-author]: https://github.com/exonet
 [link-contributors]: ../../contributors
