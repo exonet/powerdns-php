@@ -9,6 +9,8 @@ use Exonet\Powerdns\Resources\ResourceSet;
 use Exonet\Powerdns\Transformers\DnssecTransformer;
 use Exonet\Powerdns\Transformers\Nsec3paramTransformer;
 use Exonet\Powerdns\Transformers\RRSetTransformer;
+use Exonet\Powerdns\Transformers\SoaEditApiTransformer;
+use Exonet\Powerdns\Transformers\SoaEditTransformer;
 use Exonet\Powerdns\Transformers\Transformer;
 
 class Zone extends AbstractZone
@@ -247,5 +249,29 @@ class Zone extends AbstractZone
     public function dnssec(): Cryptokey
     {
         return new Cryptokey($this->connector, $this->zone);
+    }
+
+    /**
+     * Set a new value for the SOA_EDIT setting for this zone.
+     *
+     * @param string $value New value for the soa_edit meta setting.
+     *
+     * @return bool True when the request succeeded.
+     */
+    public function setSoaEdit(string $value): bool
+    {
+        return $this->put(new SoaEditTransformer(['soa_edit' => $value]));
+    }
+
+    /**
+     * Set a new value for the SOA_EDIT_API setting for this zone.
+     *
+     * @param string $value New value for the soa_edit_api meta setting.
+     *
+     * @return bool True when the request succeeded.
+     */
+    public function setSoaEditApi(string $value): bool
+    {
+        return $this->put(new SoaEditApiTransformer(['soa_edit_api' => $value]));
     }
 }
