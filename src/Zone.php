@@ -252,9 +252,9 @@ class Zone extends AbstractZone
     }
 
     /**
-     * Set a new value for the SOA_EDIT setting for this zone
+     * Set a new value for the SOA_EDIT setting for this zone.
      *
-     * @param string $value New value for the soa_edit meta setting
+     * @param string $value New value for the soa_edit meta setting.
      *
      * @return bool True when the request succeeded.
      */
@@ -264,9 +264,9 @@ class Zone extends AbstractZone
     }
 
     /**
-     * Set a new value for the SOA_EDIT_API setting for this zone
+     * Set a new value for the SOA_EDIT_API setting for this zone.
      *
-     * @param string $value New value for the soa_edit_api meta setting
+     * @param string $value New value for the soa_edit_api meta setting.
      *
      * @return bool True when the request succeeded.
      */
