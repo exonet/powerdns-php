@@ -7,11 +7,12 @@ on:
       - master
 
 jobs:
-  update_release_draft:
-    name: ✏️ Draft release
+  update-release-draft:
+    name: Update
     runs-on: ubuntu-latest
+
     steps:
-      - name: 🚀 Run Release Drafter
+      - name: Run release drafter
         uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
