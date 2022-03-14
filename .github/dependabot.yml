@@ -6,15 +6,9 @@ updates:
     schedule:
       interval: daily
       time: "04:00"
-    labels:
-      - "dependencies"
-      - "skip-deployment"
 
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
       interval: daily
       time: "03:00"
-    labels:
-      - "dependencies"
-      - "skip-deployment"
