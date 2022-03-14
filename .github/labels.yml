@@ -50,3 +50,7 @@
 - name: "minor"
   color: 0e8a16
   description: "This PR causes a minor version bump in the version number."
+
+- name: "skip-changelog"
+  color: fef2c0
+  description: "This issue or PR is exempted from the release notes."

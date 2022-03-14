@@ -29,7 +29,6 @@ Please, please, please, don't send your pull request until all of the boxes are 
 - [ ] I have read the **[CONTRIBUTING](../.github/CONTRIBUTING.md)** document.
 - [ ] My pull request addresses exactly one patch/feature.
 - [ ] My pull request contains a title that can be used as a release note.
-- [ ] I have added the appropriate labels to my pull request (e.g. breaking-change, new-feature, bugfix).
 - [ ] I have created a branch for this patch/feature.
 - [ ] Each individual commit in the pull request is meaningful.
 - [ ] I have added tests to cover my changes.
