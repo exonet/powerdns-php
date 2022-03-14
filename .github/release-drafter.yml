@@ -1,8 +1,11 @@
 ---
-name-template: "v$RESOLVED_VERSION"
-tag-template: "v$RESOLVED_VERSION"
-change-template: "- #$NUMBER $TITLE @$AUTHOR"
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+change-template: '- [#$NUMBER] $TITLE [@$AUTHOR](https://github.com/$AUTHOR)'
 sort-direction: ascending
+
+exclude-labels:
+  - 'skip-changelog'
 
 categories:
   - title: "🚨 Breaking changes"
@@ -28,6 +31,7 @@ categories:
     labels:
       - "documentation"
   - title: "⬆️ Dependency updates"
+    collapse-after: 3
     labels:
       - "dependencies"
 

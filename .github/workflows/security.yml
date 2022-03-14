@@ -1,0 +1,27 @@
+---
+name: Security Checker
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  check-vulnerabilities:
+    name: Security
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache vulnerability DB
+        uses: actions/cache@v2
+        id: cache-db
+        with:
+          path: ~/.symfony/cache
+          key: db
+
+      - name: Check for vulnerabilities
+        uses: symfonycorp/security-checker-action@v2
