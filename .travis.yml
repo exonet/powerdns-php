@@ -11,6 +11,7 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
+  - echo "$DOCKER_HUB_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
   - docker-compose up -d
   - docker pull php:7.3-cli
   - docker pull php:7.4-cli
