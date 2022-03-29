@@ -233,20 +233,21 @@ class ResourceRecord
      *
      * @return string The name.
      */
-    public function getName( bool $short = false ): string
+    public function getName(bool $short = false): string
     {
         $name = $this->name;
 
-        if( $short ) {
-            $name = substr( $this->name, 0, -( strlen( $this->zone->getCanonicalName() ) + 1 ) );
+        if ($short) {
+            $name = substr($this->name, 0, -(strlen($this->zone->getCanonicalName()) + 1));
 
-            if( strlen( $name ) == 0 )
-                $name = "@";
+            if (strlen($name) == 0) {
+                $name = '@';
+            }
         }
 
         return $name;
     }
-    
+
     /**
      * Set the name of the resource record.
      *
