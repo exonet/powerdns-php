@@ -35,8 +35,8 @@ class ResourceRecordTest extends TestCase
                 'ttl' => 3600,
                 'changetype' => 'REPLACE',
                 'records' => [
-                    ['content' => '127.0.0.1', 'disabled' => false]
-                ]
+                    ['content' => '127.0.0.1', 'disabled' => false],
+                ],
             ];
 
         $resourceRecord = (new ResourceRecord())->setApiResponse($apiResponse);
@@ -54,11 +54,11 @@ class ResourceRecordTest extends TestCase
                 ],
             ]
         )->once()->andReturnTrue();
-        $zone->allows()->getCanonicalName()->andReturns("test.nl.");
+        $zone->allows()->getCanonicalName()->andReturns('test.nl.');
 
         $resourceRecord = $resourceRecord->setZone($zone);
 
-        $this->assertSame($resourceRecord->getName( true ), "record");
+        $this->assertSame($resourceRecord->getName(true), 'record');
 
         $this->assertTrue($resourceRecord->save());
         $this->assertTrue($resourceRecord->delete());
@@ -70,7 +70,7 @@ class ResourceRecordTest extends TestCase
                 'ttl' => 3600,
                 'changetype' => 'REPLACE',
                 'records' => [
-                    ['content' => '127.0.0.1', 'disabled' => false]
+                    ['content' => '127.0.0.1', 'disabled' => false],
                 ],
                 'comments' => [
                     ['content' => 'Test comment', 'account' => 'Test account', 'modified_at' => 1234],
@@ -78,9 +78,9 @@ class ResourceRecordTest extends TestCase
             ];
 
         $resourceRecord = (new ResourceRecord())->setApiResponse($apiResponse);
-        $resourceRecord->setZone( $zone );
+        $resourceRecord->setZone($zone);
 
-        $this->assertSame($resourceRecord->getName( true ), "@");
+        $this->assertSame($resourceRecord->getName(true), '@');
     }
 
     public function testSetApiResponse(): void
