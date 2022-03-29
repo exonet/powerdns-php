@@ -237,15 +237,18 @@ class ResourceRecord
     {
         $name = $this->name;
 
-        if ($short) {
-            $name = substr($this->name, 0, -(strlen($this->zone->getCanonicalName()) + 1));
+        if( $short ) {
+            if( $this->zone !== null ) {
+                $name = substr( $this->name, 0, -( strlen( $this->zone->getCanonicalName() ) + 1 ) );
 
-            if (strlen($name) == 0) {
-                $name = '@';
+                if( strlen( $name ) == 0 )
+                    $name = "@";
+            } else {
+                throw new PowerdnsException("No zone set for this ResourceRecord. Unable to shorten name");
             }
         }
 
-        return $name;
+        return $name;    
     }
 
     /**
