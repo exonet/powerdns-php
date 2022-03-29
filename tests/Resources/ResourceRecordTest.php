@@ -28,7 +28,19 @@ class ResourceRecordTest extends TestCase
 
     public function testZoneRelatedMethods(): void
     {
-        $resourceRecord = new ResourceRecord();
+        $apiResponse =
+            [
+                'name' => 'record.test.nl.',
+                'type' => 'A',
+                'ttl' => 3600,
+                'changetype' => 'REPLACE',
+                'records' => [
+                    ['content' => '127.0.0.1', 'disabled' => false]
+                ]
+            ];
+
+        $resourceRecord = (new ResourceRecord())->setApiResponse($apiResponse);
+
         $zone = Mockery::mock(Zone::class);
         $zone->shouldReceive('patch')->withArgs([[$resourceRecord]])->once()->andReturnTrue();
         $zone->shouldReceive('patch')->withArgs(
@@ -42,11 +54,33 @@ class ResourceRecordTest extends TestCase
                 ],
             ]
         )->once()->andReturnTrue();
+        $zone->allows()->getCanonicalName()->andReturns("test.nl.");
 
         $resourceRecord = $resourceRecord->setZone($zone);
 
+        $this->assertSame($resourceRecord->getName( true ), "record");
+
         $this->assertTrue($resourceRecord->save());
         $this->assertTrue($resourceRecord->delete());
+
+        $apiResponse =
+            [
+                'name' => 'test.nl.',
+                'type' => 'A',
+                'ttl' => 3600,
+                'changetype' => 'REPLACE',
+                'records' => [
+                    ['content' => '127.0.0.1', 'disabled' => false]
+                ],
+                'comments' => [
+                    ['content' => 'Test comment', 'account' => 'Test account', 'modified_at' => 1234],
+                ],
+            ];
+
+        $resourceRecord = (new ResourceRecord())->setApiResponse($apiResponse);
+        $resourceRecord->setZone( $zone );
+
+        $this->assertSame($resourceRecord->getName( true ), "@");
     }
 
     public function testSetApiResponse(): void
