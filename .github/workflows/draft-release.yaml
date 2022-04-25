@@ -13,6 +13,30 @@ jobs:
 
     steps:
       - name: Run release drafter
+        id: draft
         uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    outputs:
+      draft-version: ${{ steps.draft.outputs.tag_name }}
+
+  update-client-version:
+    name: Update CLIENT_VERSION with draft version
+    runs-on: ubuntu-latest
+    needs: update-release-draft
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: master
+
+      - name: Update `src/Powerdns.php` with draft version
+        run: |
+          sed -i "s/CLIENT_VERSION = 'v.*';/CLIENT_VERSION = '${{ needs.update-release-draft.outputs.draft-version }}';/g" src/Powerdns.php
+
+      - name: Apply version changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Auto update drafter version in CLIENT_VERSION
