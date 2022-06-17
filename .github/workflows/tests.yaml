@@ -6,7 +6,7 @@ on:
 
 jobs:
   run:
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: "ubuntu-latest"
     strategy:
       matrix:
         powerdns-versions: ['4.2', '4.3', '4.4', '4.5', '4.6', '4.7']
