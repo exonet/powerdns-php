@@ -1,81 +1,37 @@
 version: "3.7"
 services:
-  powerdns41:
-    image: psitrax/powerdns:4.1
-    container_name: pdns41
-    environment:
-      MYSQL_USER: root
-      MYSQL_PASS: verySecretPassword
-      MYSQL_HOST: db-pdns41
-    depends_on:
-      - db-pdns41
-    ports:
-      - 8041:8081
-    volumes:
-      - ./.docker/powerdns:/etc/pdns/conf.d
-
-  db-pdns41:
-    image: mysql:5.7
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: verySecretPassword
-
   powerdns42:
-    image: psitrax/powerdns:v4.2
     container_name: pdns42
-    environment:
-      MYSQL_USER: root
-      MYSQL_PASS: verySecretPassword
-      MYSQL_HOST: db-pdns42
-    depends_on:
-      - db-pdns42
+    image: registry.exonet.nl/exonet/powerdns-test:42
     ports:
-      - 8042:8081
-    volumes:
-      - ./.docker/powerdns:/etc/pdns/conf.d
-
-  db-pdns42:
-    image: mysql:5.7
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: verySecretPassword
+      - "8042:8081"
 
   powerdns43:
-    image: psitrax/powerdns:v4.3
     container_name: pdns43
-    environment:
-      MYSQL_USER: root
-      MYSQL_PASS: verySecretPassword
-      MYSQL_HOST: db-pdns43
-    depends_on:
-      - db-pdns43
+    image: registry.exonet.nl/exonet/powerdns-test:43
     ports:
-      - 8043:8081
-    volumes:
-      - ./.docker/powerdns:/etc/pdns/conf.d
-
-  db-pdns43:
-    image: mysql:5.7
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: verySecretPassword
+      - "8043:8081"
 
   powerdns44:
-    image: psitrax/powerdns:v4.4
     container_name: pdns44
-    environment:
-      MYSQL_USER: root
-      MYSQL_PASS: verySecretPassword
-      MYSQL_HOST: db-pdns44
-    depends_on:
-      - db-pdns44
+    image: registry.exonet.nl/exonet/powerdns-test:44
     ports:
-      - 8044:8081
-    volumes:
-      - ./.docker/powerdns44:/etc/pdns/conf.d
+      - "8044:8081"
 
-  db-pdns44:
-    image: mysql:5.7
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: verySecretPassword
+  powerdns45:
+    container_name: pdns45
+    image: registry.exonet.nl/exonet/powerdns-test:45
+    ports:
+      - "8045:8081"
+
+  powerdns46:
+    container_name: pdns46
+    image: registry.exonet.nl/exonet/powerdns-test:46
+    ports:
+      - "8046:8081"
+
+  powerdns47:
+    container_name: pdns47
+    image: registry.exonet.nl/exonet/powerdns-test:47
+    ports:
+      - "8047:8081"
