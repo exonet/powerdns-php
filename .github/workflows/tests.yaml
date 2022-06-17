@@ -9,7 +9,7 @@ jobs:
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
-        powerdns-versions: ['4.2', '4.3', '4.4', '4.5', '4.6', '4.7']
+        powerdns-versions: ['42', '43', '44', '45', '46', '47']
         php-versions: ['7.3', '7.4', '8.0', '8.1']
     services:
       powerdns:
