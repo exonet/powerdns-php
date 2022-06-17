@@ -4,6 +4,7 @@ namespace Exonet\Powerdns\tests\Resources;
 
 use Exonet\Powerdns\Exceptions\InvalidChangeType;
 use Exonet\Powerdns\Exceptions\InvalidRecordType;
+use Exonet\Powerdns\Exceptions\PowerdnsException;
 use Exonet\Powerdns\Resources\Comment;
 use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
@@ -107,5 +108,25 @@ class ResourceRecordTest extends TestCase
         $this->expectExceptionMessage('The record type [TEST] is not a valid DNS Record type.');
 
         $resourceRecord->setType('test');
+    }
+
+    public function testGetShortName(): void
+    {
+        $zone = Mockery::mock(Zone::class);
+        $zone->shouldReceive('getCanonicalName')->once()->andReturn('test-zone.dev');
+
+        $resourceRecord = new ResourceRecord();
+        $resourceRecord->setName('unit.test-zone.dev');
+
+        $resourceRecord->setZone($zone);
+        $this->assertSame('unit.test-zone.dev', $resourceRecord->getName());
+        $this->assertSame('unit', $resourceRecord->getShortName());
+
+        $resourceRecord->setName('test-zone.dev');
+        $this->assertSame('test-zone.dev', $resourceRecord->getName());
+        $this->assertSame('@', $resourceRecord->getShortName());
+
+        $this->expectExceptionMessage('No zone set for this ResourceRecord. Unable to shorten name');
+        (new ResourceRecord())->getShortName();
     }
 }
