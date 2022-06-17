@@ -6,6 +6,7 @@ namespace Exonet\Powerdns\Resources;
 
 use Exonet\Powerdns\Exceptions\InvalidChangeType;
 use Exonet\Powerdns\Exceptions\InvalidRecordType;
+use Exonet\Powerdns\Exceptions\PowerdnsException;
 use Exonet\Powerdns\RecordType;
 use Exonet\Powerdns\Zone;
 use ReflectionClass;
@@ -238,6 +239,28 @@ class ResourceRecord
         return $this->name;
     }
 
+    /**
+     * Get the name of the resource record without the domain name.
+     * "@" when empty.
+     *
+     * @return string The short name
+     *
+     * @throws PowerdnsException
+     */
+    public function getShortName(): string
+    {
+        if( $this->zone !== null ) {
+            $name = substr( $this->name, 0, -( strlen( $this->zone->getCanonicalName() ) + 1 ) );
+
+            if( strlen( $name ) == 0 )
+                $name = "@";
+        } else {
+            throw new PowerdnsException("No zone set for this ResourceRecord. Unable to shorten name");
+        }
+
+        return $name;
+    }
+    
     /**
      * Set the name of the resource record.
      *
