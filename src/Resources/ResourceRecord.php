@@ -243,24 +243,25 @@ class ResourceRecord
      * Get the name of the resource record without the domain name.
      * "@" when empty.
      *
-     * @return string The short name
-     *
      * @throws PowerdnsException
+     *
+     * @return string The short name
      */
     public function getShortName(): string
     {
-        if( $this->zone !== null ) {
-            $name = substr( $this->name, 0, -( strlen( $this->zone->getCanonicalName() ) + 1 ) );
+        if ($this->zone !== null) {
+            $name = substr($this->name, 0, -(strlen($this->zone->getCanonicalName()) + 1));
 
-            if( strlen( $name ) == 0 )
-                $name = "@";
+            if (strlen($name) == 0) {
+                $name = '@';
+            }
         } else {
-            throw new PowerdnsException("No zone set for this ResourceRecord. Unable to shorten name");
+            throw new PowerdnsException('No zone set for this ResourceRecord. Unable to shorten name');
         }
 
         return $name;
     }
-    
+
     /**
      * Set the name of the resource record.
      *
