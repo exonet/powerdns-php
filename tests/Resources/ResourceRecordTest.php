@@ -4,7 +4,6 @@ namespace Exonet\Powerdns\tests\Resources;
 
 use Exonet\Powerdns\Exceptions\InvalidChangeType;
 use Exonet\Powerdns\Exceptions\InvalidRecordType;
-use Exonet\Powerdns\Exceptions\PowerdnsException;
 use Exonet\Powerdns\Resources\Comment;
 use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
