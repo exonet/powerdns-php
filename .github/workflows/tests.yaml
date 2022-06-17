@@ -1,0 +1,28 @@
+---
+name: Tests
+
+on:
+  push:
+
+jobs:
+  run:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        powerdns-versions: ['4.2', '4.3', '4.4', '4.5', '4.6', '4.7']
+        php-versions: ['7.3', '7.4', '8.0', '8.1']
+    services:
+      powerdns:
+        image: registry.exonet.nl/exonet/powerdns-test:${{ matrix.powerdns-versions}}
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: json
+
+      - name: Install dependencies
+        run: composer install --prefer-dist
+
+      - name: Run tests
+        run: ./vendor/bin/phpunit
