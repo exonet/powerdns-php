@@ -7,13 +7,18 @@ on:
 jobs:
   run:
     runs-on: "ubuntu-latest"
+
     strategy:
       matrix:
         powerdns-versions: ['42', '43', '44', '45', '46', '47']
         php-versions: ['7.3', '7.4', '8.0', '8.1']
+
     services:
       powerdns:
         image: registry.exonet.nl/exonet/powerdns-test:${{ matrix.powerdns-versions}}
+        ports:
+          - 8081:8081
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
