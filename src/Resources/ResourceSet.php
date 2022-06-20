@@ -140,6 +140,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->resourceRecords[$offset];
