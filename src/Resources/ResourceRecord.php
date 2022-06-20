@@ -255,7 +255,11 @@ class ResourceRecord
 
         $name = substr($this->name, 0, -(strlen($this->zone->getCanonicalName()) + 1));
 
-        return $name === '' ? '@' : $name;
+        if ($name === '' || $name === false) {
+            return '@';
+        }
+
+        return $name;
     }
 
     /**
