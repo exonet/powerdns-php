@@ -108,4 +108,24 @@ class ResourceRecordTest extends TestCase
 
         $resourceRecord->setType('test');
     }
+
+    public function testGetShortName(): void
+    {
+        $zone = Mockery::mock(Zone::class);
+        $zone->shouldReceive('getCanonicalName')->once()->andReturn('test-zone.dev');
+
+        $resourceRecord = new ResourceRecord();
+        $resourceRecord->setName('unit.test-zone.dev');
+
+        $resourceRecord->setZone($zone);
+        $this->assertSame('unit.test-zone.dev', $resourceRecord->getName());
+        $this->assertSame('unit', $resourceRecord->getShortName());
+
+        $resourceRecord->setName('test-zone.dev');
+        $this->assertSame('test-zone.dev', $resourceRecord->getName());
+        $this->assertSame('@', $resourceRecord->getShortName());
+
+        $this->expectExceptionMessage('No zone set for this ResourceRecord. Unable to shorten name');
+        (new ResourceRecord())->getShortName();
+    }
 }
