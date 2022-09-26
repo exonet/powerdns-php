@@ -38,7 +38,7 @@ $zone->create([
 See the [examples](examples) directory for more.
 
 ## Change log
-Please see [releases](link-releases) for more information on what has changed recently.
+Please see [releases][link-releases] for more information on what has changed recently.
 
 ## Testing
 Testing against multiple PHP / PowerDNS versions can be done by using the provided `docker-compose.yml` and the
