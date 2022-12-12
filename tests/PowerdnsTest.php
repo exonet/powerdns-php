@@ -6,7 +6,6 @@ use Exonet\Powerdns\Connector;
 use Exonet\Powerdns\Powerdns;
 use Exonet\Powerdns\Transformers\CreateZoneTransformer;
 use Exonet\Powerdns\Zone;
-use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -40,7 +39,7 @@ class PowerdnsTest extends TestCase
 
     public function testStatistics(): void
     {
-        $connector = Mockery::mock(Connector::class);
+        $connector = \Mockery::mock(Connector::class);
         $connector->shouldReceive('get')->withArgs(['statistics?includerings=false'])->once()->andReturn($example = [
             [
                 'name' => 'corrupt-packets',
@@ -57,7 +56,7 @@ class PowerdnsTest extends TestCase
 
     public function testStatisticsWithParams(): void
     {
-        $connector = Mockery::mock(Connector::class);
+        $connector = \Mockery::mock(Connector::class);
         $connector->shouldReceive('get')->withArgs(['statistics?includerings=true&statistic=corrupt-packets'])->once()->andReturn($example = [
             [
                 'name' => 'corrupt-packets',
@@ -74,8 +73,8 @@ class PowerdnsTest extends TestCase
 
     public function testZone(): void
     {
-        $connector = Mockery::mock(Connector::class);
-        $connector->shouldReceive('post')->withArgs(['zones', Mockery::on(function (CreateZoneTransformer $transformer) {
+        $connector = \Mockery::mock(Connector::class);
+        $connector->shouldReceive('post')->withArgs(['zones', \Mockery::on(function (CreateZoneTransformer $transformer) {
             $data = $transformer->transform();
 
             $this->assertSame('test.nl.', $data->name);
@@ -103,7 +102,7 @@ class PowerdnsTest extends TestCase
      */
     public function testListZones(string $dnssecArgument, bool $listZonesArgument): void
     {
-        $connector = Mockery::mock(Connector::class);
+        $connector = \Mockery::mock(Connector::class);
         $connector->shouldReceive('get')->withArgs(['zones?dnssec='.$dnssecArgument])->once()->andReturn(
             [
                 [
@@ -145,7 +144,7 @@ class PowerdnsTest extends TestCase
 
     public function testSearch(): void
     {
-        $connector = Mockery::mock(Connector::class);
+        $connector = \Mockery::mock(Connector::class);
         $connector
             ->shouldReceive('get')
             ->withArgs(['search-data?q=search+str%C3%AFng%26more&max=1337&object_type=zone'])

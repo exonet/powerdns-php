@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace Exonet\Powerdns\Resources;
 
-use ArrayAccess;
-use ArrayIterator;
 use Closure;
-use IteratorAggregate;
 
-class SearchResultSet implements IteratorAggregate, ArrayAccess
+class SearchResultSet implements \IteratorAggregate, \ArrayAccess
 {
     /**
      * @var SearchResult[] Array containing the results.
@@ -73,11 +70,11 @@ class SearchResultSet implements IteratorAggregate, ArrayAccess
     /**
      * Loop through the collection and call the given closure for each search result.
      *
-     * @param Closure $closure The closure to execute for each search result.
+     * @param \Closure $closure The closure to execute for each search result.
      *
      * @return SearchResultSet The current SearchResultSet instance.
      */
-    public function map(Closure $closure): self
+    public function map(\Closure $closure): self
     {
         $this->searchResults = array_map($closure, $this->searchResults);
 
@@ -87,9 +84,9 @@ class SearchResultSet implements IteratorAggregate, ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->searchResults);
+        return new \ArrayIterator($this->searchResults);
     }
 
     /**

@@ -9,7 +9,6 @@ use Exonet\Powerdns\Exceptions\InvalidRecordType;
 use Exonet\Powerdns\Exceptions\PowerdnsException;
 use Exonet\Powerdns\RecordType;
 use Exonet\Powerdns\Zone;
-use ReflectionClass;
 
 class ResourceRecord
 {
@@ -378,7 +377,7 @@ class ResourceRecord
             );
         }
 
-        if ((new ReflectionClass(RecordType::class))->getConstant($type) !== false) {
+        if ((new \ReflectionClass(RecordType::class))->getConstant($type) !== false) {
             $this->type = $type;
 
             return $this;

@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Exonet\Powerdns\Resources;
 
-use ArrayAccess;
-use ArrayIterator;
 use Closure;
 use Exonet\Powerdns\Zone;
-use IteratorAggregate;
 
-class ResourceSet implements IteratorAggregate, ArrayAccess
+class ResourceSet implements \IteratorAggregate, \ArrayAccess
 {
     /**
      * @var ResourceRecord[] Array containing resources.
@@ -84,11 +81,11 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
     /**
      * Loop through the collection and call the given closure for each resource record.
      *
-     * @param Closure $closure The closure to execute for each resource record.
+     * @param \Closure $closure The closure to execute for each resource record.
      *
      * @return ResourceSet The current ResourceSet instance.
      */
-    public function map(Closure $closure): self
+    public function map(\Closure $closure): self
     {
         foreach ($this->resourceRecords as $index => $resource) {
             $this->resourceRecords[$index] = $closure($resource, $index);
@@ -124,9 +121,9 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
     /**
      * {@inheritdoc}
      */
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->resourceRecords);
+        return new \ArrayIterator($this->resourceRecords);
     }
 
     /**

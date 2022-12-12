@@ -6,7 +6,6 @@ use Exonet\Powerdns\Resources\SearchResult;
 use Exonet\Powerdns\Resources\SearchResultSet;
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
 use Exonet\Powerdns\Transformers\CreateZoneTransformer;
-use LogicException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -276,11 +275,11 @@ class Powerdns implements PowerdnsInterface
     public function search(string $query, int $size = 100, string $type = 'all'): SearchResultSet
     {
         if (!in_array($type, ['all', 'zone', 'record', 'comment'])) {
-            throw new LogicException('Invalid search type given. Type must be one of "all", "zone", "record" or "comment".');
+            throw new \LogicException('Invalid search type given. Type must be one of "all", "zone", "record" or "comment".');
         }
 
         if ($size < 1) {
-            throw new LogicException('Invalid search size given. Must be at least 1.');
+            throw new \LogicException('Invalid search size given. Must be at least 1.');
         }
 
         $response = $this->connector->get(

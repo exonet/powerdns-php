@@ -5,7 +5,6 @@ namespace Exonet\Powerdns\tests\Resources;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
 use Exonet\Powerdns\Zone;
-use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,7 +14,7 @@ class ResourceSetTest extends TestCase
 {
     public function testGeneralFunctionality(): void
     {
-        $zone = Mockery::mock(Zone::class);
+        $zone = \Mockery::mock(Zone::class);
 
         $resourceRecord = new ResourceRecord();
         $resourceRecord->setTtl(3600);
@@ -44,7 +43,7 @@ class ResourceSetTest extends TestCase
     {
         $resourceRecord = new ResourceRecord();
 
-        $zone = Mockery::mock(Zone::class);
+        $zone = \Mockery::mock(Zone::class);
         $zone->shouldReceive('patch')->withArgs([[$resourceRecord]])->once()->andReturnTrue();
 
         $resourceSet = new ResourceSet($zone, [$resourceRecord]);
@@ -53,10 +52,10 @@ class ResourceSetTest extends TestCase
 
     public function testDelete(): void
     {
-        $resourceRecord = Mockery::mock(ResourceRecord::class);
+        $resourceRecord = \Mockery::mock(ResourceRecord::class);
         $resourceRecord->shouldReceive('setChangeType')->withArgs(['DELETE'])->once()->andReturnSelf();
 
-        $zone = Mockery::mock(Zone::class);
+        $zone = \Mockery::mock(Zone::class);
         $zone->shouldReceive('patch')->withArgs([[$resourceRecord]])->once()->andReturnTrue();
 
         $resourceSet = new ResourceSet($zone, [$resourceRecord]);
