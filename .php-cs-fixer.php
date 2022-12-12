@@ -24,5 +24,6 @@ return $config
         'ternary_to_null_coalescing' => true,
         'array_syntax' => ['syntax' => 'short'],
         'php_unit_test_class_requires_covers' => false,
+        'global_namespace_import' => ['import_classes' => true, 'import_constants' => false, 'import_functions' => false],
     ])
     ->setFinder($finder);
