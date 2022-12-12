@@ -2,6 +2,8 @@
 
 namespace Exonet\Powerdns\Exceptions;
 
-class PowerdnsException extends \Exception
+use Exception;
+
+class PowerdnsException extends Exception
 {
 }

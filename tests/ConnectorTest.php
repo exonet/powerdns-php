@@ -11,6 +11,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 
@@ -38,13 +39,13 @@ class ConnectorTest extends TestCase
         $handler = HandlerStack::create($mock);
         $handler->push($history);
 
-        $powerDnsClient = \Mockery::mock(Powerdns::class);
+        $powerDnsClient = Mockery::mock(Powerdns::class);
         $powerDnsClient->shouldReceive('log')->andReturn(new NullLogger());
         $powerDnsClient->shouldReceive('getConfig')->withNoArgs()->andReturn(
             ['host' => 'http://test', 'port' => 1234, 'server' => 'localhost', 'apiKey' => 'very_secret_key']
         );
 
-        $transformer = \Mockery::mock(Transformer::class);
+        $transformer = Mockery::mock(Transformer::class);
         $transformer->shouldReceive('transform')->andReturn(['transformed' => 'data']);
 
         $connectorClass = new Connector($powerDnsClient, $handler);

@@ -8,6 +8,7 @@ use Exonet\Powerdns\Resources\Comment;
 use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Zone;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -28,12 +29,12 @@ class ResourceRecordTest extends TestCase
     public function testZoneRelatedMethods(): void
     {
         $resourceRecord = new ResourceRecord();
-        $zone = \Mockery::mock(Zone::class);
+        $zone = Mockery::mock(Zone::class);
         $zone->shouldReceive('patch')->withArgs([[$resourceRecord]])->once()->andReturnTrue();
         $zone->shouldReceive('patch')->withArgs(
             [
                 [
-                    \Mockery::on(
+                    Mockery::on(
                         function (ResourceRecord $updatedResourceRecord) {
                             return $updatedResourceRecord->getChangeType() === 'DELETE';
                         }
@@ -110,7 +111,7 @@ class ResourceRecordTest extends TestCase
 
     public function testGetShortName(): void
     {
-        $zone = \Mockery::mock(Zone::class);
+        $zone = Mockery::mock(Zone::class);
         $zone->shouldReceive('getCanonicalName')->once()->andReturn('test-zone.dev');
 
         $resourceRecord = new ResourceRecord();
