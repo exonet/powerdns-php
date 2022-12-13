@@ -61,7 +61,7 @@ else
         RESULTS="$RESULTS\n"
     done
     # Run tests for all supported PHP 8 / PowerDNS 4 combinations.
-    for phpversion in {0..1}; do
+    for phpversion in {0..2}; do
         for pdnsversion in {2..7}; do
             run "8.$phpversion" "4.$pdnsversion"
         done

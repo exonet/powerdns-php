@@ -9,6 +9,7 @@ use ArrayIterator;
 use Closure;
 use Exonet\Powerdns\Zone;
 use IteratorAggregate;
+use ReturnTypeWillChange;
 
 class ResourceSet implements IteratorAggregate, ArrayAccess
 {
@@ -140,7 +141,7 @@ class ResourceSet implements IteratorAggregate, ArrayAccess
     /**
      * {@inheritdoc}
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->resourceRecords[$offset];

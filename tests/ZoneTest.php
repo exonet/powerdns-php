@@ -147,7 +147,7 @@ class ZoneTest extends TestCase
     {
         $connector = Mockery::mock(Connector::class);
         $zone = new Zone($connector, 'test.nl');
-        $this->assertSame('test.nl'.'.', $zone->getCanonicalName());
+        $this->assertSame('test.nl.', $zone->getCanonicalName());
     }
 
     public function testSetNsec3param(): void
