@@ -30,13 +30,27 @@ class Connector implements ConnectorInterface
      *
      * @param Powerdns|null     $client             The client instance.
      * @param HandlerStack|null $guzzleHandlerStack Optional Guzzle handlers.
+     * @param string|null       $basicAuthUsername  Optional username if PowerDNS api is behind reverse proxy with basic auth
+     * @param string|null       $basicAuthPassword  Optional password if PowerDNS api is behind reverse proxy with basic auth
      */
-    public function __construct(Powerdns $client, ?HandlerStack $guzzleHandlerStack = null)
+    public function __construct(
+        Powerdns $client,
+        ?HandlerStack $guzzleHandlerStack = null,
+        ?string $basicAuthUsername = null,
+        ?string $basicAuthPassword = null)
     {
         $this->powerdns = $client;
 
         // Don't let Guzzle throw exceptions, as it is handled by this class.
-        $this->httpClient = new GuzzleClient(['exceptions' => false, 'handler' => $guzzleHandlerStack]);
+        $options = ['exceptions' => false, 'handler' => $guzzleHandlerStack];
+
+        if (isset($basicAuthUsername) && isset($basicAuthPassword)) {
+            $options['headers'] = [
+                'Authorization' => 'Basic ' . base64_encode($basicAuthUsername . ':' . $basicAuthPassword)
+            ];
+        }
+
+        $this->httpClient = new GuzzleClient($options);
     }
 
     /**

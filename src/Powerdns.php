@@ -55,18 +55,22 @@ class Powerdns implements PowerdnsInterface
     /**
      * PowerDNS Client constructor.
      *
-     * @param string|null             $host      (optional) The PowerDNS host. Must include protocol (http, https, etc.).
-     * @param string|null             $apiKey    (optional) The PowerDNS API key.
-     * @param int|null                $port      (optional) The PowerDNS API Port.
-     * @param string|null             $server    (optional) The PowerDNS server to use.
-     * @param ConnectorInterface|null $connector (optional) The Connector to make calls.
+     * @param string|null             $host              (optional) The PowerDNS host. Must include protocol (http, https, etc.).
+     * @param string|null             $apiKey            (optional) The PowerDNS API key.
+     * @param int|null                $port              (optional) The PowerDNS API Port.
+     * @param string|null             $server            (optional) The PowerDNS server to use.
+     * @param ConnectorInterface|null $connector         (optional) The Connector to make calls.
+     * @param string|null             $basicAuthUsername (optional) Username for Basic Authentication behind Reverse Proxies
+     * @param string|null             $basicAuthPassword (optional) Username for Basic Authentication behind Reverse Proxies
      */
     public function __construct(
         ?string $host = null,
         ?string $apiKey = null,
         ?int $port = null,
         ?string $server = null,
-        ?ConnectorInterface $connector = null
+        ?ConnectorInterface $connector = null,
+        ?string $basicAuthUsername = null,
+        ?string $basicAuthPassword = null
     ) {
         if (self::$_instance === null) {
             self::$_instance = $this;
@@ -88,7 +92,7 @@ class Powerdns implements PowerdnsInterface
             $this->server = $server;
         }
 
-        $this->connector = $connector ?? new Connector($this);
+        $this->connector = $connector ?? new Connector($this, null, $basicAuthUsername, $basicAuthPassword);
     }
 
     /**
