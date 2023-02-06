@@ -7,8 +7,8 @@ class BasicAuthConnector extends \Exonet\Powerdns\Connector
     private $basicAuthPassword;
 
     public function __construct(
-        \Exonet\Powerdns\Powerdns $client,
-        ?\GuzzleHttp\HandlerStack $guzzleHandlerStack = null,
+        Exonet\Powerdns\Powerdns $client,
+        ?GuzzleHttp\HandlerStack $guzzleHandlerStack = null,
         ?string $basicAuthUsername = null,
         ?string $basicAuthPassword = null
     ) {
@@ -24,7 +24,7 @@ class BasicAuthConnector extends \Exonet\Powerdns\Connector
 
         return [
             ...$headers,
-            'Authorization' => 'Basic '.base64_encode($this->basicAuthUsername.':'.$this->basicAuthPassword)
+            'Authorization' => 'Basic '.base64_encode($this->basicAuthUsername.':'.$this->basicAuthPassword),
         ];
     }
 }

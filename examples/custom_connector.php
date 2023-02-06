@@ -3,6 +3,7 @@
 require __DIR__.'/../vendor/autoload.php';
 
 require __DIR__.'/CliLogger.php';
+
 require __DIR__.'/BasicAuthConnector.php';
 
 // This example will create a new domain and adds some default DNS records.
