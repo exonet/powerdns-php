@@ -280,7 +280,7 @@ class Zone extends AbstractZone
      * Set the kind of zone: Native, Master or Slave
      *
      * @param string $kind Native, Master or Slave
-     * @param array<string> $masters In case of kind=Slave: Master IPs.
+     * @param array<string> $masters In case of Slave kind: Master IPs.
      *
      * @return bool True when the request succeeded.
      */
