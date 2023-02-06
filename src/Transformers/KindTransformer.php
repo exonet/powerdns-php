@@ -15,6 +15,7 @@ class KindTransformer extends Transformer
         if ('Slave' == $this->data['kind']) {
             $result->masters = $this->data['masters'];
         }
+
         return $result;
     }
 }
