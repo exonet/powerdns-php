@@ -277,17 +277,18 @@ class Zone extends AbstractZone
     }
 
     /**
-     * Set the kind of zone: Native, Master or Slave
+     * Set the kind of zone: Native, Master or Slave.
      *
-     * @param string $kind Native, Master or Slave
+     * @param string        $kind    Native, Master or Slave
      * @param array<string> $masters In case of Slave kind: Master IPs.
      *
      * @return bool True when the request succeeded.
      */
-    public function setKind(string $kind, array $masters=[]): bool
+    public function setKind(string $kind, array $masters = []): bool
     {
         $this->resource()->setKind($kind);
         $this->resource()->setMasters($masters);
+
         return $this->put(new KindTransformer(['kind' => $kind, 'masters' => $masters]));
     }
 }
