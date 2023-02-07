@@ -117,6 +117,7 @@ class Zone extends AbstractZone
      */
     public function find(string $resourceRecordName, ?string $recordType = null): ResourceSet
     {
+        $resourceRecordName = $resourceRecordName === '@' ? $this->zone : $resourceRecordName;
         $records = $this->get($recordType);
 
         $foundResources = new ResourceSet($this);
@@ -124,6 +125,7 @@ class Zone extends AbstractZone
         foreach ($records as $record) {
             if (
                 $record->getName() === $resourceRecordName
+                || $record->getName() === $resourceRecordName.'.'
                 || $record->getName() === sprintf('%s.%s', $resourceRecordName, $this->zone)
             ) {
                 $foundResources->addResource($record);
