@@ -14,7 +14,7 @@ use Exonet\Powerdns\Powerdns;
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
 
 $canonicalDomain = 'slave-zone-test.nl.';
-$masters = [ '1.1.1.1' ];
+$masters = ['1.1.1.1'];
 
 // Update the key to the real PowerDNS API Key.
 $powerdns = new Powerdns('127.0.0.1', 'very_secret_secret');
