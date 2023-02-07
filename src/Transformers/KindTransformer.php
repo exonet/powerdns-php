@@ -12,7 +12,7 @@ class KindTransformer extends Transformer
         $result = (object) [
             'kind' => $this->data['kind'],
         ];
-        if ('Slave' == $this->data['kind']) {
+        if ('Slave' === $this->data['kind']) {
             $result->masters = $this->data['masters'];
         }
 
