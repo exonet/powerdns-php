@@ -7,6 +7,7 @@ use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
 use Exonet\Powerdns\Transformers\DnssecTransformer;
+use Exonet\Powerdns\Transformers\KindTransformer;
 use Exonet\Powerdns\Transformers\Nsec3paramTransformer;
 use Exonet\Powerdns\Transformers\RRSetTransformer;
 use Exonet\Powerdns\Transformers\SoaEditApiTransformer;
@@ -273,5 +274,21 @@ class Zone extends AbstractZone
     public function setSoaEditApi(string $value): bool
     {
         return $this->put(new SoaEditApiTransformer(['soa_edit_api' => $value]));
+    }
+
+    /**
+     * Set the kind of zone: Native, Master or Slave.
+     *
+     * @param string        $kind    Native, Master or Slave
+     * @param array<string> $masters In case of Slave kind: Master IPs.
+     *
+     * @return bool True when the request succeeded.
+     */
+    public function setKind(string $kind, array $masters = []): bool
+    {
+        $this->resource()->setKind($kind);
+        $this->resource()->setMasters($masters);
+
+        return $this->put(new KindTransformer(['kind' => $kind, 'masters' => $masters]));
     }
 }

@@ -231,4 +231,20 @@ class ZoneTest extends TestCase
         $zone = new Zone($connector, 'test.nl');
         $this->assertTrue($zone->notify());
     }
+
+    public function testSetKind(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('put')->withArgs(['zones/test.nl.', Mockery::on(function ($transformer) {
+            $transformed = $transformer->transform();
+            $this->assertSame('Slave', $transformed->kind);
+            $this->assertSame(['1.1.1.1'], $transformed->masters);
+
+            return true;
+        })])->once()->andReturn([]);
+        $zone = Mockery::mock(Zone::class.'[resource]', [$connector, 'test.nl'])->makePartial();
+        $zone->shouldReceive('resource')->withNoArgs()->once()->andReturn(new ZoneResource());
+
+        $zone->setKind('Slave', ['1.1.1.1']);
+    }
 }

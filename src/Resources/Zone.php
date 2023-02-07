@@ -314,7 +314,7 @@ class Zone
      */
     public function setMasters(array $masters): self
     {
-        if ($this->kind !== 'Slave') {
+        if ($this->kind !== 'Slave' && $masters !== []) {
             throw new InvalidKindType(sprintf('Only "Slave" kind zones can set masters, not "%s".', $this->kind));
         }
 
