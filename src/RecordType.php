@@ -294,6 +294,13 @@ class RecordType
     public const TXT = 'TXT';
 
     /**
+     * Private Bind record.
+     *
+     * These records are used by BIND to record some dynamic signing state.
+     */
+    public const TYPE65534 = 'TYPE65534';
+
+    /**
      * Uniform Resource Identifier.
      *
      * Can be used for publishing mappings from hostnames to URIs.
