@@ -299,4 +299,22 @@ class RecordType
      * Can be used for publishing mappings from hostnames to URIs.
      */
     public const URI = 'URI';
+
+    /**
+     * Prefix for "Unknown" type records. Private resource records fall under this category.
+     * https://datatracker.ietf.org/doc/html/rfc3597#section-5
+     */
+    public const unknownTypePrefix = 'TYPE';
+
+    /**
+     * Minimal type number for a Private resource record.
+     * https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4
+     */
+    public const privateTypeMin = 65280;
+
+    /**
+     * Maximum type number for a Private resource record.
+     * https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4
+     */
+    public const privateTypeMax = 65534;
 }

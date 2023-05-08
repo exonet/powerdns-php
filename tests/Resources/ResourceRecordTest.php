@@ -128,4 +128,16 @@ class ResourceRecordTest extends TestCase
         $this->expectExceptionMessage('No zone set for this ResourceRecord. Unable to shorten name');
         (new ResourceRecord())->getShortName();
     }
+
+    public function testPrivateType()
+    {
+        $resourceRecord = new ResourceRecord();
+        $resourceRecord->setType('TYPE65534');
+        $this->assertSame('TYPE65534', $resourceRecord->getType());
+
+        $resourceRecord = new ResourceRecord();
+        $this->expectException(InvalidRecordType::class);
+        $this->expectExceptionMessage('The record type [TYPE1] is not a valid DNS Record type.');
+        $resourceRecord->setType('TYPE1');
+    }
 }
