@@ -384,6 +384,16 @@ class ResourceRecord
             return $this;
         }
 
+        $unknownTypeRegex = '/^' . preg_quote(RecordType::unknownTypePrefix, '/') . '(\d+)$/';
+        if (preg_match($unknownTypeRegex, $type, $matches)) {
+            if (is_numeric($matches[1]) &&
+                intval($matches[1]) >= RecordType::privateTypeMin &&
+                intval($matches[1]) <= RecordType::privateTypeMax) {
+                $this->type = $type;
+                return $this;
+            }
+        }
+
         throw new InvalidRecordType(sprintf('The record type [%s] is not a valid DNS Record type.', $type));
     }
 
