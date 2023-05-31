@@ -71,13 +71,13 @@ interface PowerdnsInterface
     /**
      * Retrieve all zones.
      *
-     * @param bool $omitDnssecAndEditedSerialFields When set to true dnssec and edited_serial are omitted
+     * @param bool $includeDnssecAndEditedSerialFields When set to true dnssec and edited_serial are omitted
      *
      * @return Zone[] Array containing the zones
      *
      * @see https://doc.powerdns.com/authoritative/http-api/zone.html#get--servers-server_id-zones
      */
-    public function listZones(bool $omitDnssecAndEditedSerialFields = false): array;
+    public function listZones(bool $includeDnssecAndEditedSerialFields = false): array;
 
     /**
      * Get a cryptokey instance to work with.

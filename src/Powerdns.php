@@ -208,19 +208,19 @@ class Powerdns implements PowerdnsInterface
     /**
      * Retrieve all zones.
      *
-     * @param bool $omitDnssecAndEditedSerialFields When set to true dnssec and edited_serial are omitted
+     * @param bool $includeDnssecAndEditedSerialFields If 'true' then dnssec and edited_serial are included.
      *
      * @return Zone[] Array containing the zones
      *
      * @see https://doc.powerdns.com/authoritative/http-api/zone.html#get--servers-server_id-zones
      */
-    public function listZones(bool $omitDnssecAndEditedSerialFields = false): array
+    public function listZones(bool $includeDnssecAndEditedSerialFields = false): array
     {
         return array_map(
             function (array $args) {
                 return new Zone($this->connector, $args['id']);
             },
-            $this->connector->get('zones?dnssec='.($omitDnssecAndEditedSerialFields ? 'true' : 'false'))
+            $this->connector->get('zones?dnssec='.($includeDnssecAndEditedSerialFields ? 'true' : 'false'))
         );
     }
 
