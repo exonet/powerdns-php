@@ -372,10 +372,7 @@ class ResourceRecord
         $type = strtoupper($type);
 
         if ($this->existingRecord && $type !== $this->getType()) {
-            throw new InvalidRecordType(
-                'Changing the type of existing DNS resource records can yield unexpected results and is not supported.',
-                ['name' => $this->getName(), 'type' => $this->getType(), 'new_type' => $type]
-            );
+            throw new InvalidRecordType('Changing the type of existing DNS resource records can yield unexpected results and is not supported.');
         }
 
         if ((new ReflectionClass(RecordType::class))->getConstant($type) !== false) {
