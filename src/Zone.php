@@ -255,6 +255,16 @@ class Zone extends AbstractZone
     }
 
     /**
+     * Manage the meta data for this zone.
+     *
+     * @return Meta The meta data.
+     */
+    public function meta(): Meta
+    {
+        return new Meta($this->connector, $this->zone);
+    }
+
+    /**
      * Set a new value for the SOA_EDIT setting for this zone.
      *
      * @param string $value New value for the soa_edit meta setting.
