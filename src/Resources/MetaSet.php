@@ -8,6 +8,7 @@ use ArrayAccess;
 use ArrayIterator;
 use Closure;
 use IteratorAggregate;
+use ReturnTypeWillChange;
 
 class MetaSet implements IteratorAggregate, ArrayAccess
 {
@@ -96,7 +97,7 @@ class MetaSet implements IteratorAggregate, ArrayAccess
     public function delete(): bool
     {
         foreach ($this->metaResources as $resource) {
-           $resource->delete();
+            $resource->delete();
         }
 
         return true;
@@ -121,7 +122,7 @@ class MetaSet implements IteratorAggregate, ArrayAccess
     /**
      * {@inheritdoc}
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->metaResources[$offset];

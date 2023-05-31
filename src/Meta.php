@@ -14,12 +14,14 @@ class Meta extends AbstractZone
      * Get all the meta data for this zone, or only the meta data for a specific kind.
      *
      * @param string|null $metaKind If specified, only the meta data for this kind will be returned.
-     * @return MetaSet The meta data set.
+     *
      * @throws InvalidMetaKind When the meta kind is invalid.
+     *
+     * @return MetaSet The meta data set.
      */
     public function get(string $metaKind = null): MetaSet
     {
-        $items = $this->connector->get($this->getZonePath('/metadata/' . $metaKind));
+        $items = $this->connector->get($this->getZonePath('/metadata/'.$metaKind));
 
         // Wrap the result in an array if it's a single item.
         if (isset($items['kind'])) {
@@ -37,11 +39,13 @@ class Meta extends AbstractZone
     /**
      * Create a new meta data item.
      *
-     * @param string $kind The meta kind.
-     * @param string|array $data The meta data.
-     * @return MetaSet The created meta data set.
-     * @throws InvalidMetaKind When the meta kind is invalid.
+     * @param string       $kind The meta kind.
+     * @param array|string $data The meta data.
+     *
+     * @throws InvalidMetaKind   When the meta kind is invalid.
      * @throws ReadOnlyException When the meta kind is read-only.
+     *
+     * @return MetaSet The created meta data set.
      */
     public function create(string $kind, $data): MetaSet
     {
@@ -55,13 +59,15 @@ class Meta extends AbstractZone
      * Update an existing meta data item.
      *
      * @param MetaResource $meta The meta data item to update.
-     * @return bool True if the update was successful.
+     *
      * @throws ReadOnlyException When the meta kind is read-only.
+     *
+     * @return bool True if the update was successful.
      */
     public function update(MetaResource $meta): bool
     {
         $this->checkReadOnly($meta->getKind());
-        $response = $this->connector->put($this->getZonePath('/metadata/' . $meta->getKind()), new MetaTransformer($meta));
+        $response = $this->connector->put($this->getZonePath('/metadata/'.$meta->getKind()), new MetaTransformer($meta));
 
         // If the response is empty, everything is fine.
         return empty($response);
@@ -71,13 +77,15 @@ class Meta extends AbstractZone
      * Delete an existing meta data item.
      *
      * @param MetaResource $meta The meta data item to delete.
-     * @return bool True if the delete was successful.
+     *
      * @throws ReadOnlyException When the meta kind is read-only.
+     *
+     * @return bool True if the delete was successful.
      */
     public function delete(MetaResource $meta): bool
     {
         $this->checkReadOnly($meta->getKind());
-        $response = $this->connector->delete($this->getZonePath('/metadata/' . $meta->getKind()));
+        $response = $this->connector->delete($this->getZonePath('/metadata/'.$meta->getKind()));
 
         // If the response is empty, everything is fine.
         return empty($response);
@@ -87,6 +95,7 @@ class Meta extends AbstractZone
      * Check if the meta kind is read-only.
      *
      * @param string $kind The meta kind.
+     *
      * @throws ReadOnlyException When the meta kind is read-only.
      */
     protected function checkReadOnly(string $kind): void

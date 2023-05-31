@@ -4,7 +4,7 @@ namespace Exonet\Powerdns;
 
 /**
  * List of possible DNS meta types supported by PowerDNS.
- * Source: https://doc.powerdns.com/authoritative/domainmetadata.html
+ * Source: https://doc.powerdns.com/authoritative/domainmetadata.html.
  */
 class MetaType
 {
@@ -81,6 +81,7 @@ class MetaType
      * Allow this GSS principal to perform AXFR retrieval.
      *
      * @removed PowerDNS 4.3.1
+     *
      * @since PowerDNS 4.7.0
      */
     public const GSS_ALLOW_AXFR_PRINCIPAL = 'GSS-ALLOW-AXFR-PRINCIPAL';

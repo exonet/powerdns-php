@@ -1,6 +1,7 @@
 <?php
 
 require __DIR__.'/../vendor/autoload.php';
+
 require __DIR__.'/CliLogger.php';
 
 use Exonet\Powerdns\MetaType;
@@ -24,7 +25,8 @@ $powerdns = new Powerdns('127.0.0.1', 'very_secret_secret');
 // Delete the zone if it already exists so this example can be executed multiple times.
 try {
     $powerdns->deleteZone($domain);
-} catch (\Exonet\Powerdns\Exceptions\PowerdnsException $e) {}
+} catch (\Exonet\Powerdns\Exceptions\PowerdnsException $e) {
+}
 
 // Create a new zone with the defined records and name servers.
 $powerdns->createZone($domain, $nameServers)->create($dnsRecords);

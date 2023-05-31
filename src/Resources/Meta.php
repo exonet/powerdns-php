@@ -27,9 +27,10 @@ class Meta
     /**
      * Meta resource constructor.
      *
-     * @param string|null $kind The meta kind.
-     * @param array|string $data The meta data.
+     * @param string|null     $kind       The meta kind.
+     * @param array|string    $data       The meta data.
      * @param MetaParent|null $metaParent The meta parent class required to make API calls.
+     *
      * @throws InvalidMetaKind When the $kind is not a valid meta kind.
      */
     public function __construct(?string $kind = null, $data = [], MetaParent $metaParent = null)
@@ -49,8 +50,10 @@ class Meta
      * Set the meta kind.
      *
      * @param string $kind The meta kind.
-     * @return $this The current instance.
+     *
      * @throws InvalidMetaKind When the $kind is not a valid meta kind.
+     *
+     * @return $this The current instance.
      */
     public function setKind(string $kind): self
     {
@@ -62,7 +65,7 @@ class Meta
         }
 
         // Check if the $kind is a valid meta type.
-        $kindConstant = MetaType::class . '::' . str_replace('-', '_', strtoupper($kind));
+        $kindConstant = MetaType::class.'::'.str_replace('-', '_', strtoupper($kind));
         if (defined($kindConstant)) {
             $this->kind = constant($kindConstant);
 
@@ -85,7 +88,8 @@ class Meta
     /**
      * Set the meta data.
      *
-     * @param string|array $data The meta data.
+     * @param array|string $data The meta data.
+     *
      * @return $this The current instance.
      */
     public function setData($data): self
@@ -108,8 +112,9 @@ class Meta
     /**
      * Save this meta data.
      *
-     * @return bool True on success, false on failure.
      * @throws LogicException When no meta parent is set.
+     *
+     * @return bool True on success, false on failure.
      */
     public function save(): bool
     {
@@ -123,8 +128,9 @@ class Meta
     /**
      * Delete this meta data.
      *
-     * @return bool True on success, false on failure.
      * @throws LogicException When no meta parent is set.
+     *
+     * @return bool True on success, false on failure.
      */
     public function delete(): bool
     {

@@ -46,6 +46,5 @@ class MetaTest extends FunctionalTestCase
         $this->expectException(ReadOnlyException::class);
         $this->expectExceptionMessage('The meta kind [NSEC3PARAM] is read-only.');
         $zone->meta()->get(MetaType::NSEC3PARAM)[0]->delete();
-
     }
 }

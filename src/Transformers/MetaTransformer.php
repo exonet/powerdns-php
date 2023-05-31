@@ -9,10 +9,10 @@ class MetaTransformer extends Transformer
      */
     public function transform()
     {
-        return (object)[
-            "kind" => $this->data->getKind(),
-            "metadata" => $this->data->getData(),
-            "type" => "Metadata"
+        return (object) [
+            'kind' => $this->data->getKind(),
+            'metadata' => $this->data->getData(),
+            'type' => 'Metadata',
         ];
     }
 }
