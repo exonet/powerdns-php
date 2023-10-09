@@ -2,6 +2,4 @@
 
 namespace Exonet\Powerdns\Exceptions;
 
-class ValidationException extends PowerdnsException
-{
-}
+class ValidationException extends PowerdnsException {}

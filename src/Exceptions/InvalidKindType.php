@@ -2,6 +2,4 @@
 
 namespace Exonet\Powerdns\Exceptions;
 
-class InvalidKindType extends PowerdnsException
-{
-}
+class InvalidKindType extends PowerdnsException {}

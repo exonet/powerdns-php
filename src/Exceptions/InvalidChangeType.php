@@ -2,6 +2,4 @@
 
 namespace Exonet\Powerdns\Exceptions;
 
-class InvalidChangeType extends PowerdnsException
-{
-}
+class InvalidChangeType extends PowerdnsException {}
