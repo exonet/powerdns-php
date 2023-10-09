@@ -2,6 +2,4 @@
 
 namespace Exonet\Powerdns\Exceptions;
 
-class ReadOnlyException extends PowerdnsException
-{
-}
+class ReadOnlyException extends PowerdnsException {}

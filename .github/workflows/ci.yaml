@@ -11,6 +11,8 @@ jobs:
   check-code-style:
     name: Check code style
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -20,6 +22,6 @@ jobs:
         uses: docker://oskarstark/php-cs-fixer-ga
 
       - name: Apply php-cs-fixer changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Apply php-cs-fixer changes

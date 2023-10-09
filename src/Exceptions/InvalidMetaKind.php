@@ -2,6 +2,4 @@
 
 namespace Exonet\Powerdns\Exceptions;
 
-class InvalidMetaKind extends PowerdnsException
-{
-}
+class InvalidMetaKind extends PowerdnsException {}
