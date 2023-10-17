@@ -41,6 +41,9 @@ class RRSetTransformer extends Transformer
             'ttl' => $resourceRecord->getTtl(),
             'changetype' => $resourceRecord->getChangeType(),
             'records' => $recordList,
+            'comments' => array_map(function($comment) {
+                return (new CommentTransformer($comment))->transform();
+            } ,$resourceRecord->getComments())
         ];
     }
 
