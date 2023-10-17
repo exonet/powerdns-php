@@ -21,25 +21,26 @@ class Zone extends AbstractZone
      * resource records will be created in a single call to the PowerDNS server. If $name is a string, a single resource
      * record is created.
      *
-     * @param mixed[]|string $name    The resource record name.
-     * @param string         $type    The type of the resource record.
-     * @param mixed[]|string $content The content of the resource record. When passing a multidimensional array,
-     *                                multiple records are created for this resource record.
-     * @param int            $ttl     The TTL.
+     * @param mixed[]|string $name     The resource record name.
+     * @param string         $type     The type of the resource record.
+     * @param mixed[]|string $content  The content of the resource record. When passing a multidimensional array,
+     *                                 multiple records are created for this resource record.
+     * @param mixed[]|array $comments The comment to assign to the record.
+     * @param int            $ttl      The TTL.
      *
      * @throws Exceptions\InvalidRecordType If the given type is invalid.
      *
      * @return bool True when created.
      */
-    public function create($name, string $type = '', $content = '', int $ttl = 3600): bool
+    public function create($name, string $type = '', $content = '', int $ttl = 3600, array $comments = []): bool
     {
         if (is_array($name)) {
             $resourceRecords = [];
             foreach ($name as $item) {
-                $resourceRecords[] = $this->make($item['name'], $item['type'], $item['content'], $item['ttl'] ?? $ttl);
+                $resourceRecords[] = $this->make($item['name'], $item['type'], $item['content'], $item['ttl'] ?? $ttl, $item['comments'] ?? []);
             }
         } else {
-            $resourceRecords = [$this->make($name, $type, $content, $ttl)];
+            $resourceRecords = [$this->make($name, $type, $content, $ttl, $comments)];
         }
 
         return $this->patch($resourceRecords);
@@ -138,18 +139,19 @@ class Zone extends AbstractZone
     /**
      * Make (but not insert/POST) a new resource record.
      *
-     * @param string $name    The resource record name.
-     * @param string $type    The type of the resource record.
-     * @param string $content The content of the resource record.
-     * @param int    $ttl     The TTL.
+     * @param string $name     The resource record name.
+     * @param string $type     The type of the resource record.
+     * @param string $content  The content of the resource record.
+     * @param int    $ttl      The TTL.
+     * @param array  $comments The Comments.
      *
      * @throws Exceptions\InvalidRecordType If the given type is invalid.
      *
      * @return ResourceRecord The constructed ResourceRecord.
      */
-    public function make(string $name, string $type, $content, int $ttl): ResourceRecord
+    public function make(string $name, string $type, $content, int $ttl, array $comments): ResourceRecord
     {
-        return Helper::createResourceRecord($this->zone, compact('name', 'type', 'content', 'ttl'));
+        return Helper::createResourceRecord($this->zone, compact('name', 'type', 'content', 'ttl', 'comments'));
     }
 
     /**

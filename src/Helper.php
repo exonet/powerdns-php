@@ -2,6 +2,7 @@
 
 namespace Exonet\Powerdns;
 
+use Exonet\Powerdns\Resources\Comment;
 use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 
@@ -15,6 +16,7 @@ class Helper
      * @param string       $type     The type of the resource record.
      * @param array|string $content  The content of the resource record.
      * @param int          $ttl      The TTL.
+     * @param array       $comments The Comment.
      *
      * @throws Exceptions\InvalidRecordType If the given type is invalid.
      *
@@ -25,14 +27,15 @@ class Helper
         $name,
         string $type = '',
         $content = '',
-        int $ttl = 3600
+        int $ttl = 3600,
+        array $comments = []
     ): ResourceRecord {
         if (is_array($name)) {
             if (isset($name['records'])) {
                 return (new ResourceRecord())->setApiResponse($name);
             }
 
-            ['name' => $name, 'type' => $type, 'ttl' => $ttl, 'content' => $content] = $name;
+            ['name' => $name, 'type' => $type, 'ttl' => $ttl, 'content' => $content, 'comments' => $comments] = $name;
         }
 
         $name = str_replace('@', $zoneName, $name);
@@ -48,9 +51,21 @@ class Helper
             ->setName($name)
             ->setType($type)
             ->setTtl($ttl);
-
+       
         if (is_string($content)) {
             $content = [$content];
+        }
+
+        if (is_array($comments)) {
+            $commentList = [];
+            foreach ($comments as $comment) {
+                // we can use an empty fallback for account and nothing the current time for modified_at
+                $commentList[] = (new Comment())
+                    ->setContent($comment['content'])
+                    ->setAccount($comment['account'] ?? '')
+                    ->setModifiedAt($comment['modified_at'] ?? time());
+            }
+            $resourceRecord->setComments($commentList);
         }
 
         $recordList = [];
