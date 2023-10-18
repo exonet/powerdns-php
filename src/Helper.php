@@ -16,7 +16,7 @@ class Helper
      * @param string       $type     The type of the resource record.
      * @param array|string $content  The content of the resource record.
      * @param int          $ttl      The TTL.
-     * @param array       $comments The Comment.
+     * @param array        $comments The Comment.
      *
      * @throws Exceptions\InvalidRecordType If the given type is invalid.
      *
@@ -51,7 +51,7 @@ class Helper
             ->setName($name)
             ->setType($type)
             ->setTtl($ttl);
-       
+
         if (is_string($content)) {
             $content = [$content];
         }

@@ -37,7 +37,7 @@ class CommentTest extends TestCase
         $this->assertEquals((object) [
             'modified_at' => 1234,
             'account' => 'test account',
-            'content' => 'test content'
+            'content' => 'test content',
         ], $transformer->transform());
     }
 }

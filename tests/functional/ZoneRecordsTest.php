@@ -27,7 +27,7 @@ class ZoneRecordsTest extends FunctionalTestCase
             'name' => '@',
             'type' => RecordType::SOA,
             'content' => 'ns1.test. hostmaster.test. 0 10800 3605 604800 3600',
-            'ttl' => 60, 
+            'ttl' => 60,
             'comments' => [],
         ],
         ['name' => '@', 'type' => RecordType::NS, 'content' => 'ns1.powerdns-php.', 'ttl' => 60, 'comments' => []],
@@ -90,7 +90,7 @@ class ZoneRecordsTest extends FunctionalTestCase
                         'type' => $item->getType(),
                         'content' => $content,
                         'ttl' => $item->getTtl(),
-                        'comments' => []
+                        'comments' => [],
                     ];
                 }
             }
