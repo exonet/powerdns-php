@@ -18,6 +18,8 @@ Basic example how to create a new DNS zone and insert a few DNS records.
 ```php
 use Exonet\Powerdns\Powerdns;
 use Exonet\Powerdns\RecordType;
+use Exonet\Powerdns\Resources\ResourceRecord;
+use Exonet\Powerdns\Resources\Record;
 
 // Initialize the Powerdns client.
 $powerdns = new Powerdns('127.0.0.1', 'powerdns_secret_string');
@@ -32,6 +34,12 @@ $zone = $powerdns->createZone(
 $zone->create([
     ['type' => RecordType::A, 'content' => '127.0.0.1', 'ttl' => 60, 'name' => '@'],
     ['type' => RecordType::A, 'content' => '127.0.0.1', 'ttl' => 60, 'name' => 'www'],
+]);
+
+// OR use the Object-based way
+$zone->create([
+    (new ResourceRecord())->setType(RecordType::A)->setRecord('127.0.0.1')->setName('@')->setTtl(60),
+    (new ResourceRecord())->setType(RecordType::A)->setRecord((new Record())->setContent('127.0.0.1'))->setName('@')->setTtl(60),
 ]);
 ```
 
