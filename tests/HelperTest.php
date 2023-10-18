@@ -21,6 +21,7 @@ class HelperTest extends TestCase
         self::assertCount(1, $result->getRecords());
         self::assertSame('127.0.0.1', $result->getRecords()[0]->getContent());
         self::assertSame('Hello World', $result->getComments()[0]->getContent());
+        self::assertSame('Tester', $result->getComments()[0]->getAccount());
     }
 
     public function testWithArray(): void
@@ -34,16 +35,16 @@ class HelperTest extends TestCase
                 'ttl' => 1337,
                 'comments' => [
                     [
-                        'content' => "Hello",
+                        'content' => 'Hello',
                         'account' => 'rooti',
-                        'modified_at' => 999
+                        'modified_at' => 999,
                     ],
                     [
-                        'content' => "World",
+                        'content' => 'World',
                         'account' => 'rooti',
-                        'modified_at' => 111
-                    ]
-                ]
+                        'modified_at' => 111,
+                    ],
+                ],
             ]
         );
 
@@ -54,6 +55,8 @@ class HelperTest extends TestCase
         self::assertSame('127.0.0.1', $result->getRecords()[0]->getContent());
         self::assertSame('127.0.0.2', $result->getRecords()[1]->getContent());
         self::assertSame(111, $result->getComments()[1]->getModifiedAt());
+        self::assertSame('World', $result->getComments()[1]->getContent());
+        self::assertSame('rooti', $result->getComments()[1]->getAccount());
     }
 
     public function testWithApiResponse(): void
