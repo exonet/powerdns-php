@@ -25,8 +25,8 @@ class Zone extends AbstractZone
      * @param string         $type     The type of the resource record.
      * @param mixed[]|string $content  The content of the resource record. When passing a multidimensional array,
      *                                 multiple records are created for this resource record.
-     * @param array|mixed[]  $comments The comment to assign to the record.
      * @param int            $ttl      The TTL.
+     * @param array|mixed[]  $comments The comment to assign to the record.
      *
      * @throws Exceptions\InvalidRecordType If the given type is invalid.
      *
