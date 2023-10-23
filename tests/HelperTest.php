@@ -13,13 +13,15 @@ class HelperTest extends TestCase
 {
     public function testWithArguments(): void
     {
-        $result = Helper::createResourceRecord('unit.test.', 'www', RecordType::A, '127.0.0.1', 1337);
+        $result = Helper::createResourceRecord('unit.test.', 'www', RecordType::A, '127.0.0.1', 1337, [['content' => 'Hello World', 'account' => 'Tester']]);
 
         self::assertSame('www.unit.test.', $result->getName());
         self::assertSame('A', $result->getType());
         self::assertSame(1337, $result->getTtl());
         self::assertCount(1, $result->getRecords());
         self::assertSame('127.0.0.1', $result->getRecords()[0]->getContent());
+        self::assertSame('Hello World', $result->getComments()[0]->getContent());
+        self::assertSame('Tester', $result->getComments()[0]->getAccount());
     }
 
     public function testWithArray(): void
@@ -31,6 +33,18 @@ class HelperTest extends TestCase
                 'type' => RecordType::A,
                 'content' => ['127.0.0.1', '127.0.0.2'],
                 'ttl' => 1337,
+                'comments' => [
+                    [
+                        'content' => 'Hello',
+                        'account' => 'rooti',
+                        'modified_at' => 999,
+                    ],
+                    [
+                        'content' => 'World',
+                        'account' => 'rooti',
+                        'modified_at' => 111,
+                    ],
+                ],
             ]
         );
 
@@ -40,6 +54,9 @@ class HelperTest extends TestCase
         self::assertCount(2, $result->getRecords());
         self::assertSame('127.0.0.1', $result->getRecords()[0]->getContent());
         self::assertSame('127.0.0.2', $result->getRecords()[1]->getContent());
+        self::assertSame(111, $result->getComments()[1]->getModifiedAt());
+        self::assertSame('World', $result->getComments()[1]->getContent());
+        self::assertSame('rooti', $result->getComments()[1]->getAccount());
     }
 
     public function testWithApiResponse(): void

@@ -18,20 +18,21 @@ class ZoneRecordsTest extends FunctionalTestCase
     private $canonicalName;
 
     private $dnsRecords = [
-        ['name' => 'www', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60],
-        ['name' => 'www', 'type' => RecordType::A, 'content' => '127.0.0.1', 'ttl' => 60],
-        ['name' => 'bla', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60],
-        ['name' => '@', 'type' => RecordType::unknownTypePrefix. 65534, 'content' => '\# 4 aabbccdd', 'ttl' => 60],
-        ['name' => '@', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60],
+        ['name' => 'www', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60, 'comments' => []],
+        ['name' => 'www', 'type' => RecordType::A, 'content' => '127.0.0.1', 'ttl' => 60, 'comments' => []],
+        ['name' => 'bla', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60, 'comments' => []],
+        ['name' => '@', 'type' => RecordType::unknownTypePrefix. 65534, 'content' => '\# 4 aabbccdd', 'ttl' => 60, 'comments' => []],
+        ['name' => '@', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60, 'comments' => []],
         [
             'name' => '@',
             'type' => RecordType::SOA,
             'content' => 'ns1.test. hostmaster.test. 0 10800 3605 604800 3600',
             'ttl' => 60,
+            'comments' => [],
         ],
-        ['name' => '@', 'type' => RecordType::NS, 'content' => 'ns1.powerdns-php.', 'ttl' => 60],
-        ['name' => '@', 'type' => RecordType::NS, 'content' => 'ns2.powerdns-php.', 'ttl' => 60],
-        ['name' => '@', 'type' => RecordType::A, 'content' => '127.0.0.1', 'ttl' => 60],
+        ['name' => '@', 'type' => RecordType::NS, 'content' => 'ns1.powerdns-php.', 'ttl' => 60, 'comments' => []],
+        ['name' => '@', 'type' => RecordType::NS, 'content' => 'ns2.powerdns-php.', 'ttl' => 60, 'comments' => []],
+        ['name' => '@', 'type' => RecordType::A, 'content' => '127.0.0.1', 'ttl' => 60, 'comments' => []],
     ];
 
     protected function setUp(): void
@@ -89,6 +90,7 @@ class ZoneRecordsTest extends FunctionalTestCase
                         'type' => $item->getType(),
                         'content' => $content,
                         'ttl' => $item->getTtl(),
+                        'comments' => [],
                     ];
                 }
             }
