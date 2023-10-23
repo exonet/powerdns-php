@@ -38,8 +38,8 @@ $zone->create([
 
 // OR use the Object-based way
 $zone->create([
-    (new ResourceRecord())->setType(RecordType::A)->setRecord('127.0.0.1')->setName('@')->setTtl(60),
-    (new ResourceRecord())->setType(RecordType::A)->setRecord((new Record())->setContent('127.0.0.1'))->setName('@')->setTtl(60),
+    (new ResourceRecord())->setZone($zone)->setType(RecordType::A)->setRecord('127.0.0.1')->setName('@')->setTtl(60),
+    (new ResourceRecord())->setZone($zone)->setType(RecordType::A)->setRecord((new Record())->setContent('127.0.0.1'))->setName('@')->setTtl(60),
 ]);
 ```
 
