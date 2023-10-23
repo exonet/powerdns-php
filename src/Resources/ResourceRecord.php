@@ -271,6 +271,15 @@ class ResourceRecord
      */
     public function setName(string $name): self
     {
+        if ($this->getZone() !== null) {
+            $name = str_replace('@', $this->getZone()->getCanonicalName(), $name);
+
+            // If the name of the record doesn't end in the zone name, append the zone name to it.
+            if (substr($name, -strlen($this->getZone()->getCanonicalName())) !== $this->getZone()->getCanonicalName()) {
+                $name = sprintf('%s.%s', $name, $this->getZone()->getCanonicalName());
+            }
+        }
+
         $this->name = $name;
 
         return $this;
@@ -398,9 +407,9 @@ class ResourceRecord
     /**
      * Get the zone object for this ResourceRecord.
      *
-     * @return Zone The zone for this ResourceRecord.
+     * @return Zone|null The zone for this ResourceRecord.
      */
-    public function getZone(): Zone
+    public function getZone(): ?Zone
     {
         return $this->zone;
     }
