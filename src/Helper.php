@@ -35,7 +35,8 @@ class Helper
                 return (new ResourceRecord())->setApiResponse($name);
             }
 
-            ['name' => $name, 'type' => $type, 'ttl' => $ttl, 'content' => $content, 'comments' => $comments] = $name;
+            $comments = $name['comments'] ?? [];
+            ['name' => $name, 'type' => $type, 'ttl' => $ttl, 'content' => $content] = $name;
         }
 
         $name = str_replace('@', $zoneName, $name);
