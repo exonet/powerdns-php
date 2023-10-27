@@ -59,6 +59,27 @@ class HelperTest extends TestCase
         self::assertSame('rooti', $result->getComments()[1]->getAccount());
     }
 
+    public function testWithArrayWithoutOptionalFields(): void
+    {
+        $result = Helper::createResourceRecord(
+            'unit.test.',
+            [
+                'name' => '@',
+                'type' => RecordType::A,
+                'content' => ['127.0.0.1', '127.0.0.2'],
+                'ttl' => 1337,
+            ]
+        );
+
+        self::assertSame('unit.test.', $result->getName());
+        self::assertSame('A', $result->getType());
+        self::assertSame(1337, $result->getTtl());
+        self::assertCount(2, $result->getRecords());
+        self::assertSame('127.0.0.1', $result->getRecords()[0]->getContent());
+        self::assertSame('127.0.0.2', $result->getRecords()[1]->getContent());
+        self::assertEmpty($result->getComments());
+    }
+
     public function testWithApiResponse(): void
     {
         foreach (ZoneTest::API_RESPONSE['rrsets'] as $rrset) {
