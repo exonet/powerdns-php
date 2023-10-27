@@ -176,20 +176,17 @@ class ZoneTest extends TestCase
         $zone = new Zone($connector, 'test.nl');
         $zone->create([
             (new ResourceRecord())
-                ->setZone($zone)
                 ->setName('test')
                 ->setType(RecordType::A)
                 ->setRecord((new Record())
                     ->setContent('127.0.0.1'))
                 ->setTtl(10),
             (new ResourceRecord())
-                ->setZone($zone)
                 ->setName('@')
                 ->setType(RecordType::A)
                 ->setRecord((new Record())->setContent('127.0.0.1'))
                 ->setTtl(20),
             (new ResourceRecord())
-                ->setZone($zone)
                 ->setName('@')
                 ->setType(RecordType::MX)
                 ->setRecords([
@@ -198,14 +195,12 @@ class ZoneTest extends TestCase
                 ])
                 ->setTtl(30),
             (new ResourceRecord())
-                ->setZone($zone)
                 ->setName('test02')
                 ->setType(RecordType::A)
                 ->setRecord((new Record())->setContent('127.0.0.1'))
                 ->setTtl(40),
 
             (new ResourceRecord())
-                ->setZone($zone)
                 ->setName('test03')
                 ->setType(RecordType::TXT)->setRecord((new Record())->setContent('"v=DMARC1; p=none; rua=mailto:info@test.nl; ruf=mailto:info@test.nl"'))
                 ->setTtl(40),

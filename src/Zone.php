@@ -20,11 +20,11 @@ class Zone extends AbstractZone {
      * record is created.
      *
      * @param mixed[]|ResourceRecord|ResourceRecord[]|string $name     The resource record name.
-     * @param string         $type     The type of the resource record.
-     * @param mixed[]|string $content  The content of the resource record. When passing a multidimensional array,
-     *                                 multiple records are created for this resource record.
-     * @param int            $ttl      The TTL.
-     * @param array|mixed[]  $comments The comment to assign to the record.
+     * @param string                                         $type     The type of the resource record.
+     * @param mixed[]|string                                 $content  The content of the resource record. When passing a multidimensional array,
+     *                                                                 multiple records are created for this resource record.
+     * @param int                                            $ttl      The TTL.
+     * @param array|mixed[]                                  $comments The comment to assign to the record.
      *
      * @throws Exceptions\InvalidRecordType If the given type is invalid.
      *
@@ -35,6 +35,7 @@ class Zone extends AbstractZone {
             $resourceRecords = [];
             foreach ($name as $item) {
                 if ($item instanceof ResourceRecord) {
+                    $item->setZone($this)->setName($item->getName());
                     $resourceRecords[] = $item;
                 } else {
                     $resourceRecords[] = $this->make($item['name'], $item['type'], $item['content'], $item['ttl'] ?? $ttl, $item['comments'] ?? []);
@@ -42,6 +43,7 @@ class Zone extends AbstractZone {
             }
         } else {
             if ($name instanceof ResourceRecord) {
+                $name->setZone($this)->setName($name->getName());
                 $resourceRecords = [$name];
             } else {
                 $resourceRecords = [$this->make($name, $type, $content, $ttl, $comments)];
