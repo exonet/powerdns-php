@@ -13,7 +13,8 @@ use Exonet\Powerdns\Transformers\SoaEditApiTransformer;
 use Exonet\Powerdns\Transformers\SoaEditTransformer;
 use Exonet\Powerdns\Transformers\Transformer;
 
-class Zone extends AbstractZone {
+class Zone extends AbstractZone
+{
     /**
      * Create one or more new resource records in the current zone. If $name is passed as multidimensional array those
      * resource records will be created in a single call to the PowerDNS server. If $name is a string, a single resource
@@ -30,7 +31,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when created.
      */
-    public function create($name, string $type = '', $content = '', int $ttl = 3600, array $comments = []): bool {
+    public function create($name, string $type = '', $content = '', int $ttl = 3600, array $comments = []): bool
+    {
         if (is_array($name)) {
             $resourceRecords = [];
             foreach ($name as $item) {
@@ -60,7 +62,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when successful.
      */
-    public function patch(array $resourceRecords): bool {
+    public function patch(array $resourceRecords): bool
+    {
         $result = $this->connector->patch($this->getZonePath(), new RRSetTransformer($resourceRecords));
         // Invalidate the resource.
         $this->zoneResource = null;
@@ -79,7 +82,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when successful.
      */
-    public function put(Transformer $transformer): bool {
+    public function put(Transformer $transformer): bool
+    {
         $result = $this->connector->put($this->getZonePath(), $transformer);
         // Invalidate the resource.
         $this->zoneResource = null;
@@ -99,7 +103,8 @@ class Zone extends AbstractZone {
      *
      * @return ResourceSet A ResourceSet containing all the resource records.
      */
-    public function get(?string $recordType = null): ResourceSet {
+    public function get(?string $recordType = null): ResourceSet
+    {
         $resourceSet = new ResourceSet($this);
 
         foreach ($this->resource()->getResourceRecords() as $rrset) {
@@ -120,16 +125,17 @@ class Zone extends AbstractZone {
      *
      * @return ResourceSet A ResourceSet containing all the resource records.
      */
-    public function find(string $resourceRecordName, ?string $recordType = null): ResourceSet {
+    public function find(string $resourceRecordName, ?string $recordType = null): ResourceSet
+    {
         $resourceRecordName = $resourceRecordName === '@' ? $this->zone : $resourceRecordName;
-        $records            = $this->get($recordType);
+        $records = $this->get($recordType);
 
         $foundResources = new ResourceSet($this);
 
         foreach ($records as $record) {
             if (
                 $record->getName() === $resourceRecordName
-                || $record->getName() === $resourceRecordName . '.'
+                || $record->getName() === $resourceRecordName.'.'
                 || $record->getName() === sprintf('%s.%s', $resourceRecordName, $this->zone)
             ) {
                 $foundResources->addResource($record);
@@ -152,7 +158,8 @@ class Zone extends AbstractZone {
      *
      * @return ResourceRecord The constructed ResourceRecord.
      */
-    public function make(string $name, string $type, $content, int $ttl, array $comments): ResourceRecord {
+    public function make(string $name, string $type, $content, int $ttl, array $comments): ResourceRecord
+    {
         return Helper::createResourceRecord($this->zone, compact('name', 'type', 'content', 'ttl', 'comments'));
     }
 
@@ -161,7 +168,8 @@ class Zone extends AbstractZone {
      *
      * @return string The zone in AXFR format.
      */
-    public function export(): string {
+    public function export(): string
+    {
         $result = $this->connector->get($this->getZonePath('/export'));
 
         return $result['zone'];
@@ -179,8 +187,9 @@ class Zone extends AbstractZone {
      *
      * @return bool True when updated.
      */
-    public function setNsec3param(?string $nsec3param): bool {
-        $zone        = $this->resource()->setNsec3param($nsec3param);
+    public function setNsec3param(?string $nsec3param): bool
+    {
+        $zone = $this->resource()->setNsec3param($nsec3param);
         $transformer = new Nsec3paramTransformer($zone);
 
         return $this->put($transformer);
@@ -193,7 +202,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when updated.
      */
-    public function unsetNsec3param(): bool {
+    public function unsetNsec3param(): bool
+    {
         return $this->setNsec3param(null);
     }
 
@@ -202,7 +212,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when the DNS notify was successfully sent
      */
-    public function notify(): bool {
+    public function notify(): bool
+    {
         $result = $this->connector->put($this->getZonePath('/notify'));
 
         /*
@@ -217,7 +228,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when enabled.
      */
-    public function enableDnssec(): bool {
+    public function enableDnssec(): bool
+    {
         return $this->setDnssec(true);
     }
 
@@ -226,7 +238,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when disabled.
      */
-    public function disableDnssec(): bool {
+    public function disableDnssec(): bool
+    {
         return $this->setDnssec(false);
     }
 
@@ -237,7 +250,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when the request succeeded.
      */
-    public function setDnssec(bool $state): bool {
+    public function setDnssec(bool $state): bool
+    {
         return $this->put(new DnssecTransformer(['dnssec' => $state]));
     }
 
@@ -246,7 +260,8 @@ class Zone extends AbstractZone {
      *
      * @return Cryptokey The DNSSEC instance.
      */
-    public function dnssec(): Cryptokey {
+    public function dnssec(): Cryptokey
+    {
         return new Cryptokey($this->connector, $this->zone);
     }
 
@@ -255,7 +270,8 @@ class Zone extends AbstractZone {
      *
      * @return Meta The meta data.
      */
-    public function meta(): Meta {
+    public function meta(): Meta
+    {
         return new Meta($this->connector, $this->zone);
     }
 
@@ -266,7 +282,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when the request succeeded.
      */
-    public function setSoaEdit(string $value): bool {
+    public function setSoaEdit(string $value): bool
+    {
         return $this->put(new SoaEditTransformer(['soa_edit' => $value]));
     }
 
@@ -277,7 +294,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when the request succeeded.
      */
-    public function setSoaEditApi(string $value): bool {
+    public function setSoaEditApi(string $value): bool
+    {
         return $this->put(new SoaEditApiTransformer(['soa_edit_api' => $value]));
     }
 
@@ -289,7 +307,8 @@ class Zone extends AbstractZone {
      *
      * @return bool True when the request succeeded.
      */
-    public function setKind(string $kind, array $masters = []): bool {
+    public function setKind(string $kind, array $masters = []): bool
+    {
         $this->resource()->setKind($kind);
         $this->resource()->setMasters($masters);
 
