@@ -3,6 +3,10 @@
 namespace Exonet\Powerdns\tests;
 
 use Exonet\Powerdns\Connector;
+use Exonet\Powerdns\RecordType;
+use Exonet\Powerdns\Resources\Comment;
+use Exonet\Powerdns\Resources\Record;
+use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
 use Exonet\Powerdns\Transformers\RRSetTransformer;
 use Exonet\Powerdns\Zone;
@@ -61,6 +65,34 @@ class ZoneTest extends TestCase
         $zone->create('test', 'A', '127.0.0.1', 10);
     }
 
+    public function testCreateSingleResourceRecordFromClass(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('patch')->withArgs(['zones/test.nl.', Mockery::on(function (RRSetTransformer $transformer) {
+            $data = $transformer->transform();
+
+            $this->assertSame('test.test.nl.', $data->rrsets[0]->name);
+            $this->assertSame('A', $data->rrsets[0]->type);
+            $this->assertSame(10, $data->rrsets[0]->ttl);
+            $this->assertSame('127.0.0.1', $data->rrsets[0]->records[0]->content);
+
+            return true;
+        })]);
+
+        $zone = new Zone($connector, 'test.nl');
+        $rr = (new ResourceRecord())
+            ->setName('test.test.nl.')
+            ->setType(RecordType::A)
+            ->setRecord('127.0.0.1')
+            ->setTtl(10)
+            ->setComments([
+                (new Comment())->setContent('Hello')->setAccount('root')->setModifiedAt(1),
+                (new Comment())->setContent('Power')->setAccount('admin')->setModifiedAt(2),
+                (new Comment())->setContent('DNS')->setAccount('superuser')->setModifiedAt(3),
+            ]);
+        $zone->create($rr);
+    }
+
     public function testCreateMultipleResourceRecords(): void
     {
         $connector = Mockery::mock(Connector::class);
@@ -103,6 +135,75 @@ class ZoneTest extends TestCase
             ['name' => '@', 'type' => 'MX', 'content' => ['10 mail01.test.nl.', '20 mail02.test.nl.'], 'ttl' => 30],
             ['name' => 'test02.test.nl.', 'type' => 'A', 'content' => '127.0.0.1', 'ttl' => 40],
             ['name' => 'test03.test.nl.', 'type' => 'TXT', 'content' => '"v=DMARC1; p=none; rua=mailto:info@test.nl; ruf=mailto:info@test.nl"', 'ttl' => 40],
+        ]);
+    }
+
+    public function testCreateMultipleResourceRecordsFromClass(): void
+    {
+        $connector = Mockery::mock(Connector::class);
+        $connector->shouldReceive('patch')->withArgs(['zones/test.nl.', Mockery::on(function (RRSetTransformer $transformer) {
+            $data = $transformer->transform();
+
+            $this->assertSame('test.test.nl.', $data->rrsets[0]->name);
+            $this->assertSame('A', $data->rrsets[0]->type);
+            $this->assertSame(10, $data->rrsets[0]->ttl);
+            $this->assertSame('127.0.0.1', $data->rrsets[0]->records[0]->content);
+
+            $this->assertSame('test.nl.', $data->rrsets[1]->name);
+            $this->assertSame('A', $data->rrsets[1]->type);
+            $this->assertSame(20, $data->rrsets[1]->ttl);
+            $this->assertSame('127.0.0.1', $data->rrsets[1]->records[0]->content);
+
+            $this->assertSame('test.nl.', $data->rrsets[2]->name);
+            $this->assertSame('MX', $data->rrsets[2]->type);
+            $this->assertSame(30, $data->rrsets[2]->ttl);
+            $this->assertSame('10 mail01.test.nl.', $data->rrsets[2]->records[0]->content);
+            $this->assertSame('20 mail02.test.nl.', $data->rrsets[2]->records[1]->content);
+
+            $this->assertSame('test02.test.nl.', $data->rrsets[3]->name);
+            $this->assertSame('A', $data->rrsets[3]->type);
+            $this->assertSame(40, $data->rrsets[3]->ttl);
+            $this->assertSame('127.0.0.1', $data->rrsets[3]->records[0]->content);
+
+            $this->assertSame('test03.test.nl.', $data->rrsets[4]->name);
+            $this->assertSame('TXT', $data->rrsets[4]->type);
+            $this->assertSame(40, $data->rrsets[4]->ttl);
+            $this->assertSame('"v=DMARC1; p=none; rua=mailto:info@test.nl; ruf=mailto:info@test.nl"', $data->rrsets[4]->records[0]->content);
+
+            return true;
+        })]);
+
+        $zone = new Zone($connector, 'test.nl');
+        $zone->create([
+            (new ResourceRecord())
+                ->setName('test')
+                ->setType(RecordType::A)
+                ->setRecord((new Record())
+                    ->setContent('127.0.0.1'))
+                ->setTtl(10),
+            (new ResourceRecord())
+                ->setName('@')
+                ->setType(RecordType::A)
+                ->setRecord((new Record())->setContent('127.0.0.1'))
+                ->setTtl(20),
+            (new ResourceRecord())
+                ->setName('@')
+                ->setType(RecordType::MX)
+                ->setRecords([
+                    (new Record())->setContent('10 mail01.test.nl.'),
+                    (new Record())->setContent('20 mail02.test.nl.'),
+                ])
+                ->setTtl(30),
+            (new ResourceRecord())
+                ->setName('test02')
+                ->setType(RecordType::A)
+                ->setRecord((new Record())->setContent('127.0.0.1'))
+                ->setTtl(40),
+
+            (new ResourceRecord())
+                ->setName('test03')
+                ->setType(RecordType::TXT)->setRecord((new Record())->setContent('"v=DMARC1; p=none; rua=mailto:info@test.nl; ruf=mailto:info@test.nl"'))
+                ->setTtl(40),
         ]);
     }
 

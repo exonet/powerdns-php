@@ -3,7 +3,6 @@
 namespace Exonet\Powerdns;
 
 use Exonet\Powerdns\Exceptions\InvalidNsec3Param;
-use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
 use Exonet\Powerdns\Transformers\DnssecTransformer;
@@ -21,12 +20,12 @@ class Zone extends AbstractZone
      * resource records will be created in a single call to the PowerDNS server. If $name is a string, a single resource
      * record is created.
      *
-     * @param mixed[]|string $name     The resource record name.
-     * @param string         $type     The type of the resource record.
-     * @param mixed[]|string $content  The content of the resource record. When passing a multidimensional array,
-     *                                 multiple records are created for this resource record.
-     * @param int            $ttl      The TTL.
-     * @param array|mixed[]  $comments The comment to assign to the record.
+     * @param mixed[]|ResourceRecord|ResourceRecord[]|string $name     The resource record name.
+     * @param string                                         $type     The type of the resource record.
+     * @param mixed[]|string                                 $content  The content of the resource record. When passing a multidimensional array,
+     *                                                                 multiple records are created for this resource record.
+     * @param int                                            $ttl      The TTL.
+     * @param array|mixed[]                                  $comments The comment to assign to the record.
      *
      * @throws Exceptions\InvalidRecordType If the given type is invalid.
      *
@@ -37,10 +36,20 @@ class Zone extends AbstractZone
         if (is_array($name)) {
             $resourceRecords = [];
             foreach ($name as $item) {
-                $resourceRecords[] = $this->make($item['name'], $item['type'], $item['content'], $item['ttl'] ?? $ttl, $item['comments'] ?? []);
+                if ($item instanceof ResourceRecord) {
+                    $item->setZone($this)->setName($item->getName());
+                    $resourceRecords[] = $item;
+                } else {
+                    $resourceRecords[] = $this->make($item['name'], $item['type'], $item['content'], $item['ttl'] ?? $ttl, $item['comments'] ?? []);
+                }
             }
         } else {
-            $resourceRecords = [$this->make($name, $type, $content, $ttl, $comments)];
+            if ($name instanceof ResourceRecord) {
+                $name->setZone($this)->setName($name->getName());
+                $resourceRecords = [$name];
+            } else {
+                $resourceRecords = [$this->make($name, $type, $content, $ttl, $comments)];
+            }
         }
 
         return $this->patch($resourceRecords);
