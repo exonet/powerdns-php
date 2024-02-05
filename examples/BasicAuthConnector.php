@@ -1,14 +1,18 @@
 <?php
 
-class BasicAuthConnector extends \Exonet\Powerdns\Connector
+use Exonet\Powerdns\Connector;
+use Exonet\Powerdns\Powerdns;
+use GuzzleHttp\HandlerStack;
+
+class BasicAuthConnector extends Connector
 {
     private $basicAuthUsername;
 
     private $basicAuthPassword;
 
     public function __construct(
-        Exonet\Powerdns\Powerdns $client,
-        ?GuzzleHttp\HandlerStack $guzzleHandlerStack = null,
+        Powerdns $client,
+        ?HandlerStack $guzzleHandlerStack = null,
         ?string $basicAuthUsername = null,
         ?string $basicAuthPassword = null
     ) {
