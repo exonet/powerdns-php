@@ -10,6 +10,7 @@ use Exonet\Powerdns\Transformers\Transformer;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -84,7 +85,7 @@ class ConnectorTest extends TestCase
         $this->assertCount(6, $apiCalls);
 
         foreach ($apiCalls as $apiCall) {
-            /** @var \GuzzleHttp\Psr7\Request $request */
+            /** @var Request $request */
             $request = $apiCall['request'];
             $this->assertSame('/api/v1/servers/localhost/test', $request->getUri()->getPath());
             $this->assertSame('very_secret_key', $request->getHeader('X-API-Key')[0]);
