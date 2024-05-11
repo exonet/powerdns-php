@@ -10,7 +10,8 @@ use LogicException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-class Powerdns implements PowerdnsInterface {
+class Powerdns implements PowerdnsInterface
+{
     /**
      * The version of this package. This is being used for the user-agent header.
      */
@@ -97,7 +98,8 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return $this The current Powerdns class.
      */
-    public function setConnector(ConnectorInterface $connector): self {
+    public function setConnector(ConnectorInterface $connector): self
+    {
         $this->connector = $connector;
 
         return $this;
@@ -112,9 +114,10 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return PowerdnsInterface The created PowerDNS client.
      */
-    public function connect(string $host, int $port = 8081, string $server = 'localhost'): PowerdnsInterface {
-        $this->host   = $host;
-        $this->port   = $port;
+    public function connect(string $host, int $port = 8081, string $server = 'localhost'): PowerdnsInterface
+    {
+        $this->host = $host;
+        $this->port = $port;
         $this->server = $server;
 
         return $this;
@@ -127,7 +130,8 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return PowerdnsInterface The current client.
      */
-    public function useKey(string $key): PowerdnsInterface {
+    public function useKey(string $key): PowerdnsInterface
+    {
         $this->apiKey = $key;
 
         return $this;
@@ -142,7 +146,8 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return Zone The created Zone.
      */
-    public function createZone(string $canonicalDomain, array $nameservers, bool $useDnssec = false): Zone {
+    public function createZone(string $canonicalDomain, array $nameservers, bool $useDnssec = false): Zone
+    {
         $fixDot = substr($canonicalDomain, -1) !== '.';
 
         if ($fixDot) {
@@ -167,7 +172,8 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return Zone The created zone.
      */
-    public function createZoneFromResource(ZoneResource $zoneResource): Zone {
+    public function createZoneFromResource(ZoneResource $zoneResource): Zone
+    {
         $this->connector->post('zones', new CreateZoneTransformer($zoneResource));
 
         return $this->zone($zoneResource->getName());
@@ -180,7 +186,8 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return Zone The zone.
      */
-    public function zone(string $canonicalDomain): Zone {
+    public function zone(string $canonicalDomain): Zone
+    {
         return new Zone($this->connector, $canonicalDomain);
     }
 
@@ -191,8 +198,9 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return bool True that the zone was removed.
      */
-    public function deleteZone(string $canonicalDomain): bool {
-        $this->connector->delete('zones/' . $canonicalDomain);
+    public function deleteZone(string $canonicalDomain): bool
+    {
+        $this->connector->delete('zones/'.$canonicalDomain);
 
         return true;
     }
@@ -206,12 +214,13 @@ class Powerdns implements PowerdnsInterface {
      *
      * @see https://doc.powerdns.com/authoritative/http-api/zone.html#get--servers-server_id-zones
      */
-    public function listZones(bool $includeDnssecAndEditedSerialFields = false): array {
+    public function listZones(bool $includeDnssecAndEditedSerialFields = false): array
+    {
         return array_map(
             function (array $args) {
                 return new Zone($this->connector, $args['id']);
             },
-            $this->connector->get('zones?dnssec=' . ($includeDnssecAndEditedSerialFields ? 'true' : 'false'))
+            $this->connector->get('zones?dnssec='.($includeDnssecAndEditedSerialFields ? 'true' : 'false'))
         );
     }
 
@@ -222,17 +231,18 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return Cryptokey The cryptokey instance.
      */
-    public function cryptokeys(string $canonicalDomain): Cryptokey {
+    public function cryptokeys(string $canonicalDomain): Cryptokey
+    {
         return new Cryptokey($this->connector, $canonicalDomain);
     }
 
-
     /**
-     * Get a TSIGKey instance to work with
+     * Get a TSIGKey instance to work with.
      *
      * @return TSIGKey The TSIGKey instance
      */
-    public function tsigkeys(): TSIGKey {
+    public function tsigkeys(): TSIGKey
+    {
         return new TSIGKey($this->connector);
     }
 
@@ -248,15 +258,16 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return array An array with statistics.
      */
-    public function statistics($statistic = null, $includeRings = false): array {
+    public function statistics($statistic = null, $includeRings = false): array
+    {
         // Convert $includeRings param to string.
         $includeRings = $includeRings ? 'true' : 'false';
 
-        $endpoint = 'statistics?includerings=' . $includeRings;
+        $endpoint = 'statistics?includerings='.$includeRings;
 
         // Request a specific statistic.
         if ($statistic) {
-            $endpoint .= '&statistic=' . $statistic;
+            $endpoint .= '&statistic='.$statistic;
         }
 
         return $this->connector->get($endpoint);
@@ -272,7 +283,8 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return SearchResultSet A collection with search results.
      */
-    public function search(string $query, int $size = 100, string $type = 'all'): SearchResultSet {
+    public function search(string $query, int $size = 100, string $type = 'all'): SearchResultSet
+    {
         if (!in_array($type, ['all', 'zone', 'record', 'comment'])) {
             throw new LogicException('Invalid search type given. Type must be one of "all", "zone", "record" or "comment".');
         }
@@ -302,7 +314,8 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return string The server version.
      */
-    public function serverVersion(): string {
+    public function serverVersion(): string
+    {
         return $this->connector->get('/')['version'];
     }
 
@@ -311,7 +324,8 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return LoggerInterface The log instance.
      */
-    public function log(): LoggerInterface {
+    public function log(): LoggerInterface
+    {
         if ($this->logger === null) {
             // If there's no logger set, use the NullLogger.
             $this->logger = new NullLogger();
@@ -327,7 +341,8 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return PowerdnsInterface The current client instance.
      */
-    public function setLogger(LoggerInterface $log): PowerdnsInterface {
+    public function setLogger(LoggerInterface $log): PowerdnsInterface
+    {
         $this->logger = $log;
 
         return $this;
@@ -338,10 +353,11 @@ class Powerdns implements PowerdnsInterface {
      *
      * @return mixed[] Array containing the client config items.
      */
-    public function getConfig(): array {
+    public function getConfig(): array
+    {
         return [
-            'host'   => $this->host,
-            'port'   => $this->port,
+            'host' => $this->host,
+            'port' => $this->port,
             'server' => $this->server,
             'apiKey' => $this->apiKey,
         ];

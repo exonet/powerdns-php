@@ -10,7 +10,8 @@ use Closure;
 use IteratorAggregate;
 use ReturnTypeWillChange;
 
-class TSIGKeySet implements IteratorAggregate, ArrayAccess {
+class TSIGKeySet implements IteratorAggregate, ArrayAccess
+{
     /**
      * @var TSIGKey[] Array containing resources.
      */
@@ -21,7 +22,8 @@ class TSIGKeySet implements IteratorAggregate, ArrayAccess {
      *
      * @param array|null $resourceRecords (Optional) The tsigkey resources to add.
      */
-    public function __construct(?array $resourceRecords = null) {
+    public function __construct(?array $resourceRecords = null)
+    {
         if ($resourceRecords) {
             $this->tsigResources = $resourceRecords;
         }
@@ -34,7 +36,8 @@ class TSIGKeySet implements IteratorAggregate, ArrayAccess {
      *
      * @return TSIGKeySet The current TSIGKeySet instance.
      */
-    public function addResource(TSIGKey $metaResource): self {
+    public function addResource(TSIGKey $metaResource): self
+    {
         $this->tsigResources[] = $metaResource;
 
         return $this;
@@ -45,7 +48,8 @@ class TSIGKeySet implements IteratorAggregate, ArrayAccess {
      *
      * @return int The number of tsigkey resources.
      */
-    public function count(): int {
+    public function count(): int
+    {
         return count($this->tsigResources);
     }
 
@@ -54,7 +58,8 @@ class TSIGKeySet implements IteratorAggregate, ArrayAccess {
      *
      * @return bool True when there are tsigkey resources in this collection.
      */
-    public function isNotEmpty(): bool {
+    public function isNotEmpty(): bool
+    {
         return !$this->isEmpty();
     }
 
@@ -63,7 +68,8 @@ class TSIGKeySet implements IteratorAggregate, ArrayAccess {
      *
      * @return bool True when there are no tsigkey resources in this collection.
      */
-    public function isEmpty(): bool {
+    public function isEmpty(): bool
+    {
         return empty($this->tsigResources);
     }
 
@@ -74,7 +80,8 @@ class TSIGKeySet implements IteratorAggregate, ArrayAccess {
      *
      * @return TSIGKeySet The current TSIGKeySet instance.
      */
-    public function map(Closure $closure): self {
+    public function map(Closure $closure): self
+    {
         foreach ($this->tsigResources as $index => $resource) {
             $this->tsigResources[$index] = $closure($resource, $index);
         }
@@ -87,7 +94,8 @@ class TSIGKeySet implements IteratorAggregate, ArrayAccess {
      *
      * @return bool True when the tsigkey resources are deleted.
      */
-    public function delete(): bool {
+    public function delete(): bool
+    {
         foreach ($this->tsigResources as $resource) {
             $resource->delete();
         }
@@ -98,14 +106,16 @@ class TSIGKeySet implements IteratorAggregate, ArrayAccess {
     /**
      * {@inheritdoc}
      */
-    public function getIterator(): ArrayIterator {
+    public function getIterator(): ArrayIterator
+    {
         return new ArrayIterator($this->tsigResources);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset): bool {
+    public function offsetExists($offset): bool
+    {
         return isset($this->tsigResources[$offset]);
     }
 
@@ -115,21 +125,24 @@ class TSIGKeySet implements IteratorAggregate, ArrayAccess {
      * @return TSIGKey
      */
     #[ReturnTypeWillChange]
-    public function offsetGet($offset) {
+    public function offsetGet($offset)
+    {
         return $this->tsigResources[$offset];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value): void {
+    public function offsetSet($offset, $value): void
+    {
         $this->tsigResources[$offset] = $value;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset): void {
+    public function offsetUnset($offset): void
+    {
         unset($this->tsigResources[$offset]);
     }
 }
