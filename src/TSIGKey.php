@@ -13,7 +13,7 @@ class TSIGKey extends AbstractZone
      *
      * @return TSIGKeySet The meta data set.
      */
-    public function get(): TSIGKeySet
+    public function getAll(): TSIGKeySet
     {
         $items = $this->connector->get('tsigkeys');
 
@@ -23,6 +23,20 @@ class TSIGKey extends AbstractZone
         }
 
         return $resultSet;
+    }
+
+    /**
+     * Get a single tsigkey.
+     *
+     * @param string $id the id
+     *
+     * @return TSIGKeyResource The meta data set.
+     */
+    public function get(string $id): TSIGKeyResource
+    {
+        $item = $this->connector->get('tsigkeys/'.$id);
+
+        return new TSIGKeyResource($item);
     }
 
     /**
