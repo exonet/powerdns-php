@@ -2,7 +2,8 @@
 
 namespace Exonet\Powerdns\Transformers;
 
-abstract class Transformer {
+abstract class Transformer
+{
     /**
      * @var mixed[] Array holding the data to transform.
      */
@@ -13,7 +14,8 @@ abstract class Transformer {
      *
      * @param null $data (optional) The data to transform.
      */
-    public function __construct($data = null) {
+    public function __construct($data = null)
+    {
         if ($data) {
             $this->setData($data);
         }
@@ -26,7 +28,8 @@ abstract class Transformer {
      *
      * @return $this The current transformer instance.
      */
-    public function setData($data): self {
+    public function setData($data): self
+    {
         $this->data = $data;
 
         return $this;
