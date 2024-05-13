@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Exonet\Powerdns\Resources;
 
-class TSIGKey
-{
+class TSIGKey {
     /**
      * The name of the key.
      *
@@ -46,14 +45,13 @@ class TSIGKey
      *
      * @param string $content Optional content to set.
      */
-    public function __construct(?array $content = null)
-    {
+    public function __construct(?array $content = null) {
         if ($content) {
             $this->setName($content['name'] ?? '');
             $this->setId($content['id'] ?? '');
             $this->setAlgorithm($content['algorithm'] ?? '');
             $this->setKey($content['key'] ?? '');
-            $this->setType($content['type'] ?? '');
+            $this->setType('TSIGKey');
         }
     }
 
@@ -62,8 +60,7 @@ class TSIGKey
      *
      * @return string
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
@@ -74,8 +71,7 @@ class TSIGKey
      *
      * @return self
      */
-    public function setType(string $type)
-    {
+    public function setType(string $type) {
         $this->type = $type;
 
         return $this;
@@ -86,8 +82,7 @@ class TSIGKey
      *
      * @return string
      */
-    public function getKey()
-    {
+    public function getKey() {
         return $this->key;
     }
 
@@ -98,8 +93,7 @@ class TSIGKey
      *
      * @return self
      */
-    public function setKey(string $key)
-    {
+    public function setKey(string $key) {
         $this->key = $key;
 
         return $this;
@@ -110,8 +104,7 @@ class TSIGKey
      *
      * @return string
      */
-    public function getAlgorithm()
-    {
+    public function getAlgorithm() {
         return $this->algorithm;
     }
 
@@ -122,8 +115,7 @@ class TSIGKey
      *
      * @return self
      */
-    public function setAlgorithm(string $algorithm)
-    {
+    public function setAlgorithm(string $algorithm) {
         $this->algorithm = $algorithm;
 
         return $this;
@@ -134,8 +126,7 @@ class TSIGKey
      *
      * @return string
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -146,8 +137,7 @@ class TSIGKey
      *
      * @return self
      */
-    public function setId(string $id)
-    {
+    public function setId(string $id) {
         $this->id = $id;
 
         return $this;
@@ -158,8 +148,7 @@ class TSIGKey
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -170,8 +159,7 @@ class TSIGKey
      *
      * @return self
      */
-    public function setName(string $name)
-    {
+    public function setName(string $name) {
         $this->name = $name;
 
         return $this;
