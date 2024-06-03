@@ -68,20 +68,6 @@ class TSIGKey
     }
 
     /**
-     * Set set to "TSIGKey".
-     *
-     * @param string $type Set to "TSIGKey"
-     *
-     * @return self
-     */
-    public function setType(string $type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
      * Get the Base64 encoded secret key, empty when listing keys. MAY be empty when POSTing to have the server generate the key material.
      *
      * @return string
