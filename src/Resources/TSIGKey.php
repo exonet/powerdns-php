@@ -53,7 +53,6 @@ class TSIGKey
             $this->setId($content['id'] ?? '');
             $this->setAlgorithm($content['algorithm'] ?? '');
             $this->setKey($content['key'] ?? '');
-            $this->setType('TSIGKey');
         }
     }
 
