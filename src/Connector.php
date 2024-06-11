@@ -85,7 +85,7 @@ class Connector implements ConnectorInterface
      *
      * @return mixed[] The response body.
      */
-    public function put(string $urlPath, Transformer $payload = null): array
+    public function put(string $urlPath, ?Transformer $payload = null): array
     {
         return $this->makeCall('PUT', $urlPath, $payload !== null ? json_encode($payload->transform()) : null);
     }

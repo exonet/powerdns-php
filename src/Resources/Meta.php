@@ -33,7 +33,7 @@ class Meta
      *
      * @throws InvalidMetaKind When the $kind is not a valid meta kind.
      */
-    public function __construct(?string $kind = null, $data = [], MetaParent $metaParent = null)
+    public function __construct(?string $kind = null, $data = [], ?MetaParent $metaParent = null)
     {
         if (!is_null($kind)) {
             $this->setKind($kind);

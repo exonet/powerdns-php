@@ -45,7 +45,7 @@ interface ConnectorInterface
      *
      * @return mixed[] The response body.
      */
-    public function put(string $urlPath, Transformer $payload = null): array;
+    public function put(string $urlPath, ?Transformer $payload = null): array;
 
     /**
      * Perform a DELETE request and return the parsed body as response.

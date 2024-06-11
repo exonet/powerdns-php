@@ -19,7 +19,7 @@ class Meta extends AbstractZone
      *
      * @return MetaSet The meta data set.
      */
-    public function get(string $metaKind = null): MetaSet
+    public function get(?string $metaKind = null): MetaSet
     {
         $items = $this->connector->get($this->getZonePath('/metadata/'.$metaKind));
 
