@@ -237,6 +237,16 @@ class Powerdns implements PowerdnsInterface
     }
 
     /**
+     * Get a TSIGKey instance to work with.
+     *
+     * @return TSIGKey The TSIGKey instance
+     */
+    public function tsigkeys(): TSIGKey
+    {
+        return new TSIGKey($this->connector);
+    }
+
+    /**
      * Query PowerDNS internal statistics.
      * The ring statistics are disabled by default to speedup the request and reduce the response size.
      *
@@ -292,7 +302,9 @@ class Powerdns implements PowerdnsInterface
             )
         );
 
-        $searchResults = array_map(static function ($item) { return new SearchResult($item); }, $response);
+        $searchResults = array_map(static function ($item) {
+            return new SearchResult($item);
+        }, $response);
 
         return new SearchResultSet($searchResults);
     }
