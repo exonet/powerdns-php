@@ -353,7 +353,7 @@ class Zone
     {
         // If set to null, return,
         if (is_null($nsec3param)) {
-            $this->nsec3param = null;
+            $this->nsec3param = "";
 
             return $this;
         }

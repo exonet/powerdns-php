@@ -271,7 +271,7 @@ class ZoneTest extends TestCase
         $connector = Mockery::mock(Connector::class);
         $connector->shouldReceive('put')->withArgs(['zones/test.nl.', Mockery::on(function ($transformer) {
             $transformed = $transformer->transform();
-            $this->assertNull($transformed->nsec3param);
+            $this->assertEmpty($transformed->nsec3param);
 
             return true;
         })])->once()->andReturn([]);
