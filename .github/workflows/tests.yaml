@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         powerdns-versions: ["42", "43", "44", "45", "46", "47"]
-        php-versions: ["7.3", "7.4", "8.0", "8.1", "8.2"]
+        php-versions: ["7.3", "7.4", "8.0", "8.1", "8.2", "8.3"]
 
     services:
       powerdns:
