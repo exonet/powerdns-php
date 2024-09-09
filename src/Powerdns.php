@@ -148,8 +148,7 @@ class Powerdns implements PowerdnsInterface
      */
     public function createZone(string $canonicalDomain, array $nameservers, bool $useDnssec = false): Zone
     {
-
-        $canonicalDomain = rtrim($canonicalDomain, ".") . ".";
+        $canonicalDomain = rtrim($canonicalDomain, '.').'.';
         $newZone = new ZoneResource();
         $newZone->setName($canonicalDomain);
         $newZone->setNameservers($nameservers);

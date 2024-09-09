@@ -453,8 +453,8 @@ class Zone
      */
     public function setNameservers(array $nameservers): self
     {
-        $this->nameservers = array_map(function($ns) {
-            return rtrim($ns, '.') . '.';
+        $this->nameservers = array_map(function ($ns) {
+            return rtrim($ns, '.').'.';
         }, $nameservers);
 
         return $this;

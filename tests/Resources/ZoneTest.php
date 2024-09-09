@@ -65,7 +65,8 @@ class ZoneTest extends TestCase
         $this->assertNull($zone->getAccount());
     }
 
-    public function testSetNameserversCanoncial(): void {
+    public function testSetNameserversCanoncial(): void
+    {
         $zone = new Zone();
         $zone->setNameservers(['ns1', 'ns2']);
         $this->assertSame(['ns1.', 'ns2.'], $zone->getNameservers());
