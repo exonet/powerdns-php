@@ -35,3 +35,15 @@ services:
     image: registry.exonet.nl/exonet/powerdns-test:47
     ports:
       - "8047:8081"
+
+  powerdns48:
+    container_name: pdns48
+    image: registry.exonet.nl/exonet/powerdns-test:48
+    ports:
+      - "8048:8081"
+
+  powerdns49:
+    container_name: pdns49
+    image: registry.exonet.nl/exonet/powerdns-test:49
+    ports:
+      - "8049:8081"
