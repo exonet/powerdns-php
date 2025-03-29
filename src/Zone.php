@@ -11,6 +11,7 @@ use Exonet\Powerdns\Transformers\Nsec3paramTransformer;
 use Exonet\Powerdns\Transformers\RRSetTransformer;
 use Exonet\Powerdns\Transformers\SoaEditApiTransformer;
 use Exonet\Powerdns\Transformers\SoaEditTransformer;
+use Exonet\Powerdns\Transformers\ApiRectifyTransformer;
 use Exonet\Powerdns\Transformers\Transformer;
 
 class Zone extends AbstractZone
@@ -299,6 +300,41 @@ class Zone extends AbstractZone
         return $this->put(new SoaEditApiTransformer(['soa_edit_api' => $value]));
     }
 
+    /**
+     * Enable api_rectify for this zone.
+     *
+     * @return bool True when enabled.
+     */
+    public function enableApiRectify(): bool
+    {
+        return $this->setApiRectify(true);
+    }
+
+    /**
+     * Disable  api_rectify for this zone.
+     *
+     * @return bool True when disabled.
+     */
+    public function disableApiRectify(): bool
+    {
+        return $this->setApiRectify(false);
+    }
+
+    /**
+     * Enable or disable api_rectify for this zone.
+     *
+     * @param bool $state True to enable, false to disable.
+     *
+     * @return bool True when the request succeeded.
+     */
+    public function setApiRectify(bool $state): bool
+    {
+        return $this->put(new ApiRectifyTransformer(['api_rectify' => $state]));
+    }
+
+    /**
+
+    
     /**
      * Set the kind of zone: Native, Master or Slave.
      *
