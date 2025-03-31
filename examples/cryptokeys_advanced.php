@@ -25,16 +25,16 @@ $cryptokeys = $powerdns->cryptokeys($domain);
 $cryptokeys->configurePrivateKey('RSASHA512', 4096)->create(true);
 
 // You can also use an existing private key (example key from the PowerDNS unit tests):
-$existingPrivateKey = "Private-key-format: v1.2\n".
-    "Algorithm: 8 (RSASHA256)\n".
-    "Modulus: 4GlYLGgDI7ohnP8SmEW8EBERbNRusDcg0VQda/EPVHU=\n".
-    "PublicExponent: AQAB\n".
-    "PrivateExponent: JBnuXF5zOtkjtSz3odV+Fk5UNUTTeCsiI16dkcM7TVU=\n".
-    "Prime1: /w7TM4118RoSEvP8+dgnCw==\n".
-    "Prime2: 4T2KhkYLa3w7rdK3Cb2ifw==\n".
-    "Exponent1: 3aeKj9Ct4JuhfWsgPBhGxQ==\n".
-    "Exponent2: tfh1OMPQKBdnU6iATjNR2w==\n".
-    "Coefficient: eVrHe/kauqOewSKndIImrg==)\n";
+$existingPrivateKey = "Private-key-format: v1.2\n"
+    ."Algorithm: 8 (RSASHA256)\n"
+    ."Modulus: 4GlYLGgDI7ohnP8SmEW8EBERbNRusDcg0VQda/EPVHU=\n"
+    ."PublicExponent: AQAB\n"
+    ."PrivateExponent: JBnuXF5zOtkjtSz3odV+Fk5UNUTTeCsiI16dkcM7TVU=\n"
+    ."Prime1: /w7TM4118RoSEvP8+dgnCw==\n"
+    ."Prime2: 4T2KhkYLa3w7rdK3Cb2ifw==\n"
+    ."Exponent1: 3aeKj9Ct4JuhfWsgPBhGxQ==\n"
+    ."Exponent2: tfh1OMPQKBdnU6iATjNR2w==\n"
+    ."Coefficient: eVrHe/kauqOewSKndIImrg==)\n";
 
 // Create and activate a new cryptokey with the given private key:
 $cryptokeys->setPrivateKey($existingPrivateKey)->create(true);

@@ -93,11 +93,6 @@ class PowerdnsTest extends TestCase
         $this->assertTrue($powerDns->deleteZone('test.nl.'));
     }
 
-    public function listZonesArgumentDataProvider(): array
-    {
-        return [['true', true], ['false', false]];
-    }
-
     /**
      * @dataProvider listZonesArgumentDataProvider
      */
@@ -141,6 +136,11 @@ class PowerdnsTest extends TestCase
         foreach ($response as $zone) {
             $this->assertInstanceOf(Zone::class, $zone);
         }
+    }
+
+    public function listZonesArgumentDataProvider(): array
+    {
+        return [['true', true], ['false', false]];
     }
 
     public function testSearch(): void
