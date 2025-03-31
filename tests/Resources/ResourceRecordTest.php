@@ -51,8 +51,8 @@ class ResourceRecordTest extends TestCase
 
     public function testSetApiResponse(): void
     {
-        $apiResponse =
-            [
+        $apiResponse
+            = [
                 'name' => 'record.test.nl.',
                 'type' => 'A',
                 'ttl' => 3600,
