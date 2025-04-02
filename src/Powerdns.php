@@ -15,7 +15,7 @@ class Powerdns implements PowerdnsInterface
     /**
      * The version of this package. This is being used for the user-agent header.
      */
-    public const CLIENT_VERSION = 'v4.6.3';
+    public const CLIENT_VERSION = 'v4.7.0';
 
     /**
      * @var Powerdns The client instance.
