@@ -5,13 +5,13 @@ namespace Exonet\Powerdns;
 use Exonet\Powerdns\Exceptions\InvalidNsec3Param;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
+use Exonet\Powerdns\Transformers\ApiRectifyTransformer;
 use Exonet\Powerdns\Transformers\DnssecTransformer;
 use Exonet\Powerdns\Transformers\KindTransformer;
 use Exonet\Powerdns\Transformers\Nsec3paramTransformer;
 use Exonet\Powerdns\Transformers\RRSetTransformer;
 use Exonet\Powerdns\Transformers\SoaEditApiTransformer;
 use Exonet\Powerdns\Transformers\SoaEditTransformer;
-use Exonet\Powerdns\Transformers\ApiRectifyTransformer;
 use Exonet\Powerdns\Transformers\Transformer;
 
 class Zone extends AbstractZone
@@ -333,9 +333,7 @@ class Zone extends AbstractZone
     }
 
     /**
-
-    
-    /**
+     * /**
      * Set the kind of zone: Native, Master or Slave.
      *
      * @param string        $kind    Native, Master or Slave
