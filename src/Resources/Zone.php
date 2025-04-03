@@ -367,7 +367,7 @@ class Zone
         if ($flags === null || !ctype_digit($flags) || ((int) $flags !== 0 && (int) $flags !== 1)) {
             throw new InvalidNsec3Param('The nsec3param flags parameter must be set to 0 or 1.');
         }
-        if ($iterations === null || !ctype_digit($iterations) || $iterations === 0 || $iterations > 2500) {
+        if ($iterations === null || !ctype_digit($iterations) || $iterations > 2500) {
             throw new InvalidNsec3Param('The nsec3param iterations parameter must be between 0 and 2500.');
         }
         if ($salt === null || strlen($salt) === 0 || strlen($salt) > 255) {
