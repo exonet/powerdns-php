@@ -37,6 +37,6 @@ jobs:
           sed -i "s/CLIENT_VERSION = 'v.*';/CLIENT_VERSION = '${{ needs.update-release-draft.outputs.draft-version }}';/g" src/Powerdns.php
 
       - name: Apply version changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: Auto update drafter version in CLIENT_VERSION
