@@ -1,36 +1,27 @@
 ---
-name: Tests
+name: Security
 
 on:
   push:
     branches:
       - master
   pull_request:
+  schedule:
+    - cron: '0 4 * * 1'
 
 concurrency:
-  group: tests-${{ github.ref }}
+  group: security-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  run:
-    runs-on: "ubuntu-latest"
-    timeout-minutes: 30
+  audit:
+    name: Composer audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     if: ${{ github.actor != 'dependabot[bot]' }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        powerdns-versions: ["42", "43", "44", "45", "46", "47", "48", "49", "50", "51"]
-        php-versions: ["7.3", "7.4", "8.0", "8.1", "8.2", "8.3", "8.4", "8.5"]
-
-    services:
-      powerdns:
-        image: registry.exonet.nl/exonet/powerdns-test:${{ matrix.powerdns-versions}}
-        ports:
-          - 8081:8081
 
     steps:
       - name: Checkout repository
@@ -41,13 +32,13 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
-          php-version: ${{ matrix.php-versions }}
-          extensions: json
+          php-version: '8.5'
+          coverage: none
 
       - name: Install dependencies
         uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
         with:
           composer-options: "--prefer-dist"
 
-      - name: Run tests
-        run: ./vendor/bin/phpunit
+      - name: Run composer audit
+        run: composer audit

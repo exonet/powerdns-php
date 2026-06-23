@@ -4,11 +4,28 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: daily
+      interval: "weekly"
+      day: "monday"
       time: "04:00"
+    labels:
+      - "dependencies"
+      - "ci"
+    groups:
+      github-actions:
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
-      interval: daily
+      interval: "weekly"
+      day: "monday"
       time: "03:00"
+    labels:
+      - "dependencies"
+    groups:
+      composer:
+        update-types:
+          - "minor"
+          - "patch"
