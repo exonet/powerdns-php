@@ -7,6 +7,7 @@ use Exonet\Powerdns\Powerdns;
 use Exonet\Powerdns\Transformers\CreateZoneTransformer;
 use Exonet\Powerdns\Zone;
 use Mockery;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -93,9 +94,7 @@ class PowerdnsTest extends TestCase
         $this->assertTrue($powerDns->deleteZone('test.nl.'));
     }
 
-    /**
-     * @dataProvider listZonesArgumentDataProvider
-     */
+    #[DataProvider('listZonesArgumentDataProvider')]
     public function testListZones(string $dnssecArgument, bool $listZonesArgument): void
     {
         $connector = Mockery::mock(Connector::class);
@@ -138,7 +137,7 @@ class PowerdnsTest extends TestCase
         }
     }
 
-    public function listZonesArgumentDataProvider(): array
+    public static function listZonesArgumentDataProvider(): array
     {
         return [['true', true], ['false', false]];
     }

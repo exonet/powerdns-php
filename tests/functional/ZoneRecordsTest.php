@@ -2,19 +2,17 @@
 
 namespace Exonet\Powerdns\tests\functional;
 
-use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use Exonet\Powerdns\RecordType;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
+use PHPUnit\Framework\Attributes\Depends;
 
 /**
  * @internal
  */
 class ZoneRecordsTest extends FunctionalTestCase
 {
-    use ArraySubsetAsserts;
-
     private $canonicalName;
 
     private $dnsRecords = [
@@ -57,9 +55,8 @@ class ZoneRecordsTest extends FunctionalTestCase
 
     /**
      * In the defined DNS records the SOA record differs from the default. Validate that it is working as expected.
-     *
-     * @depends testCreateZoneFromResource
      */
+    #[Depends('testCreateZoneFromResource')]
     public function testCustomSoa(): void
     {
         $soaRecord = $this->powerdns->zone($this->canonicalName)->get(RecordType::SOA)[0]->getRecords()[0]->getContent();
@@ -96,6 +93,8 @@ class ZoneRecordsTest extends FunctionalTestCase
             }
         );
 
-        self::assertArraySubset($this->dnsRecords, $createdRecords);
+        // Assert that all expected DNS records are present in the created set
+        // (equivalent to the removed dms/phpunit-arraysubset-asserts assertArraySubset).
+        self::assertEquals($createdRecords, array_replace_recursive($createdRecords, $this->dnsRecords));
     }
 }
