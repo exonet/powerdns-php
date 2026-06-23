@@ -53,10 +53,11 @@ chmod +x composer.phar
 if [ "$#" -eq 2 ]; then
     run "$SET_PHP_VERSION" "$SET_PDNS_VERSION"
 else
-    # Run tests for all supported PHP 8 / PowerDNS 4 combinations.
+    # Run tests for all supported PHP 8 / PowerDNS combinations.
+    PDNS_VERSIONS=("4.2" "4.3" "4.4" "4.5" "4.6" "4.7" "4.8" "4.9" "5.0" "5.1")
     for phpversion in {2..5}; do
-        for pdnsversion in {2..9}; do
-            run "8.$phpversion" "4.$pdnsversion"
+        for pdnsversion in "${PDNS_VERSIONS[@]}"; do
+            run "8.$phpversion" "$pdnsversion"
         done
         RESULTS="$RESULTS\n"
     done
