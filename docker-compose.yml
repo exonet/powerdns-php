@@ -1,4 +1,3 @@
-version: "3.7"
 services:
   powerdns42:
     container_name: pdns42
@@ -47,3 +46,15 @@ services:
     image: registry.exonet.nl/exonet/powerdns-test:49
     ports:
       - "8049:8081"
+
+  powerdns50:
+    container_name: pdns50
+    image: registry.exonet.nl/exonet/powerdns-test:50
+    ports:
+      - "8050:8081"
+
+  powerdns51:
+    container_name: pdns51
+    image: registry.exonet.nl/exonet/powerdns-test:51
+    ports:
+      - "8051:8081"
