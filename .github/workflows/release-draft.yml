@@ -41,6 +41,7 @@ jobs:
         with:
           ref: master
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Update `src/Powerdns.php` with draft version
         run: |
