@@ -4,7 +4,7 @@ namespace Exonet\Powerdns;
 
 /**
  * List of possible DNS Record types supported by PowerDNS.
- * Source: https://doc.powerdns.com/md/types/.
+ * @see https://doc.powerdns.com/authoritative/appendices/types.html
  */
 class RecordType
 {
@@ -36,6 +36,13 @@ class RecordType
      * servers, and can define group of hosts serves any service, and moving service between hosts.
      */
     public const ALIAS = 'ALIAS';
+
+    /**
+     * Lists of Address Prefixes.
+     * 
+     * The APL record, specified in RFC 3123, is used to specify a DNS RR type “APL” for address prefix lists.
+     */
+    public const APL = 'APL';
 
     /**
      * Certification Authority Authorization.
@@ -71,6 +78,16 @@ class RecordType
     public const CNAME = 'CNAME';
 
     /**
+     * Child-to-Parent Synchronization record.
+     * 
+     * The CSYNC record is used for ‘Child-to-Parent Synchronization in DNS’, as described in RFC 7477. 
+     * Right now it is only supported as zone content; no special processing is implemented. 
+     * 
+     * Note that SOA-EDIT is not applied to serial numbers in CSYNC content.
+     */
+    public const CSYNC = 'CSYNC';
+
+    /**
      * DHCP identifier.
      *
      * Used in conjunction with the FQDN option to DHCP.
@@ -104,6 +121,20 @@ class RecordType
      * The record used to identify the DNSSEC signing key of a delegated zone
      */
     public const DS = 'DS';
+
+    /**
+     * Hardware information record.
+     * 
+     * Hardware Info record, used to specify CPU and operating system. Stored with a single space separating these two, example: ‘i386 Linux’.
+     */
+    public const HINFO = 'HINFO';
+
+    /**
+     * HTTPS Service Binding record.
+     * 
+     * @see RecordType::SVCB
+     */
+    public const HTTPS = 'HTTPS';
 
     /**
      * IPsec Key.
@@ -228,6 +259,13 @@ class RecordType
     public const SIG = 'SIG';
 
     /**
+     * S/MIME certificate association record.
+     * 
+     * Since 4.1. The SMIMEA record type, specified in RFC 8162, is used to bind S/MIME certificates to domains.
+     */
+    public const SMIMEA = 'SMIMEA';
+
+    /**
      * Start of [a zone of] authority record.
      *
      * Specifies authoritative information about a DNS zone, including the primary name server, the email of the domain
@@ -259,6 +297,18 @@ class RecordType
      * registry for details.
      */
     public const SSHFP = 'SSHFP';
+
+    /**
+     * Service Binding.
+     * 
+     * SVCB records, defined in (draft-ietf-dnsop-svcb-https-07) are used to facilitate the lookup of information needed to make connections to network services. 
+     * SVCB records allow a service to be provided from multiple alternative endpoints, each with associated parameters
+     * (such as transport protocol configuration and keys for encrypting the TLS ClientHello). 
+     * They also enable aliasing of apex domains, which is not possible with CNAME. 
+     * 
+     * The HTTPS RR is a variation of SVCB for HTTPS and HTTP origins
+     */
+    public const SVCB = 'SVCB';
 
     /**
      * Transaction Key record.
@@ -299,6 +349,13 @@ class RecordType
      * Can be used for publishing mappings from hostnames to URIs.
      */
     public const URI = 'URI';
+
+    /**
+     * Zone Message Digest.
+     *
+     * The ZONEMD record, specified in RFC 8976, is used to validate zones.
+     */
+    public const ZONEMD = 'ZONEMD';
 
     /**
      * Prefix for "Unknown" type records. Private resource records fall under this category.
