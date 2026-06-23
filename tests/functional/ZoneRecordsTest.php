@@ -2,26 +2,25 @@
 
 namespace Exonet\Powerdns\tests\functional;
 
-use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use Exonet\Powerdns\RecordType;
 use Exonet\Powerdns\Resources\ResourceRecord;
 use Exonet\Powerdns\Resources\ResourceSet;
 use Exonet\Powerdns\Resources\Zone as ZoneResource;
+use PHPUnit\Framework\Attributes\Depends;
 
 /**
  * @internal
  */
 class ZoneRecordsTest extends FunctionalTestCase
 {
-    use ArraySubsetAsserts;
-
     private $canonicalName;
 
     private $dnsRecords = [
         ['name' => 'www', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60, 'comments' => []],
         ['name' => 'www', 'type' => RecordType::A, 'content' => '127.0.0.1', 'ttl' => 60, 'comments' => []],
         ['name' => 'bla', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60, 'comments' => []],
-        ['name' => '@', 'type' => RecordType::unknownTypePrefix. 65534, 'content' => '\# 4 aabbccdd', 'ttl' => 60, 'comments' => []],
+        // Commented until https://github.com/PowerDNS/pdns/pull/17585 is fixed.
+        // ['name' => '@', 'type' => RecordType::unknownTypePrefix. 65534, 'content' => '\# 4 aabbccdd', 'ttl' => 60, 'comments' => []],
         ['name' => '@', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60, 'comments' => []],
         [
             'name' => '@',
@@ -57,9 +56,8 @@ class ZoneRecordsTest extends FunctionalTestCase
 
     /**
      * In the defined DNS records the SOA record differs from the default. Validate that it is working as expected.
-     *
-     * @depends testCreateZoneFromResource
      */
+    #[Depends('testCreateZoneFromResource')]
     public function testCustomSoa(): void
     {
         $soaRecord = $this->powerdns->zone($this->canonicalName)->get(RecordType::SOA)[0]->getRecords()[0]->getContent();
@@ -96,6 +94,8 @@ class ZoneRecordsTest extends FunctionalTestCase
             }
         );
 
-        self::assertArraySubset($this->dnsRecords, $createdRecords);
+        // Assert that all expected DNS records are present in the created set
+        // (equivalent to the removed dms/phpunit-arraysubset-asserts assertArraySubset).
+        self::assertEquals($createdRecords, array_replace_recursive($createdRecords, $this->dnsRecords));
     }
 }

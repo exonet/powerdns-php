@@ -18,16 +18,19 @@
       "role": "Developer"
     }
   ],
+  "support": {
+    "issues": "https://github.com/exonet/powerdns-php/issues",
+    "source": "https://github.com/exonet/powerdns-php"
+  },
   "require": {
-    "php": "^7.3|^8.0",
-    "ext-json": "*",
+    "php": "^8.2",
     "guzzlehttp/guzzle": "^7.2",
     "psr/log": "^1.0|^2.0|^3.0"
   },
   "require-dev": {
-    "dms/phpunit-arraysubset-asserts": "^0.2.1 || ^0.4.0 || ^0.5.0",
-    "mockery/mockery": "^1.2",
-    "phpunit/phpunit": "^9"
+    "friendsofphp/php-cs-fixer": "^3.95",
+    "mockery/mockery": "^1.6",
+    "phpunit/phpunit": "^11"
   },
   "autoload": {
     "psr-4": {
@@ -40,6 +43,14 @@
     }
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "platform": {
+      "php": "8.2"
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "cs-check": "php-cs-fixer fix --dry-run --diff",
+    "cs-fix": "php-cs-fixer fix"
   }
 }
