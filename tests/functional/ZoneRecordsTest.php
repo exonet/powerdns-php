@@ -19,6 +19,7 @@ class ZoneRecordsTest extends FunctionalTestCase
         ['name' => 'www', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60, 'comments' => []],
         ['name' => 'www', 'type' => RecordType::A, 'content' => '127.0.0.1', 'ttl' => 60, 'comments' => []],
         ['name' => 'bla', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60, 'comments' => []],
+        // Commented until https://github.com/PowerDNS/pdns/pull/17585 is fixed.
         // ['name' => '@', 'type' => RecordType::unknownTypePrefix. 65534, 'content' => '\# 4 aabbccdd', 'ttl' => 60, 'comments' => []],
         ['name' => '@', 'type' => RecordType::AAAA, 'content' => '2a00:1e28:3:1629::1', 'ttl' => 60, 'comments' => []],
         [
