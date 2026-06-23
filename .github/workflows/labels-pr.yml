@@ -1,0 +1,35 @@
+---
+name: PR Labels
+
+# This workflow runs on pull_request_target and therefore has write access
+# to the base repository. Never add a checkout of the PR code here.
+on:
+  pull_request_target:
+    types: [opened, labeled, unlabeled, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  pr-labels:
+    name: Verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Verify PR has a valid label
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const validLabels = [
+              'breaking-change', 'bugfix', 'hotfix', 'documentation', 'enhancement',
+              'refactor', 'performance', 'new-feature', 'maintenance', 'ci',
+              'dependencies', 'skip-changelog',
+            ];
+            const labels = context.payload.pull_request.labels.map((label) => label.name);
+            const matched = labels.filter((label) => validLabels.includes(label));
+            if (matched.length === 0) {
+              core.setFailed(`PR is missing a valid label. Valid labels: ${validLabels.join(', ')}`);
+              return;
+            }
+            core.info(`Valid label(s) found: ${matched.join(', ')}`);

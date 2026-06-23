@@ -1,0 +1,61 @@
+---
+name: Release Drafter
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-release-draft:
+    name: Update
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Run release drafter
+        id: draft
+        uses: release-drafter/release-drafter@ed4bc48ec97379be2258e7b7ac2624a3e26ab809 # v7.4.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+    outputs:
+      draft-version: ${{ steps.draft.outputs.tag_name }}
+
+  update-client-version:
+    name: Update CLIENT_VERSION with draft version
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: update-release-draft
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Update `src/Powerdns.php` with draft version
+        run: |
+          sed -i "s/CLIENT_VERSION = 'v.*';/CLIENT_VERSION = '${{ needs.update-release-draft.outputs.draft-version }}';/g" src/Powerdns.php
+
+      - name: Generate app token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
+      - name: Apply version changes
+        uses: ./.github/actions/commit-changes
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          message: Auto update drafter version in CLIENT_VERSION
+          branch: master

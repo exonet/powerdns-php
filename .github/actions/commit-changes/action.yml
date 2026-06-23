@@ -1,0 +1,99 @@
+---
+name: Commit changes
+description: >-
+  Commit all current working-tree changes to a branch via the Git Data API using
+  a GitHub App token. The commit is Verified (GitHub web-flow signature), so it
+  satisfies "require signed commits" branch protection, and — being authored by
+  the app rather than GITHUB_TOKEN — it triggers downstream workflows. No-op when
+  there is nothing to commit. The repository must already be checked out, with the
+  working tree on the tip of the target branch.
+
+inputs:
+  token:
+    description: "GitHub App installation token (needs Contents: write)."
+    required: true
+  message:
+    description: Commit message.
+    required: true
+  branch:
+    description: Branch to commit onto.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Commit changes via the Git Data API
+      uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+      env:
+        COMMIT_MESSAGE: ${{ inputs.message }}
+        TARGET_BRANCH: ${{ inputs.branch }}
+      with:
+        github-token: ${{ inputs.token }}
+        script: |
+          const fs = require('fs');
+          const { owner, repo } = context.repo;
+          const branch = process.env.TARGET_BRANCH;
+          const message = process.env.COMMIT_MESSAGE;
+
+          await exec.exec('git', ['config', '--global', '--add', 'safe.directory', process.env.GITHUB_WORKSPACE]);
+
+          // Stage everything so additions, modifications and deletions are captured.
+          await exec.exec('git', ['add', '-A']);
+
+          let raw = '';
+          await exec.exec('git', ['diff', '--cached', '--raw', '-z'], {
+            listeners: { stdout: (d) => { raw += d.toString(); } },
+          });
+
+          // --raw -z records: "<meta>\0<path>\0" (or "<meta>\0<old>\0<new>\0" for R/C),
+          // where <meta> = ":<srcmode> <dstmode> <srcsha> <dstsha> <status>".
+          const tokens = raw.split('\0').filter((t) => t.length > 0);
+          const ops = [];
+          for (let i = 0; i < tokens.length;) {
+            const meta = tokens[i++].split(' ');
+            const dstMode = meta[1];
+            const status = meta[4][0];
+            if (status === 'R' || status === 'C') {
+              const oldPath = tokens[i++];
+              const newPath = tokens[i++];
+              if (status === 'R') {
+                ops.push({ path: oldPath, deleted: true });
+              }
+              ops.push({ path: newPath, mode: dstMode, deleted: false });
+            } else if (status === 'D') {
+              ops.push({ path: tokens[i++], deleted: true });
+            } else {
+              ops.push({ path: tokens[i++], mode: dstMode, deleted: false });
+            }
+          }
+
+          if (ops.length === 0) {
+            core.info('Nothing to commit.');
+            return;
+          }
+
+          const tree = [];
+          for (const op of ops) {
+            if (op.deleted) {
+              tree.push({ path: op.path, mode: '100644', type: 'blob', sha: null });
+              continue;
+            }
+            const { data: blob } = await github.rest.git.createBlob({
+              owner, repo,
+              content: fs.readFileSync(op.path).toString('base64'),
+              encoding: 'base64',
+            });
+            tree.push({ path: op.path, mode: op.mode, type: 'blob', sha: blob.sha });
+          }
+
+          const { data: ref } = await github.rest.git.getRef({ owner, repo, ref: `heads/${branch}` });
+          const baseSha = ref.object.sha;
+          const { data: baseCommit } = await github.rest.git.getCommit({ owner, repo, commit_sha: baseSha });
+          const { data: newTree } = await github.rest.git.createTree({
+            owner, repo, base_tree: baseCommit.tree.sha, tree,
+          });
+          const { data: commit } = await github.rest.git.createCommit({
+            owner, repo, message, tree: newTree.sha, parents: [baseSha],
+          });
+          await github.rest.git.updateRef({ owner, repo, ref: `heads/${branch}`, sha: commit.sha });
+          core.info(`Committed ${ops.length} change(s) to ${branch} as ${commit.sha}`);
