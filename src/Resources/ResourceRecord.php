@@ -384,7 +384,7 @@ class ResourceRecord
             throw new InvalidRecordType('Changing the type of existing DNS resource records can yield unexpected results and is not supported.');
         }
 
-        if ((new ReflectionClass(RecordType::class))->getConstant($type) !== false) {
+        if ((new ReflectionClass(RecordType::class))->hasConstant($type) !== false) {
             $this->type = $type;
 
             return $this;
