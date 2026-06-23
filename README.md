@@ -64,7 +64,7 @@ To test against a specific PHP / PowerDNS combination, you can provide the PHP v
 version as second parameter:
 
 ```bash
-$ ./run-tests.sh 7.4 4.3
+$ ./run-tests.sh 8.2 4.3
 ```
 
 ## Contributing

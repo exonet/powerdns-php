@@ -40,7 +40,7 @@ run() {
     echo "(PHP $PHP_VERSION / PDNS: $PDNS_VERSION)"
 }
 
-# Get the arguments from the call (i.e. ./run-tests.sh 7.4 4.3)
+# Get the arguments from the call (i.e. ./run-tests.sh 8.2 4.3)
 SET_PHP_VERSION=$1
 SET_PDNS_VERSION=$2
 
@@ -53,15 +53,8 @@ chmod +x composer.phar
 if [ "$#" -eq 2 ]; then
     run "$SET_PHP_VERSION" "$SET_PDNS_VERSION"
 else
-    # Run tests for all supported PHP 7 / PowerDNS 4 combinations.
-    for phpversion in {3..4}; do
-        for pdnsversion in {2..9}; do
-            run "7.$phpversion" "4.$pdnsversion"
-        done
-        RESULTS="$RESULTS\n"
-    done
     # Run tests for all supported PHP 8 / PowerDNS 4 combinations.
-    for phpversion in {0..3}; do
+    for phpversion in {2..5}; do
         for pdnsversion in {2..9}; do
             run "8.$phpversion" "4.$pdnsversion"
         done
