@@ -121,6 +121,10 @@ class Connector implements ConnectorInterface
 
         $this->powerdns->log()->debug('Sending ['.$method.'] request', compact('url', 'headers', 'payload'));
 
+        if (getenv('POWERDNS_DEBUG') && $payload !== null) {
+            fwrite(STDERR, sprintf("[PowerDNS] -> %s %s %s\n", $method, $url, $payload));
+        }
+
         $stream = $payload !== null ? Utils::streamFor($payload) : null;
         $request = new Request($method, $url, $headers, $stream);
 
@@ -142,7 +146,14 @@ class Connector implements ConnectorInterface
     protected function parseResponse(PsrResponse $response): array
     {
         $this->powerdns->log()->debug('Request completed', ['statusCode' => $response->getStatusCode()]);
-        $contents = json_decode($response->getBody()->getContents(), true);
+
+        $body = $response->getBody()->getContents();
+
+        if (getenv('POWERDNS_DEBUG')) {
+            fwrite(STDERR, sprintf("[PowerDNS] <- %d %s\n", $response->getStatusCode(), $body));
+        }
+
+        $contents = json_decode($body, true);
 
         switch ($response->getStatusCode()) {
             case 200:

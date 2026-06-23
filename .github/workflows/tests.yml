@@ -50,4 +50,6 @@ jobs:
           composer-options: "--prefer-dist"
 
       - name: Run tests
+        env:
+          POWERDNS_DEBUG: "1"
         run: ./vendor/bin/phpunit
