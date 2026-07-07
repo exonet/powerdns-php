@@ -1,6 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:best-practices"
+    "config:recommended"
+  ],
+  "timezone": "Europe/Amsterdam",
+  "schedule": [
+    "before 4am on monday"
+  ],
+  "labels": [
+    "dependencies"
   ]
 }
