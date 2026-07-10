@@ -178,12 +178,15 @@ class Connector implements ConnectorInterface
     protected function buildUrl(string $path): string
     {
         $config = $this->powerdns->getConfig();
+        $subDirectory = trim($config['subDirectory'] ?? '', '/');
+        $apiPathPrefix = $subDirectory === '' ? '/api/v1' : '/'.$subDirectory.'/api/v1';
 
         return rtrim(
             sprintf(
-                '%s:%d/api/v1/servers/%s/%s',
-                $config['host'],
+                '%s:%d%s/servers/%s/%s',
+                rtrim($config['host'], '/'),
                 $config['port'],
+                $apiPathPrefix,
                 $config['server'],
                 $path
             ),

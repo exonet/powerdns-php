@@ -24,6 +24,16 @@ use Exonet\Powerdns\Resources\Record;
 // Initialize the Powerdns client.
 $powerdns = new Powerdns('127.0.0.1', 'powerdns_secret_string');
 
+// Optional: when PowerDNS is served behind a subdirectory (for example /dnsadmin).
+$powerdnsBehindSubdirectory = new Powerdns(
+    'example.com',
+    'powerdns_secret_string',
+    443,
+    'localhost',
+    null,
+    'dnsadmin'
+);
+
 // Create a new zone.
 $zone = $powerdns->createZone(
     'example.com',

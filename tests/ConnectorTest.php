@@ -93,4 +93,37 @@ class ConnectorTest extends TestCase
             $this->assertSame('exonet-powerdns-php/'.Powerdns::CLIENT_VERSION, $request->getHeader('User-Agent')[0]);
         }
     }
+
+    public function testApiCallsSupportSubdirectoryPath()
+    {
+        $apiCalls = [];
+        $mock = new MockHandler(
+            [
+                new Response(200, [], json_encode(['server_response' => 'hello world'])),
+            ]
+        );
+
+        $history = Middleware::history($apiCalls);
+        $handler = HandlerStack::create($mock);
+        $handler->push($history);
+
+        $powerDnsClient = Mockery::mock(Powerdns::class);
+        $powerDnsClient->shouldReceive('log')->andReturn(new NullLogger());
+        $powerDnsClient->shouldReceive('getConfig')->withNoArgs()->andReturn(
+            [
+                'host' => 'https://admin.cs.fhwn.ac.at',
+                'port' => 443,
+                'server' => 'localhost',
+                'apiKey' => 'very_secret_key',
+                'subDirectory' => 'dnsadmin',
+            ]
+        );
+
+        $connectorClass = new Connector($powerDnsClient, $handler);
+        $connectorClass->get('test');
+
+        /** @var Request $request */
+        $request = $apiCalls[0]['request'];
+        $this->assertSame('/dnsadmin/api/v1/servers/localhost/test', $request->getUri()->getPath());
+    }
 }

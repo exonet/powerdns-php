@@ -48,6 +48,11 @@ class Powerdns implements PowerdnsInterface
     private $server = 'localhost';
 
     /**
+     * @var string The optional subdirectory in front of the API path.
+     */
+    private $subDirectory = '';
+
+    /**
      * @var ConnectorInterface The PowerDNS Connector to make calls.
      */
     private $connector;
@@ -55,18 +60,20 @@ class Powerdns implements PowerdnsInterface
     /**
      * PowerDNS Client constructor.
      *
-     * @param string|null             $host      (optional) The PowerDNS host. Must include protocol (http, https, etc.).
-     * @param string|null             $apiKey    (optional) The PowerDNS API key.
-     * @param int|null                $port      (optional) The PowerDNS API Port.
-     * @param string|null             $server    (optional) The PowerDNS server to use.
-     * @param ConnectorInterface|null $connector (optional) The Connector to make calls.
+     * @param string|null             $host         (optional) The PowerDNS host. Must include protocol (http, https, etc.).
+     * @param string|null             $apiKey       (optional) The PowerDNS API key.
+     * @param int|null                $port         (optional) The PowerDNS API Port.
+     * @param string|null             $server       (optional) The PowerDNS server to use.
+     * @param ConnectorInterface|null $connector    (optional) The Connector to make calls.
+     * @param string|null             $subDirectory (optional) Subdirectory in front of the API path.
      */
     public function __construct(
         ?string $host = null,
         ?string $apiKey = null,
         ?int $port = null,
         ?string $server = null,
-        ?ConnectorInterface $connector = null
+        ?ConnectorInterface $connector = null,
+        ?string $subDirectory = null
     ) {
         if (self::$_instance === null) {
             self::$_instance = $this;
@@ -86,6 +93,10 @@ class Powerdns implements PowerdnsInterface
 
         if ($server !== null) {
             $this->server = $server;
+        }
+
+        if ($subDirectory !== null) {
+            $this->subDirectory = trim($subDirectory, '/');
         }
 
         $this->connector = $connector ?? new Connector($this);
@@ -108,17 +119,23 @@ class Powerdns implements PowerdnsInterface
     /**
      * Configure a new connection to a PowerDNS server.
      *
-     * @param string $host   The PowerDNS host. Must include protocol (http, https, etc.).
-     * @param int    $port   The PowerDNS API Port.
-     * @param string $server The PowerDNS server to use.
+     * @param string $host         The PowerDNS host. Must include protocol (http, https, etc.).
+     * @param int    $port         The PowerDNS API Port.
+     * @param string $server       The PowerDNS server to use.
+     * @param string $subDirectory (optional) Subdirectory in front of the API path.
      *
      * @return PowerdnsInterface The created PowerDNS client.
      */
-    public function connect(string $host, int $port = 8081, string $server = 'localhost'): PowerdnsInterface
-    {
+    public function connect(
+        string $host,
+        int $port = 8081,
+        string $server = 'localhost',
+        string $subDirectory = ''
+    ): PowerdnsInterface {
         $this->host = $host;
         $this->port = $port;
         $this->server = $server;
+        $this->subDirectory = trim($subDirectory, '/');
 
         return $this;
     }
@@ -355,6 +372,7 @@ class Powerdns implements PowerdnsInterface
             'port' => $this->port,
             'server' => $this->server,
             'apiKey' => $this->apiKey,
+            'subDirectory' => $this->subDirectory,
         ];
     }
 }

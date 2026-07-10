@@ -13,13 +13,19 @@ interface PowerdnsInterface
     /**
      * Configure a new connection to a PowerDNS server.
      *
-     * @param string $host   The PowerDNS host. Must include protocol (http, https, etc.).
-     * @param int    $port   The PowerDNS API Port.
-     * @param string $server The PowerDNS server to use.
+     * @param string $host         The PowerDNS host. Must include protocol (http, https, etc.).
+     * @param int    $port         The PowerDNS API Port.
+     * @param string $server       The PowerDNS server to use.
+     * @param string $subDirectory (optional) Subdirectory in front of the API path.
      *
      * @return Powerdns The created PowerDNS client.
      */
-    public function connect(string $host, int $port = 8081, string $server = 'localhost'): self;
+    public function connect(
+        string $host,
+        int $port = 8081,
+        string $server = 'localhost',
+        string $subDirectory = ''
+    ): self;
 
     /**
      * Set the authorization key to use for each request.

@@ -17,13 +17,14 @@ class PowerdnsTest extends TestCase
 {
     public function testConfigViaConstructor(): void
     {
-        $powerDns = new Powerdns('test-host', 'test-key', 1234, 'test-server');
+        $powerDns = new Powerdns('test-host', 'test-key', 1234, 'test-server', null, 'dnsadmin');
         $config = $powerDns->getConfig();
 
         $this->assertSame('test-host', $config['host']);
         $this->assertSame(1234, $config['port']);
         $this->assertSame('test-server', $config['server']);
         $this->assertSame('test-key', $config['apiKey']);
+        $this->assertSame('dnsadmin', $config['subDirectory']);
     }
 
     public function testConfigViaMethods(): void
@@ -37,6 +38,21 @@ class PowerdnsTest extends TestCase
         $this->assertSame(1234, $config['port']);
         $this->assertSame('test-server', $config['server']);
         $this->assertSame('test-key', $config['apiKey']);
+        $this->assertSame('', $config['subDirectory']);
+    }
+
+    public function testConfigViaMethodsWithSubdirectory(): void
+    {
+        $powerDns = new Powerdns();
+        $powerDns->connect('test-host', 1234, 'test-server', '/dnsadmin/');
+        $powerDns->useKey('test-key');
+        $config = $powerDns->getConfig();
+
+        $this->assertSame('test-host', $config['host']);
+        $this->assertSame(1234, $config['port']);
+        $this->assertSame('test-server', $config['server']);
+        $this->assertSame('test-key', $config['apiKey']);
+        $this->assertSame('dnsadmin', $config['subDirectory']);
     }
 
     public function testStatistics(): void
