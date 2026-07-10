@@ -111,8 +111,8 @@ class ConnectorTest extends TestCase
         $powerDnsClient->shouldReceive('log')->andReturn(new NullLogger());
         $powerDnsClient->shouldReceive('getConfig')->withNoArgs()->andReturn(
             [
-                'host' => 'https://admin.cs.fhwn.ac.at',
-                'port' => 443,
+                'host' => 'http://test',
+                'port' => 1234,
                 'server' => 'localhost',
                 'apiKey' => 'very_secret_key',
                 'subDirectory' => 'dnsadmin',
