@@ -292,7 +292,7 @@ class ResourceRecord
      */
     public function getRecords(): array
     {
-        return $this->records;
+        return $this->records ?? [];
     }
 
     /**

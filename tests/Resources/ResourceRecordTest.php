@@ -7,6 +7,7 @@ use Exonet\Powerdns\Exceptions\InvalidRecordType;
 use Exonet\Powerdns\Resources\Comment;
 use Exonet\Powerdns\Resources\Record;
 use Exonet\Powerdns\Resources\ResourceRecord;
+use Exonet\Powerdns\Transformers\RRSetTransformer;
 use Exonet\Powerdns\Zone;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -87,6 +88,23 @@ class ResourceRecordTest extends TestCase
         $this->assertSame('Test comment', $comments[0]->getContent());
         $this->assertSame('Test account', $comments[0]->getAccount());
         $this->assertSame(1234, $comments[0]->getModifiedAt());
+    }
+
+    public function testSetApiResponseWithEmptyRecords(): void
+    {
+        $resourceRecord = (new ResourceRecord())->setApiResponse([
+            'name' => '_acme-challenge.test.nl.',
+            'type' => 'TXT',
+            'ttl' => 0,
+            'changetype' => 'REPLACE',
+            'records' => [],
+            'comments' => [],
+        ]);
+
+        $this->assertSame([], $resourceRecord->getRecords());
+
+        $transformed = (new RRSetTransformer([$resourceRecord]))->transform();
+        $this->assertSame([], $transformed->rrsets[0]->records);
     }
 
     public function testInvalidChangeTypeThrowsException()
